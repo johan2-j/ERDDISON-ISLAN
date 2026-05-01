@@ -13,14 +13,32 @@ namespace proyecto_ERDISON_ISLAND
         {
             InitializeComponent();
 
-            conexion = new SqlConnection(
+            
 
-                "Server=(localdb)\\MSSQLLocalDB;Database=BDDProyecto;Trusted_Connection=True;"
+            try
+            {
+                conexion = new SqlConnection(
 
-            );
+                    "Server=(localdb)\\MSSQLLocalDB;Database=BDDProyecto;Trusted_Connection=True;"
 
-            conexion.Open();
+                );
+
+                conexion.Open();
+            }
+            catch
+            {
+                conexion = new SqlConnection(
+
+                    "Server=(localdb)\\MSSQLLocalDB;Database=loQueComo;Trusted_Connection=True;"
+
+                );
+
+                conexion.Open();
+            }
+            
         }
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             CrearGrafico("johan", 10, "jose", 20, "eddison", 50);
@@ -93,9 +111,9 @@ namespace proyecto_ERDISON_ISLAND
         {
             SqlCommand cmd = new SqlCommand(
 
-                "select * from productos where id = 12",
+                "select * from productos where id = 1",
                 conexion
-
+                
             );
 
             SqlDataReader reader = cmd.ExecuteReader();
