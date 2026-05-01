@@ -54,6 +54,7 @@
             textBox4 = new TextBox();
             button5 = new Button();
             panel15 = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
             button3 = new Button();
             prueba = new Label();
             button6 = new Button();
@@ -107,10 +108,9 @@
             // panel4
             // 
             panel4.BackColor = Color.Red;
-            panel4.Location = new Point(-2, 0);
-            panel4.Margin = new Padding(6);
+            panel4.Location = new Point(-1, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(2385, 218);
+            panel4.Size = new Size(1447, 102);
             panel4.TabIndex = 1;
             // 
             // Menu
@@ -120,30 +120,27 @@
             Menu.Controls.Add(btInventario);
             Menu.Controls.Add(btFacturacion);
             Menu.Controls.Add(btnInicio);
-            Menu.Location = new Point(6, 6);
-            Menu.Margin = new Padding(6);
+            Menu.Location = new Point(3, 3);
             Menu.Name = "Menu";
-            Menu.Size = new Size(290, 1152);
+            Menu.Size = new Size(156, 540);
             Menu.TabIndex = 0;
             // 
             // tbAnalisis
             // 
             tbAnalisis.Controls.Add(pictureBox4);
             tbAnalisis.Controls.Add(esomismo);
-            tbAnalisis.Location = new Point(11, 587);
-            tbAnalisis.Margin = new Padding(6);
+            tbAnalisis.Location = new Point(6, 275);
             tbAnalisis.Name = "tbAnalisis";
-            tbAnalisis.Size = new Size(273, 90);
+            tbAnalisis.Size = new Size(147, 42);
             tbAnalisis.TabIndex = 9;
             tbAnalisis.Tag = "analisis";
             // 
             // pictureBox4
             // 
-            pictureBox4.Image = Properties.Resources.hogar__3_;
-            pictureBox4.Location = new Point(6, 6);
-            pictureBox4.Margin = new Padding(6);
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(3, 3);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(72, 77);
+            pictureBox4.Size = new Size(39, 36);
             pictureBox4.TabIndex = 8;
             pictureBox4.TabStop = false;
             pictureBox4.Tag = "analisis";
@@ -154,10 +151,9 @@
             esomismo.BackColor = Color.FromArgb(0, 0, 64);
             esomismo.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             esomismo.ForeColor = Color.White;
-            esomismo.Location = new Point(71, 11);
-            esomismo.Margin = new Padding(6, 0, 6, 0);
+            esomismo.Location = new Point(38, 5);
             esomismo.Name = "esomismo";
-            esomismo.Size = new Size(159, 51);
+            esomismo.Size = new Size(78, 25);
             esomismo.TabIndex = 0;
             esomismo.Tag = "analisis";
             esomismo.Text = "Analisis";
@@ -166,20 +162,18 @@
             // 
             btInventario.Controls.Add(pictureBox3);
             btInventario.Controls.Add(label12);
-            btInventario.Location = new Point(11, 418);
-            btInventario.Margin = new Padding(6);
+            btInventario.Location = new Point(6, 196);
             btInventario.Name = "btInventario";
-            btInventario.Size = new Size(273, 90);
+            btInventario.Size = new Size(147, 42);
             btInventario.TabIndex = 9;
             btInventario.Tag = "inventario";
             // 
             // pictureBox3
             // 
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(6, 6);
-            pictureBox3.Margin = new Padding(6);
+            pictureBox3.Location = new Point(3, 3);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(72, 77);
+            pictureBox3.Size = new Size(39, 36);
             pictureBox3.TabIndex = 8;
             pictureBox3.TabStop = false;
             pictureBox3.Tag = "inventario";
@@ -190,10 +184,9 @@
             label12.BackColor = Color.FromArgb(0, 0, 64);
             label12.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label12.ForeColor = Color.White;
-            label12.Location = new Point(71, 11);
-            label12.Margin = new Padding(6, 0, 6, 0);
+            label12.Location = new Point(38, 5);
             label12.Name = "label12";
-            label12.Size = new Size(206, 51);
+            label12.Size = new Size(104, 25);
             label12.TabIndex = 0;
             label12.Tag = "inventario";
             label12.Text = "Inventario";
@@ -202,20 +195,18 @@
             // 
             btFacturacion.Controls.Add(pictureBox2);
             btFacturacion.Controls.Add(label11);
-            btFacturacion.Location = new Point(11, 260);
-            btFacturacion.Margin = new Padding(6);
+            btFacturacion.Location = new Point(6, 122);
             btFacturacion.Name = "btFacturacion";
-            btFacturacion.Size = new Size(273, 90);
+            btFacturacion.Size = new Size(147, 42);
             btFacturacion.TabIndex = 9;
             btFacturacion.Tag = "facturacion";
             // 
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(6, 6);
-            pictureBox2.Margin = new Padding(6);
+            pictureBox2.Location = new Point(3, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(72, 77);
+            pictureBox2.Size = new Size(39, 36);
             pictureBox2.TabIndex = 8;
             pictureBox2.TabStop = false;
             pictureBox2.Tag = "facturacion";
@@ -226,10 +217,9 @@
             label11.BackColor = Color.FromArgb(0, 0, 64);
             label11.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label11.ForeColor = Color.White;
-            label11.Location = new Point(71, 11);
-            label11.Margin = new Padding(6, 0, 6, 0);
+            label11.Location = new Point(38, 5);
             label11.Name = "label11";
-            label11.Size = new Size(227, 51);
+            label11.Size = new Size(115, 25);
             label11.TabIndex = 0;
             label11.Tag = "facturacion";
             label11.Text = "Facturacion";
@@ -239,21 +229,19 @@
             btnInicio.BackColor = Color.FromArgb(0, 0, 64);
             btnInicio.Controls.Add(pictureBox1);
             btnInicio.Controls.Add(label13);
-            btnInicio.Location = new Point(11, 109);
-            btnInicio.Margin = new Padding(6);
+            btnInicio.Location = new Point(6, 51);
             btnInicio.Name = "btnInicio";
-            btnInicio.Size = new Size(273, 90);
+            btnInicio.Size = new Size(147, 42);
             btnInicio.TabIndex = 9;
             btnInicio.Tag = "inicio";
             btnInicio.Click += CambiarPestaña_click;
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.hogar__3_;
-            pictureBox1.Location = new Point(6, 6);
-            pictureBox1.Margin = new Padding(6);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(72, 77);
+            pictureBox1.Size = new Size(39, 36);
             pictureBox1.TabIndex = 8;
             pictureBox1.TabStop = false;
             pictureBox1.Tag = "inicio";
@@ -264,10 +252,9 @@
             label13.BackColor = Color.FromArgb(0, 0, 64);
             label13.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label13.ForeColor = Color.White;
-            label13.Location = new Point(71, 11);
-            label13.Margin = new Padding(6, 0, 6, 0);
+            label13.Location = new Point(38, 5);
             label13.Name = "label13";
-            label13.Size = new Size(120, 51);
+            label13.Size = new Size(61, 25);
             label13.TabIndex = 0;
             label13.Tag = "inicio";
             label13.Text = "Inicio";
@@ -279,10 +266,9 @@
             panel2.Controls.Add(ptInicio);
             panel2.Controls.Add(ptAnalisis);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(308, 6);
-            panel2.Margin = new Padding(6);
+            panel2.Location = new Point(187, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(2065, 1345);
+            panel2.Size = new Size(1260, 774);
             panel2.TabIndex = 1;
             // 
             // ptInventario
@@ -292,20 +278,18 @@
             ptInventario.Controls.Add(panel14);
             ptInventario.Controls.Add(panel15);
             ptInventario.Controls.Add(button6);
-            ptInventario.Location = new Point(6, 13);
-            ptInventario.Margin = new Padding(6);
+            ptInventario.Location = new Point(3, 6);
             ptInventario.Name = "ptInventario";
-            ptInventario.Size = new Size(2065, 1331);
+            ptInventario.Size = new Size(1112, 624);
             ptInventario.TabIndex = 13;
             // 
             // panel13
             // 
             panel13.Controls.Add(label17);
             panel13.Controls.Add(label18);
-            panel13.Location = new Point(100, 1139);
-            panel13.Margin = new Padding(6);
+            panel13.Location = new Point(54, 534);
             panel13.Name = "panel13";
-            panel13.Size = new Size(299, 87);
+            panel13.Size = new Size(161, 41);
             panel13.TabIndex = 9;
             // 
             // label17
@@ -313,10 +297,9 @@
             label17.AutoSize = true;
             label17.BorderStyle = BorderStyle.FixedSingle;
             label17.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label17.Location = new Point(160, 23);
-            label17.Margin = new Padding(6, 0, 6, 0);
+            label17.Location = new Point(86, 11);
             label17.Name = "label17";
-            label17.Size = new Size(133, 38);
+            label17.Size = new Size(68, 19);
             label17.TabIndex = 6;
             label17.Text = "EDDISON";
             // 
@@ -324,10 +307,9 @@
             // 
             label18.AutoSize = true;
             label18.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label18.Location = new Point(26, 23);
-            label18.Margin = new Padding(6, 0, 6, 0);
+            label18.Location = new Point(14, 11);
             label18.Name = "label18";
-            label18.Size = new Size(131, 36);
+            label18.Size = new Size(66, 17);
             label18.TabIndex = 6;
             label18.Text = "EDDISON";
             // 
@@ -338,10 +320,9 @@
             panel14.Controls.Add(hola);
             panel14.Controls.Add(textBox4);
             panel14.Controls.Add(button5);
-            panel14.Location = new Point(6, 79);
-            panel14.Margin = new Padding(6);
+            panel14.Location = new Point(3, 37);
             panel14.Name = "panel14";
-            panel14.Size = new Size(813, 335);
+            panel14.Size = new Size(438, 157);
             panel14.TabIndex = 8;
             // 
             // label25
@@ -350,21 +331,19 @@
             label25.BackColor = Color.FromArgb(0, 0, 64);
             label25.Font = new Font("OCR A Extended", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label25.ForeColor = Color.White;
-            label25.Location = new Point(30, 36);
-            label25.Margin = new Padding(6, 0, 6, 0);
+            label25.Location = new Point(-3, 13);
             label25.Name = "label25";
             label25.RightToLeft = RightToLeft.No;
-            label25.Size = new Size(837, 133);
+            label25.Size = new Size(428, 66);
             label25.TabIndex = 7;
             label25.Text = "Inventario";
             // 
             // hola
             // 
             hola.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            hola.Location = new Point(61, 243);
-            hola.Margin = new Padding(6);
+            hola.Location = new Point(33, 114);
             hola.Name = "hola";
-            hola.Size = new Size(457, 58);
+            hola.Size = new Size(248, 33);
             hola.TabIndex = 1;
             hola.Text = "ll";
             hola.TextChanged += hola_TextChanged;
@@ -372,10 +351,9 @@
             // textBox4
             // 
             textBox4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox4.Location = new Point(670, 247);
-            textBox4.Margin = new Padding(6);
+            textBox4.Location = new Point(361, 116);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(99, 58);
+            textBox4.Size = new Size(55, 33);
             textBox4.TabIndex = 3;
             // 
             // button5
@@ -385,30 +363,43 @@
             button5.FlatAppearance.BorderSize = 0;
             button5.FlatStyle = FlatStyle.Flat;
             button5.Image = Properties.Resources.Bucar2;
-            button5.Location = new Point(533, 245);
-            button5.Margin = new Padding(6);
+            button5.Location = new Point(287, 115);
             button5.Name = "button5";
-            button5.Size = new Size(74, 73);
+            button5.Size = new Size(31, 26);
             button5.TabIndex = 2;
             button5.UseVisualStyleBackColor = false;
             // 
             // panel15
             // 
             panel15.BorderStyle = BorderStyle.FixedSingle;
+            panel15.Controls.Add(tableLayoutPanel1);
             panel15.Controls.Add(button3);
             panel15.Controls.Add(prueba);
-            panel15.Location = new Point(841, 79);
-            panel15.Margin = new Padding(6);
+            panel15.Location = new Point(453, 37);
             panel15.Name = "panel15";
-            panel15.Size = new Size(1237, 1175);
+            panel15.Size = new Size(660, 552);
             panel15.TabIndex = 5;
+            panel15.Paint += panel15_Paint;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Location = new Point(53, 137);
+            tableLayoutPanel1.Margin = new Padding(2, 1, 2, 1);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(236, 176);
+            tableLayoutPanel1.TabIndex = 2;
             // 
             // button3
             // 
-            button3.Location = new Point(48, 149);
-            button3.Margin = new Padding(6);
+            button3.Location = new Point(26, 70);
             button3.Name = "button3";
-            button3.Size = new Size(199, 73);
+            button3.Size = new Size(107, 34);
             button3.TabIndex = 1;
             button3.Text = "button3";
             button3.UseVisualStyleBackColor = true;
@@ -417,20 +408,18 @@
             // prueba
             // 
             prueba.AutoSize = true;
-            prueba.Location = new Point(24, 49);
-            prueba.Margin = new Padding(6, 0, 6, 0);
+            prueba.Location = new Point(13, 23);
             prueba.Name = "prueba";
-            prueba.Size = new Size(91, 32);
+            prueba.Size = new Size(44, 15);
             prueba.TabIndex = 0;
             prueba.Text = "label14";
             // 
             // button6
             // 
             button6.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button6.Location = new Point(67, 979);
-            button6.Margin = new Padding(6);
+            button6.Location = new Point(54, 459);
             button6.Name = "button6";
-            button6.Size = new Size(189, 77);
+            button6.Size = new Size(102, 36);
             button6.TabIndex = 4;
             button6.Text = "Agregar";
             button6.UseVisualStyleBackColor = true;
@@ -442,10 +431,9 @@
             ptFacturacion.Controls.Add(panel8);
             ptFacturacion.Controls.Add(panel6);
             ptFacturacion.Controls.Add(button2);
-            ptFacturacion.Location = new Point(6, 13);
-            ptFacturacion.Margin = new Padding(6);
+            ptFacturacion.Location = new Point(3, 6);
             ptFacturacion.Name = "ptFacturacion";
-            ptFacturacion.Size = new Size(2080, 1331);
+            ptFacturacion.Size = new Size(1124, 624);
             ptFacturacion.TabIndex = 3;
             // 
             // panel7
@@ -460,20 +448,18 @@
             panel7.Controls.Add(label10);
             panel7.Controls.Add(label2);
             panel7.Controls.Add(label1);
-            panel7.Location = new Point(347, 787);
-            panel7.Margin = new Padding(6);
+            panel7.Location = new Point(187, 369);
             panel7.Name = "panel7";
-            panel7.Size = new Size(1551, 87);
+            panel7.Size = new Size(835, 41);
             panel7.TabIndex = 9;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(6, 28);
-            label6.Margin = new Padding(6, 0, 6, 0);
+            label6.Location = new Point(3, 13);
             label6.Name = "label6";
-            label6.Size = new Size(131, 36);
+            label6.Size = new Size(66, 17);
             label6.TabIndex = 6;
             label6.Text = "EDDISON";
             // 
@@ -482,10 +468,9 @@
             label8.AutoSize = true;
             label8.BorderStyle = BorderStyle.FixedSingle;
             label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(139, 28);
-            label8.Margin = new Padding(6, 0, 6, 0);
+            label8.Location = new Point(75, 13);
             label8.Name = "label8";
-            label8.Size = new Size(133, 38);
+            label8.Size = new Size(68, 19);
             label8.TabIndex = 6;
             label8.Text = "EDDISON";
             // 
@@ -494,10 +479,9 @@
             label3.AutoSize = true;
             label3.BorderStyle = BorderStyle.FixedSingle;
             label3.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(1397, 23);
-            label3.Margin = new Padding(6, 0, 6, 0);
+            label3.Location = new Point(752, 11);
             label3.Name = "label3";
-            label3.Size = new Size(133, 38);
+            label3.Size = new Size(68, 19);
             label3.TabIndex = 6;
             label3.Text = "EDDISON";
             // 
@@ -505,10 +489,9 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(1263, 23);
-            label5.Margin = new Padding(6, 0, 6, 0);
+            label5.Location = new Point(680, 11);
             label5.Name = "label5";
-            label5.Size = new Size(131, 36);
+            label5.Size = new Size(66, 17);
             label5.TabIndex = 6;
             label5.Text = "EDDISON";
             // 
@@ -517,10 +500,9 @@
             label7.AutoSize = true;
             label7.BorderStyle = BorderStyle.FixedSingle;
             label7.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(442, 23);
-            label7.Margin = new Padding(6, 0, 6, 0);
+            label7.Location = new Point(238, 11);
             label7.Name = "label7";
-            label7.Size = new Size(133, 38);
+            label7.Size = new Size(68, 19);
             label7.TabIndex = 6;
             label7.Text = "EDDISON";
             // 
@@ -529,10 +511,9 @@
             label9.AutoSize = true;
             label9.BorderStyle = BorderStyle.FixedSingle;
             label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(1077, 23);
-            label9.Margin = new Padding(6, 0, 6, 0);
+            label9.Location = new Point(580, 11);
             label9.Name = "label9";
-            label9.Size = new Size(133, 38);
+            label9.Size = new Size(68, 19);
             label9.TabIndex = 6;
             label9.Text = "EDDISON";
             // 
@@ -540,10 +521,9 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(943, 23);
-            label4.Margin = new Padding(6, 0, 6, 0);
+            label4.Location = new Point(508, 11);
             label4.Name = "label4";
-            label4.Size = new Size(131, 36);
+            label4.Size = new Size(66, 17);
             label4.TabIndex = 6;
             label4.Text = "EDDISON";
             // 
@@ -552,10 +532,9 @@
             label10.AutoSize = true;
             label10.BorderStyle = BorderStyle.FixedSingle;
             label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.Location = new Point(760, 23);
-            label10.Margin = new Padding(6, 0, 6, 0);
+            label10.Location = new Point(409, 11);
             label10.Name = "label10";
-            label10.Size = new Size(133, 38);
+            label10.Size = new Size(68, 19);
             label10.TabIndex = 6;
             label10.Text = "EDDISON";
             // 
@@ -563,10 +542,9 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(308, 28);
-            label2.Margin = new Padding(6, 0, 6, 0);
+            label2.Location = new Point(166, 13);
             label2.Name = "label2";
-            label2.Size = new Size(131, 36);
+            label2.Size = new Size(66, 17);
             label2.TabIndex = 6;
             label2.Text = "EDDISON";
             // 
@@ -574,10 +552,9 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(626, 28);
-            label1.Margin = new Padding(6, 0, 6, 0);
+            label1.Location = new Point(337, 13);
             label1.Name = "label1";
-            label1.Size = new Size(131, 36);
+            label1.Size = new Size(66, 17);
             label1.TabIndex = 6;
             label1.Text = "EDDISON";
             // 
@@ -588,10 +565,9 @@
             panel8.Controls.Add(textBox1);
             panel8.Controls.Add(textBox2);
             panel8.Controls.Add(button1);
-            panel8.Location = new Point(6, 79);
-            panel8.Margin = new Padding(6);
+            panel8.Location = new Point(3, 37);
             panel8.Name = "panel8";
-            panel8.Size = new Size(1991, 335);
+            panel8.Size = new Size(1072, 157);
             panel8.TabIndex = 8;
             // 
             // ttFacturacion
@@ -600,30 +576,27 @@
             ttFacturacion.BackColor = Color.FromArgb(0, 0, 64);
             ttFacturacion.Font = new Font("OCR A Extended", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ttFacturacion.ForeColor = Color.White;
-            ttFacturacion.Location = new Point(557, 43);
-            ttFacturacion.Margin = new Padding(6, 0, 6, 0);
+            ttFacturacion.Location = new Point(300, 20);
             ttFacturacion.Name = "ttFacturacion";
             ttFacturacion.RightToLeft = RightToLeft.No;
-            ttFacturacion.Size = new Size(915, 133);
+            ttFacturacion.Size = new Size(468, 66);
             ttFacturacion.TabIndex = 7;
             ttFacturacion.Text = "Facturacion";
             // 
             // textBox1
             // 
             textBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(61, 243);
-            textBox1.Margin = new Padding(6);
+            textBox1.Location = new Point(33, 114);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(457, 58);
+            textBox1.Size = new Size(248, 33);
             textBox1.TabIndex = 1;
             // 
             // textBox2
             // 
             textBox2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox2.Location = new Point(670, 247);
-            textBox2.Margin = new Padding(6);
+            textBox2.Location = new Point(361, 116);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(99, 58);
+            textBox2.Size = new Size(55, 33);
             textBox2.TabIndex = 3;
             // 
             // button1
@@ -633,29 +606,26 @@
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
             button1.Image = Properties.Resources.Bucar2;
-            button1.Location = new Point(533, 245);
-            button1.Margin = new Padding(6);
+            button1.Location = new Point(287, 115);
             button1.Name = "button1";
-            button1.Size = new Size(74, 73);
+            button1.Size = new Size(40, 34);
             button1.TabIndex = 2;
             button1.UseVisualStyleBackColor = false;
             // 
             // panel6
             // 
             panel6.BorderStyle = BorderStyle.FixedSingle;
-            panel6.Location = new Point(67, 427);
-            panel6.Margin = new Padding(6);
+            panel6.Location = new Point(36, 200);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1872, 345);
+            panel6.Size = new Size(1009, 163);
             panel6.TabIndex = 5;
             // 
             // button2
             // 
             button2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(67, 979);
-            button2.Margin = new Padding(6);
+            button2.Location = new Point(36, 459);
             button2.Name = "button2";
-            button2.Size = new Size(189, 77);
+            button2.Size = new Size(102, 36);
             button2.TabIndex = 4;
             button2.Text = "Agregar";
             button2.UseVisualStyleBackColor = true;
@@ -663,10 +633,9 @@
             // ptInicio
             // 
             ptInicio.BackColor = Color.White;
-            ptInicio.Location = new Point(6, 6);
-            ptInicio.Margin = new Padding(6);
+            ptInicio.Location = new Point(3, 3);
             ptInicio.Name = "ptInicio";
-            ptInicio.Size = new Size(2065, 1338);
+            ptInicio.Size = new Size(1112, 627);
             ptInicio.TabIndex = 14;
             // 
             // ptAnalisis
@@ -674,10 +643,9 @@
             ptAnalisis.BackColor = Color.White;
             ptAnalisis.Controls.Add(panel9);
             ptAnalisis.Controls.Add(button4);
-            ptAnalisis.Location = new Point(6, 13);
-            ptAnalisis.Margin = new Padding(6);
+            ptAnalisis.Location = new Point(3, 6);
             ptAnalisis.Name = "ptAnalisis";
-            ptAnalisis.Size = new Size(2065, 1331);
+            ptAnalisis.Size = new Size(1112, 624);
             ptAnalisis.TabIndex = 14;
             // 
             // panel9
@@ -685,28 +653,25 @@
             panel9.BackColor = Color.DimGray;
             panel9.BorderStyle = BorderStyle.FixedSingle;
             panel9.Controls.Add(panelGrafico);
-            panel9.Location = new Point(67, 79);
-            panel9.Margin = new Padding(6);
+            panel9.Location = new Point(36, 37);
             panel9.Name = "panel9";
-            panel9.Size = new Size(1928, 1175);
+            panel9.Size = new Size(1039, 552);
             panel9.TabIndex = 5;
             // 
             // panelGrafico
             // 
             panelGrafico.BackColor = Color.White;
-            panelGrafico.Location = new Point(1038, 4);
-            panelGrafico.Margin = new Padding(6);
+            panelGrafico.Location = new Point(559, 2);
             panelGrafico.Name = "panelGrafico";
-            panelGrafico.Size = new Size(882, 1163);
+            panelGrafico.Size = new Size(475, 545);
             panelGrafico.TabIndex = 0;
             // 
             // button4
             // 
             button4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.Location = new Point(67, 979);
-            button4.Margin = new Padding(6);
+            button4.Location = new Point(36, 459);
             button4.Name = "button4";
-            button4.Size = new Size(189, 77);
+            button4.Size = new Size(102, 36);
             button4.TabIndex = 4;
             button4.Text = "Agregar";
             button4.UseVisualStyleBackColor = true;
@@ -719,25 +684,25 @@
             TbTodo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 87.2755661F));
             TbTodo.Controls.Add(panel2, 1, 0);
             TbTodo.Controls.Add(Menu, 0, 0);
-            TbTodo.Location = new Point(-2, 218);
-            TbTodo.Margin = new Padding(6);
+            TbTodo.Location = new Point(-1, 102);
             TbTodo.Name = "TbTodo";
             TbTodo.RowCount = 1;
             TbTodo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TbTodo.RowStyles.Add(new RowStyle(SizeType.Absolute, 43F));
-            TbTodo.RowStyles.Add(new RowStyle(SizeType.Absolute, 43F));
-            TbTodo.Size = new Size(2379, 1357);
+            TbTodo.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TbTodo.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TbTodo.Size = new Size(1450, 780);
             TbTodo.TabIndex = 2;
+            TbTodo.Paint += TbTodo_Paint;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 255, 192);
-            ClientSize = new Size(2377, 1559);
+            ClientSize = new Size(1444, 881);
             Controls.Add(panel4);
             Controls.Add(TbTodo);
-            Margin = new Padding(4, 2, 4, 2);
+            Margin = new Padding(2, 1, 2, 1);
             Name = "Form1";
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
@@ -834,5 +799,6 @@
         private Panel panelGrafico;
         private Button button4;
         private TableLayoutPanel TbTodo;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }

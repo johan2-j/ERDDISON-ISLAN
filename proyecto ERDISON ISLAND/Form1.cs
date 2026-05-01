@@ -120,6 +120,16 @@ namespace proyecto_ERDISON_ISLAND
         {
 
         }
+
+        private void TbTodo_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel15_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
 
