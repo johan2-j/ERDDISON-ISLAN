@@ -53,8 +53,9 @@
             hola = new TextBox();
             textBox4 = new TextBox();
             button5 = new Button();
-            panel15 = new Panel();
-            tableLayoutPanel1 = new TableLayoutPanel();
+            pnlinv = new Panel();
+            PnlInventario = new Panel();
+            bttnVer = new Button();
             button3 = new Button();
             prueba = new Label();
             button6 = new Button();
@@ -83,6 +84,7 @@
             panelGrafico = new Panel();
             button4 = new Button();
             TbTodo = new TableLayoutPanel();
+            tboxFiltro = new TextBox();
             Menu.SuspendLayout();
             tbAnalisis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
@@ -96,7 +98,7 @@
             ptInventario.SuspendLayout();
             panel13.SuspendLayout();
             panel14.SuspendLayout();
-            panel15.SuspendLayout();
+            pnlinv.SuspendLayout();
             ptFacturacion.SuspendLayout();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
@@ -276,7 +278,7 @@
             ptInventario.BackColor = Color.White;
             ptInventario.Controls.Add(panel13);
             ptInventario.Controls.Add(panel14);
-            ptInventario.Controls.Add(panel15);
+            ptInventario.Controls.Add(pnlinv);
             ptInventario.Controls.Add(button6);
             ptInventario.Location = new Point(3, 6);
             ptInventario.Name = "ptInventario";
@@ -346,7 +348,6 @@
             hola.Size = new Size(248, 33);
             hola.TabIndex = 1;
             hola.Text = "ll";
-            hola.TextChanged += hola_TextChanged;
             // 
             // textBox4
             // 
@@ -369,35 +370,40 @@
             button5.TabIndex = 2;
             button5.UseVisualStyleBackColor = false;
             // 
-            // panel15
+            // pnlinv
             // 
-            panel15.BorderStyle = BorderStyle.FixedSingle;
-            panel15.Controls.Add(tableLayoutPanel1);
-            panel15.Controls.Add(button3);
-            panel15.Controls.Add(prueba);
-            panel15.Location = new Point(453, 37);
-            panel15.Name = "panel15";
-            panel15.Size = new Size(660, 552);
-            panel15.TabIndex = 5;
-            panel15.Paint += panel15_Paint;
+            pnlinv.BackColor = Color.FromArgb(255, 192, 192);
+            pnlinv.BorderStyle = BorderStyle.FixedSingle;
+            pnlinv.Controls.Add(tboxFiltro);
+            pnlinv.Controls.Add(PnlInventario);
+            pnlinv.Controls.Add(bttnVer);
+            pnlinv.Controls.Add(button3);
+            pnlinv.Controls.Add(prueba);
+            pnlinv.Location = new Point(453, 37);
+            pnlinv.Name = "pnlinv";
+            pnlinv.Size = new Size(660, 552);
+            pnlinv.TabIndex = 5;
             // 
-            // tableLayoutPanel1
+            // PnlInventario
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Location = new Point(53, 137);
-            tableLayoutPanel1.Margin = new Padding(2, 1, 2, 1);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(236, 176);
-            tableLayoutPanel1.TabIndex = 2;
+            PnlInventario.Location = new Point(17, 66);
+            PnlInventario.Name = "PnlInventario";
+            PnlInventario.Size = new Size(627, 471);
+            PnlInventario.TabIndex = 3;
+            // 
+            // bttnVer
+            // 
+            bttnVer.Location = new Point(218, 17);
+            bttnVer.Name = "bttnVer";
+            bttnVer.Size = new Size(226, 30);
+            bttnVer.TabIndex = 2;
+            bttnVer.Text = "Ver BDD";
+            bttnVer.UseVisualStyleBackColor = true;
+            bttnVer.Click += bttnVer_Click;
             // 
             // button3
             // 
-            button3.Location = new Point(26, 70);
+            button3.Location = new Point(92, 15);
             button3.Name = "button3";
             button3.Size = new Size(107, 34);
             button3.TabIndex = 1;
@@ -692,14 +698,20 @@
             TbTodo.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TbTodo.Size = new Size(1450, 780);
             TbTodo.TabIndex = 2;
-            TbTodo.Paint += TbTodo_Paint;
+            // 
+            // tboxFiltro
+            // 
+            tboxFiltro.Location = new Point(460, 19);
+            tboxFiltro.Name = "tboxFiltro";
+            tboxFiltro.Size = new Size(127, 23);
+            tboxFiltro.TabIndex = 4;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 255, 192);
-            ClientSize = new Size(1444, 881);
+            ClientSize = new Size(1370, 749);
             Controls.Add(panel4);
             Controls.Add(TbTodo);
             Margin = new Padding(2, 1, 2, 1);
@@ -726,8 +738,8 @@
             panel13.PerformLayout();
             panel14.ResumeLayout(false);
             panel14.PerformLayout();
-            panel15.ResumeLayout(false);
-            panel15.PerformLayout();
+            pnlinv.ResumeLayout(false);
+            pnlinv.PerformLayout();
             ptFacturacion.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
@@ -770,7 +782,7 @@
         private TextBox hola;
         private TextBox textBox4;
         private Button button5;
-        private Panel panel15;
+        private Panel pnlinv;
         private Button button3;
         private Label prueba;
         private Button button6;
@@ -799,6 +811,8 @@
         private Panel panelGrafico;
         private Button button4;
         private TableLayoutPanel TbTodo;
-        private TableLayoutPanel tableLayoutPanel1;
+        private Button bttnVer;
+        private Panel PnlInventario;
+        private TextBox tboxFiltro;
     }
 }

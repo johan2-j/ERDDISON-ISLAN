@@ -1,9 +1,11 @@
-using System.Security.Cryptography.X509Certificates;
-using static System.Windows.Forms.Design.AxImporter;
-using System.Windows.Forms.DataVisualization.Charting;
+using Microsoft.Data.SqlClient;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using Microsoft.Data.SqlClient;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Windows.Forms.Design.AxImporter;
 namespace proyecto_ERDISON_ISLAND
 {
     public partial class Form1 : Form
@@ -13,7 +15,7 @@ namespace proyecto_ERDISON_ISLAND
         {
             InitializeComponent();
 
-            
+
 
             try
             {
@@ -35,7 +37,7 @@ namespace proyecto_ERDISON_ISLAND
 
                 conexion.Open();
             }
-            
+
         }
 
 
@@ -113,7 +115,7 @@ namespace proyecto_ERDISON_ISLAND
 
                 "select * from productos where id = 1",
                 conexion
-                
+
             );
 
             SqlDataReader reader = cmd.ExecuteReader();
@@ -134,19 +136,129 @@ namespace proyecto_ERDISON_ISLAND
             SacProductos();
         }
 
-        private void hola_TextChanged(object sender, EventArgs e)
+        private void bttnVer_Click(object sender, EventArgs e)
         {
 
+            PnlInventario.Controls.Clear();
+
+            PnlInventario.Controls.Add(tableProductos(PnlInventario, true, tboxFiltro.Text));
         }
 
-        private void TbTodo_Paint(object sender, PaintEventArgs e)
+        private Panel tableProductos(Panel md, bool filtro, string t = null)
         {
+            int Al = md.Height;
+            int An = md.Width;
 
+            Panel Pnl = new Panel()
+            {
+                Location = new Point(5, 100),
+                Size = new Size(An, Al),
+                BorderStyle = BorderStyle.FixedSingle,
+                AutoScroll = true,
+                BackColor = Color.BlueViolet
+            };
+
+
+            Point i = sacFyC(filtro);
+
+            Pnl.Controls.Add(crearTabla(An, i.X, i.Y, t));
+
+            return Pnl;
         }
 
-        private void panel15_Paint(object sender, PaintEventArgs e)
+        private TableLayoutPanel crearTabla(int An, int Fi, int Col, string t = null)
         {
+            TableLayoutPanel Tbl = new TableLayoutPanel()
+            {
+                ColumnCount =Col,
+                RowCount = Fi,
+                CellBorderStyle = TableLayoutPanelCellBorderStyle.Single,
+                Size = new Size(An - 4, 40 * Fi),
+                Location = new Point(1, 1)
+            };
 
+            for (int i = 0; i < Fi; i++)
+            {
+                Tbl.RowStyles.Add(new RowStyle(SizeType.Absolute, 40f));
+            }
+
+            for (int i = 0; i < Col; i++)
+            {
+                Tbl.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, An / Fi));
+            }
+
+            for (int f = 0; f < Fi; f++)
+            {
+                for (int c = 0; c < Col; c++)
+                {
+                    Tbl.Controls.Add(crearLabel(sacProductos(f, c, t)), c, f);
+                }
+            }
+
+            return Tbl;
+        }
+        
+        private Label crearLabel(string t)
+        {
+            return new Label()
+            {
+                Dock = DockStyle.Fill,
+                Text = t,
+                Font = new Font("Arial", 20)
+            };
+        }
+
+        private string sacProductos(int f, int c, string t = null)
+        {
+            string[] columna = { "id", "nombre", "precio", "stock", "ultimafecha" };
+
+            SqlCommand cmd = new SqlCommand(
+                $@"SELECT {columna[c]} 
+                FROM productos 
+                WHERE nombre LIKE @v 
+                ORDER BY id ASC
+                OFFSET @offset ROWS FETCH NEXT 1 ROWS ONLY",
+                conexion
+            );
+
+            cmd.Parameters.AddWithValue("@v", "%" + (t ?? "") + "%");
+            cmd.Parameters.AddWithValue("@offset", f);
+
+            SqlDataReader leer = cmd.ExecuteReader();
+            
+            string res = "";
+
+            if (leer.Read())
+            {
+                res = leer[0].ToString();
+            }
+
+            leer.Close();
+
+            return res;
+        }
+
+        private Point sacFyC(bool filtro, string t = null)
+        {
+            SqlCommand cmdF = new SqlCommand(
+            
+                $"select count(*) from productos where nombre like '%' + @v + '%'",
+                conexion
+            );
+
+            cmdF.Parameters.AddWithValue("@v", t ?? "");
+
+            SqlCommand cmdC = new SqlCommand(
+
+                "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'productos';",
+                conexion
+            );
+            
+
+            int f = Convert.ToInt32(cmdF.ExecuteScalar());
+
+            int c = Convert.ToInt32(cmdC.ExecuteScalar());
+            return new Point(f, c);
         }
     }
 }
