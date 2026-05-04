@@ -1,6 +1,8 @@
 using Microsoft.Data.SqlClient;
+using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using System.Drawing.Drawing2D;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -11,6 +13,39 @@ namespace proyecto_ERDISON_ISLAND
     public partial class Form1 : Form
     {
         SqlConnection conexion;
+
+        public void CargarDatos()
+        {
+            string query = "SELECT Id, Cliente, Total FROM inicio";
+
+            SqlDataAdapter da = new SqlDataAdapter(query, conexion);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            dataGridView1.DataSource = dt;
+
+            // Cambiar nombres visibles
+            dataGridView1.Columns["Id"].HeaderText = "ID";
+            dataGridView1.Columns["Cliente"].HeaderText = "Cliente";
+            dataGridView1.Columns["Total"].HeaderText = "Total ($)";
+
+        }
+
+        public void CargarStock()
+        {
+            string query = "SELECT nombre, stock FROM productos";
+
+            SqlDataAdapter da = new SqlDataAdapter(query, conexion);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            dataGridView2.DataSource = dt;
+
+            // Cambiar nombres visibles
+            dataGridView2.Columns["nombre"].HeaderText = "Nombre";
+            dataGridView2.Columns["stock"].HeaderText = "Stock";
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -38,13 +73,43 @@ namespace proyecto_ERDISON_ISLAND
                 conexion.Open();
             }
 
+
+
+        }
+
+
+        public void RedondearControl(Control control, int radio)
+        {
+            GraphicsPath path = new GraphicsPath();
+
+            path.AddArc(0, 0, radio, radio, 180, 90);
+            path.AddArc(control.Width - radio, 0, radio, radio, 270, 90);
+            path.AddArc(control.Width - radio, control.Height - radio, radio, radio, 0, 90);
+            path.AddArc(0, control.Height - radio, radio, radio, 90, 90);
+
+            path.CloseFigure();
+            control.Region = new Region(path);
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
+
         {
             CrearGrafico("johan", 10, "jose", 20, "eddison", 50);
             asignarEnlaces();
+            CargarDatos();
+            CargarStock();
+            //RedondearPaneles
+            RedondearControl(panelint1, 20);
+            RedondearControl(panelint2, 20);
+            RedondearControl(panelint3, 20);
+            RedondearControl(panelint4, 20);
+            RedondearControl(panelint5, 20);
+            //RedondearBotones
+            RedondearControl(buttonint1, 10);
+            RedondearControl(buttonint2, 10);
+            RedondearControl(buttonint3, 10);
+
         }
         private void asignarEnlaces()
         {
@@ -88,6 +153,8 @@ namespace proyecto_ERDISON_ISLAND
 
             }
         }
+
+
 
         private void CrearGrafico(string n1, int i1, string n2, int i2, string n3, int i3)
         {
@@ -170,7 +237,7 @@ namespace proyecto_ERDISON_ISLAND
         {
             TableLayoutPanel Tbl = new TableLayoutPanel()
             {
-                ColumnCount =Col,
+                ColumnCount = Col,
                 RowCount = Fi,
                 CellBorderStyle = TableLayoutPanelCellBorderStyle.Single,
                 Size = new Size(An - 4, 40 * Fi),
@@ -197,7 +264,7 @@ namespace proyecto_ERDISON_ISLAND
 
             return Tbl;
         }
-        
+
         private Label crearLabel(string t)
         {
             return new Label()
@@ -225,7 +292,7 @@ namespace proyecto_ERDISON_ISLAND
             cmd.Parameters.AddWithValue("@offset", f);
 
             SqlDataReader leer = cmd.ExecuteReader();
-            
+
             string res = "";
 
             if (leer.Read())
@@ -241,7 +308,7 @@ namespace proyecto_ERDISON_ISLAND
         private Point sacFyC(bool filtro, string t = null)
         {
             SqlCommand cmdF = new SqlCommand(
-            
+
                 $"select count(*) from productos where nombre like '%' + @v + '%'",
                 conexion
             );
@@ -253,12 +320,22 @@ namespace proyecto_ERDISON_ISLAND
                 "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'productos';",
                 conexion
             );
-            
+
 
             int f = Convert.ToInt32(cmdF.ExecuteScalar());
 
             int c = Convert.ToInt32(cmdC.ExecuteScalar());
             return new Point(f, c);
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
