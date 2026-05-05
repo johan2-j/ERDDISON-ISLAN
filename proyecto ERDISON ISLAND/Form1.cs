@@ -1,6 +1,5 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
-using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Drawing.Drawing2D;
 using System.Security.Cryptography.X509Certificates;
@@ -18,16 +17,25 @@ namespace proyecto_ERDISON_ISLAND
         {
             string query = "SELECT Id, Cliente, Total FROM inicio";
 
-            SqlDataAdapter da = new SqlDataAdapter(query, conexion);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
 
-            dataGridView1.DataSource = dt;
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, conexion);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dataGridView1.DataSource = dt;
 
-            // Cambiar nombres visibles
-            dataGridView1.Columns["Id"].HeaderText = "ID";
-            dataGridView1.Columns["Cliente"].HeaderText = "Cliente";
-            dataGridView1.Columns["Total"].HeaderText = "Total ($)";
+                // Cambiar nombres visibles
+                dataGridView1.Columns["Id"].HeaderText = "ID";
+                dataGridView1.Columns["Cliente"].HeaderText = "Cliente";
+                dataGridView1.Columns["Total"].HeaderText = "Total ($)";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
 
         }
 
@@ -100,17 +108,30 @@ namespace proyecto_ERDISON_ISLAND
             CargarDatos();
             CargarStock();
             //RedondearPaneles
-            RedondearControl(panelint1, 20);
-            RedondearControl(panelint2, 20);
-            RedondearControl(panelint3, 20);
-            RedondearControl(panelint4, 20);
-            RedondearControl(panelint5, 20);
-            //RedondearBotones
-            RedondearControl(buttonint1, 10);
-            RedondearControl(buttonint2, 10);
-            RedondearControl(buttonint3, 10);
+
+            RecorrerControles(this);
+
+
+
 
         }
+
+        private void RecorrerControles(Control padre)
+        {
+            foreach (Control cc in padre.Controls)
+            {
+                if ((cc.Tag as string) == "radio") //(cc is Panel || cc is Button) &&
+                {
+                    RedondearControl(cc, 20);
+                }
+
+                if (cc.HasChildren)
+                {
+                    RecorrerControles(cc);
+                }
+            }
+        }
+
         private void asignarEnlaces()
         {
             foreach (Control c in Menu.Controls)
@@ -131,7 +152,7 @@ namespace proyecto_ERDISON_ISLAND
         private void CambiarPestaña_click(object sender, EventArgs e)
         {
             Control c = (Control)sender;
-            hola.Text = c.Name.ToString();
+            txtBuscador.Text = c.Name.ToString();
 
             switch (c.Tag)
             {
@@ -176,164 +197,63 @@ namespace proyecto_ERDISON_ISLAND
             panelGrafico.Controls.Add(chart);
         }
 
-        private void SacProductos()
+
+
+        private DataGridView CTabla(string nombre_tabla, string filtro = null)
         {
-            SqlCommand cmd = new SqlCommand(
+            //-----------------------------------------//
 
-                "select * from productos where id = 1",
-                conexion
+            string query = $"SELECT * FROM {nombre_tabla} WHERE nombre LIKE @t";
 
-            );
+            SqlDataAdapter da = new SqlDataAdapter(query, conexion);
+            da.SelectCommand.Parameters.AddWithValue("@t", "%" + (filtro ?? "") + "%");
 
-            SqlDataReader reader = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            da.Fill(dt);
 
-            string res = "";
+            //-----------------------------------------//
 
-            if (reader.Read())
+            DataGridView dgv = new DataGridView()
             {
-                res = reader[1].ToString();
-            }
-            reader.Close();
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect, //En vez de seleccionar una celda azul. selecciona toda la fila.
+                MultiSelect = false, //solo deja seleccionar una fila
+                RowHeadersVisible = false, //elimina la primera columna de la izquierda
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill, //auto relleno
+                Font = new Font("Arial", 14),
+                BackgroundColor = Color.White,
+                ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle()
+                {
+                    Font = new Font("Arial", 18, FontStyle.Bold)
+                },
+                //dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 16, FontStyle.Bold);
+                Location = new Point(0, 0),
+                Dock = DockStyle.Fill,
+                DataSource = dt
+            };
 
-            prueba.Text = res;
+
+            return dgv;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void txtBuscador_TextChanged(object sender, EventArgs e)
         {
-            SacProductos();
-        }
-
-        private void bttnVer_Click(object sender, EventArgs e)
-        {
-
+            lblProductos.Text = txtBuscador.Text;
             PnlInventario.Controls.Clear();
 
-            PnlInventario.Controls.Add(tableProductos(PnlInventario, true, tboxFiltro.Text));
-        }
+            PnlInventario.Controls.Add(CTabla("productos", txtBuscador.Text));
 
-        private Panel tableProductos(Panel md, bool filtro, string t = null)
-        {
-            int Al = md.Height;
-            int An = md.Width;
-
-            Panel Pnl = new Panel()
+            if (txtBuscador.Text == "")
             {
-                Location = new Point(5, 100),
-                Size = new Size(An, Al),
-                BorderStyle = BorderStyle.FixedSingle,
-                AutoScroll = true,
-                BackColor = Color.BlueViolet
-            };
-
-
-            Point i = sacFyC(filtro);
-
-            Pnl.Controls.Add(crearTabla(An, i.X, i.Y, t));
-
-            return Pnl;
-        }
-
-        private TableLayoutPanel crearTabla(int An, int Fi, int Col, string t = null)
-        {
-            TableLayoutPanel Tbl = new TableLayoutPanel()
-            {
-                ColumnCount = Col,
-                RowCount = Fi,
-                CellBorderStyle = TableLayoutPanelCellBorderStyle.Single,
-                Size = new Size(An - 4, 40 * Fi),
-                Location = new Point(1, 1)
-            };
-
-            for (int i = 0; i < Fi; i++)
-            {
-                Tbl.RowStyles.Add(new RowStyle(SizeType.Absolute, 40f));
+                lblProductos.Text = "Productos";
             }
-
-            for (int i = 0; i < Col; i++)
-            {
-                Tbl.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, An / Fi));
-            }
-
-            for (int f = 0; f < Fi; f++)
-            {
-                for (int c = 0; c < Col; c++)
-                {
-                    Tbl.Controls.Add(crearLabel(sacProductos(f, c, t)), c, f);
-                }
-            }
-
-            return Tbl;
         }
 
-        private Label crearLabel(string t)
-        {
-            return new Label()
-            {
-                Dock = DockStyle.Fill,
-                Text = t,
-                Font = new Font("Arial", 20)
-            };
-        }
-
-        private string sacProductos(int f, int c, string t = null)
-        {
-            string[] columna = { "id", "nombre", "precio", "stock", "ultimafecha" };
-
-            SqlCommand cmd = new SqlCommand(
-                $@"SELECT {columna[c]} 
-                FROM productos 
-                WHERE nombre LIKE @v 
-                ORDER BY id ASC
-                OFFSET @offset ROWS FETCH NEXT 1 ROWS ONLY",
-                conexion
-            );
-
-            cmd.Parameters.AddWithValue("@v", "%" + (t ?? "") + "%");
-            cmd.Parameters.AddWithValue("@offset", f);
-
-            SqlDataReader leer = cmd.ExecuteReader();
-
-            string res = "";
-
-            if (leer.Read())
-            {
-                res = leer[0].ToString();
-            }
-
-            leer.Close();
-
-            return res;
-        }
-
-        private Point sacFyC(bool filtro, string t = null)
-        {
-            SqlCommand cmdF = new SqlCommand(
-
-                $"select count(*) from productos where nombre like '%' + @v + '%'",
-                conexion
-            );
-
-            cmdF.Parameters.AddWithValue("@v", t ?? "");
-
-            SqlCommand cmdC = new SqlCommand(
-
-                "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'productos';",
-                conexion
-            );
-
-
-            int f = Convert.ToInt32(cmdF.ExecuteScalar());
-
-            int c = Convert.ToInt32(cmdC.ExecuteScalar());
-            return new Point(f, c);
-        }
-
-        private void label14_Click(object sender, EventArgs e)
+        private void ptFacturacion_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }
