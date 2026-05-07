@@ -12,6 +12,7 @@ namespace proyecto_ERDISON_ISLAND
     public partial class Form1 : Form
     {
         SqlConnection conexion;
+        int hh;
 
         public void CargarDatos()
         {
@@ -103,6 +104,7 @@ namespace proyecto_ERDISON_ISLAND
         private void Form1_Load(object sender, EventArgs e)
 
         {
+            hh = 1;
             CrearGrafico("johan", 10, "jose", 20, "eddison", 50);
             asignarEnlaces();
             CargarDatos();
@@ -152,7 +154,6 @@ namespace proyecto_ERDISON_ISLAND
         private void CambiarPestaña_click(object sender, EventArgs e)
         {
             Control c = (Control)sender;
-            txtBuscador.Text = c.Name.ToString();
 
             switch (c.Tag)
             {
@@ -199,11 +200,12 @@ namespace proyecto_ERDISON_ISLAND
 
 
 
-        private DataGridView CTabla(string nombre_tabla, string filtro = null)
+        private DataGridView CTabla(string nombre_tabla, string filtro = null, string t1 = null)
         {
             //-----------------------------------------//
 
-            string query = $"SELECT * FROM {nombre_tabla} WHERE nombre LIKE @t";
+
+            string query = $"SELECT {t1} FROM {nombre_tabla} WHERE nombre LIKE @t";
 
             SqlDataAdapter da = new SqlDataAdapter(query, conexion);
             da.SelectCommand.Parameters.AddWithValue("@t", "%" + (filtro ?? "") + "%");
@@ -221,6 +223,10 @@ namespace proyecto_ERDISON_ISLAND
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill, //auto relleno
                 Font = new Font("Arial", 14),
                 BackgroundColor = Color.White,
+                ColumnHeadersHeight = 40,
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                AllowUserToResizeColumns = false,
+                AllowUserToResizeRows = false,
                 ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle()
                 {
                     Font = new Font("Arial", 18, FontStyle.Bold)
@@ -231,8 +237,9 @@ namespace proyecto_ERDISON_ISLAND
                 DataSource = dt
             };
 
-
+            dgv.CellClick += SDatos;
             return dgv;
+
         }
 
         private void txtBuscador_TextChanged(object sender, EventArgs e)
@@ -240,7 +247,7 @@ namespace proyecto_ERDISON_ISLAND
             lblProductos.Text = txtBuscador.Text;
             PnlInventario.Controls.Clear();
 
-            PnlInventario.Controls.Add(CTabla("productos", txtBuscador.Text));
+            PnlInventario.Controls.Add(CTabla("productos", txtBuscador.Text, "*"));
 
             if (txtBuscador.Text == "")
             {
@@ -254,6 +261,69 @@ namespace proyecto_ERDISON_ISLAND
         }
 
         private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Buscador1_Click(object sender, EventArgs e)
+        {
+            if (hh == 1)
+            {
+                tt1.Width = tt1.Width / 2;
+                tt2.Width = tt2.Width / 2;
+                hh = 2;
+                RedondearControl(tt1, 20);
+                ttFacturacion.Location = new Point(20, 20);
+                ptProductos.Location = new Point(tt1.Left + tt1.Width + 20, 37);
+                ptProductos.Width = 600;
+
+                ptProductos.Controls.Add(CTabla("productos", textBox1.Text, "nombre, precio"));
+
+            }
+            else
+            {
+                tt1.Width = tt1.Width * 2;
+                tt2.Width = tt2.Width * 2;
+                hh = 1;
+                RedondearControl(tt1, 20);
+                ttFacturacion.Location = new Point(300, 20);
+                ptProductos.Location = new Point(1100, 37);
+                ptProductos.Width = 48;
+
+                ptProductos.Controls.Clear();
+            }
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (hh == 1)
+            {
+                tt1.Width = tt1.Width / 2;
+                tt2.Width = tt2.Width / 2;
+                hh = 2;
+                RedondearControl(tt1, 20);
+                ttFacturacion.Location = new Point(20, 20);
+                ptProductos.Location = new Point(tt1.Left + tt1.Width + 20, 37);
+                ptProductos.Width = 500;
+                ptProductos.Controls.Add(CTabla("productos", textBox1.Text, "nombre, precio"));
+            }
+            else
+            {
+                ptProductos.Controls.Clear();
+                ptProductos.Controls.Add(CTabla("productos", textBox1.Text, "nombre, precio"));
+            }
+        }
+
+        private void SDatos(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                MessageBox.Show($"Fila clickeada: {e.RowIndex}");
+            }
+        }
+
+        private void panelGrafico_Paint(object sender, PaintEventArgs e)
         {
 
         }

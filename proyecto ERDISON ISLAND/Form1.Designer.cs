@@ -44,6 +44,12 @@
             pictureBox1 = new PictureBox();
             label13 = new Label();
             ToDo = new Panel();
+            ptAnalisis = new Panel();
+            panel9 = new Panel();
+            panel5 = new Panel();
+            panelGrafico = new Panel();
+            panel2 = new Panel();
+            button4 = new Button();
             ptInicio = new Panel();
             panel3 = new Panel();
             dataGridView2 = new DataGridView();
@@ -81,6 +87,7 @@
             PnlInventario = new Panel();
             button6 = new Button();
             ptFacturacion = new Panel();
+            ptProductos = new Panel();
             panel7 = new Panel();
             label6 = new Label();
             label8 = new Label();
@@ -92,18 +99,15 @@
             label10 = new Label();
             label2 = new Label();
             label1 = new Label();
-            panel8 = new Panel();
+            tt1 = new Panel();
             ttFacturacion = new Label();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
-            button1 = new Button();
-            panel6 = new Panel();
+            Buscador1 = new Button();
+            tt2 = new Panel();
             button2 = new Button();
-            ptAnalisis = new Panel();
-            panel9 = new Panel();
-            panelGrafico = new Panel();
-            button4 = new Button();
             TbTodo = new TableLayoutPanel();
+            DGrafico = new Label();
             Menu.SuspendLayout();
             tbAnalisis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
@@ -114,6 +118,9 @@
             btnInicio.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ToDo.SuspendLayout();
+            ptAnalisis.SuspendLayout();
+            panel9.SuspendLayout();
+            panel5.SuspendLayout();
             ptInicio.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
@@ -130,9 +137,7 @@
             pnlinv.SuspendLayout();
             ptFacturacion.SuspendLayout();
             panel7.SuspendLayout();
-            panel8.SuspendLayout();
-            ptAnalisis.SuspendLayout();
-            panel9.SuspendLayout();
+            tt1.SuspendLayout();
             TbTodo.SuspendLayout();
             SuspendLayout();
             // 
@@ -292,15 +297,72 @@
             // 
             // ToDo
             // 
+            ToDo.Controls.Add(ptAnalisis);
             ToDo.Controls.Add(ptInicio);
             ToDo.Controls.Add(ptInventario);
             ToDo.Controls.Add(ptFacturacion);
-            ToDo.Controls.Add(ptAnalisis);
             ToDo.Dock = DockStyle.Fill;
             ToDo.Location = new Point(187, 3);
             ToDo.Name = "ToDo";
             ToDo.Size = new Size(1260, 774);
             ToDo.TabIndex = 1;
+            // 
+            // ptAnalisis
+            // 
+            ptAnalisis.BackColor = Color.White;
+            ptAnalisis.Controls.Add(panel9);
+            ptAnalisis.Controls.Add(button4);
+            ptAnalisis.Location = new Point(5, 7);
+            ptAnalisis.Name = "ptAnalisis";
+            ptAnalisis.Size = new Size(1112, 624);
+            ptAnalisis.TabIndex = 14;
+            // 
+            // panel9
+            // 
+            panel9.BackColor = Color.DimGray;
+            panel9.BorderStyle = BorderStyle.FixedSingle;
+            panel9.Controls.Add(panel5);
+            panel9.Controls.Add(panel2);
+            panel9.Location = new Point(5, 84);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(1103, 534);
+            panel9.TabIndex = 5;
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(DGrafico);
+            panel5.Controls.Add(panelGrafico);
+            panel5.Location = new Point(361, 15);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(701, 514);
+            panel5.TabIndex = 2;
+            // 
+            // panelGrafico
+            // 
+            panelGrafico.BackColor = Color.White;
+            panelGrafico.Location = new Point(32, 3);
+            panelGrafico.Name = "panelGrafico";
+            panelGrafico.Size = new Size(550, 317);
+            panelGrafico.TabIndex = 0;
+            panelGrafico.Paint += panelGrafico_Paint;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.Black;
+            panel2.Location = new Point(11, 15);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(213, 503);
+            panel2.TabIndex = 1;
+            // 
+            // button4
+            // 
+            button4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button4.Location = new Point(36, 459);
+            button4.Name = "button4";
+            button4.Size = new Size(102, 36);
+            button4.TabIndex = 4;
+            button4.Text = "Agregar";
+            button4.UseVisualStyleBackColor = true;
             // 
             // ptInicio
             // 
@@ -719,15 +781,23 @@
             // ptFacturacion
             // 
             ptFacturacion.BackColor = Color.White;
+            ptFacturacion.Controls.Add(ptProductos);
             ptFacturacion.Controls.Add(panel7);
-            ptFacturacion.Controls.Add(panel8);
-            ptFacturacion.Controls.Add(panel6);
+            ptFacturacion.Controls.Add(tt1);
+            ptFacturacion.Controls.Add(tt2);
             ptFacturacion.Controls.Add(button2);
             ptFacturacion.Location = new Point(5, 4);
             ptFacturacion.Name = "ptFacturacion";
             ptFacturacion.Size = new Size(1182, 624);
             ptFacturacion.TabIndex = 3;
             ptFacturacion.Paint += ptFacturacion_Paint;
+            // 
+            // ptProductos
+            // 
+            ptProductos.Location = new Point(1100, 37);
+            ptProductos.Name = "ptProductos";
+            ptProductos.Size = new Size(48, 430);
+            ptProductos.TabIndex = 10;
             // 
             // panel7
             // 
@@ -741,7 +811,7 @@
             panel7.Controls.Add(label10);
             panel7.Controls.Add(label2);
             panel7.Controls.Add(label1);
-            panel7.Location = new Point(155, 576);
+            panel7.Location = new Point(161, 473);
             panel7.Name = "panel7";
             panel7.Size = new Size(835, 41);
             panel7.TabIndex = 9;
@@ -851,18 +921,18 @@
             label1.TabIndex = 6;
             label1.Text = "EDDISON";
             // 
-            // panel8
+            // tt1
             // 
-            panel8.BackColor = Color.FromArgb(0, 0, 64);
-            panel8.Controls.Add(ttFacturacion);
-            panel8.Controls.Add(textBox1);
-            panel8.Controls.Add(textBox2);
-            panel8.Controls.Add(button1);
-            panel8.Location = new Point(3, 37);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(1072, 157);
-            panel8.TabIndex = 8;
-            panel8.Tag = "radio";
+            tt1.BackColor = Color.FromArgb(0, 0, 64);
+            tt1.Controls.Add(ttFacturacion);
+            tt1.Controls.Add(textBox1);
+            tt1.Controls.Add(textBox2);
+            tt1.Controls.Add(Buscador1);
+            tt1.Location = new Point(3, 37);
+            tt1.Name = "tt1";
+            tt1.Size = new Size(1072, 157);
+            tt1.TabIndex = 8;
+            tt1.Tag = "radio";
             // 
             // ttFacturacion
             // 
@@ -884,6 +954,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(248, 33);
             textBox1.TabIndex = 1;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // textBox2
             // 
@@ -893,75 +964,38 @@
             textBox2.Size = new Size(55, 33);
             textBox2.TabIndex = 3;
             // 
-            // button1
+            // Buscador1
             // 
-            button1.BackColor = Color.White;
-            button1.BackgroundImageLayout = ImageLayout.Stretch;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Image = Properties.Resources.Bucar2;
-            button1.Location = new Point(287, 115);
-            button1.Name = "button1";
-            button1.Size = new Size(40, 34);
-            button1.TabIndex = 2;
-            button1.UseVisualStyleBackColor = false;
+            Buscador1.BackColor = Color.White;
+            Buscador1.BackgroundImageLayout = ImageLayout.Stretch;
+            Buscador1.FlatAppearance.BorderSize = 0;
+            Buscador1.FlatStyle = FlatStyle.Flat;
+            Buscador1.Image = Properties.Resources.Bucar2;
+            Buscador1.Location = new Point(287, 115);
+            Buscador1.Name = "Buscador1";
+            Buscador1.Size = new Size(40, 34);
+            Buscador1.TabIndex = 2;
+            Buscador1.UseVisualStyleBackColor = false;
+            Buscador1.Click += Buscador1_Click;
             // 
-            // panel6
+            // tt2
             // 
-            panel6.BorderStyle = BorderStyle.FixedSingle;
-            panel6.Location = new Point(36, 200);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(1009, 298);
-            panel6.TabIndex = 5;
+            tt2.BorderStyle = BorderStyle.FixedSingle;
+            tt2.Location = new Point(3, 200);
+            tt2.Name = "tt2";
+            tt2.Size = new Size(1072, 267);
+            tt2.TabIndex = 5;
             // 
             // button2
             // 
             button2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(36, 579);
+            button2.Location = new Point(42, 476);
             button2.Name = "button2";
             button2.Size = new Size(102, 36);
             button2.TabIndex = 4;
-            button2.Text = "Agregar";
+            button2.Text = "Subir ";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
-            // 
-            // ptAnalisis
-            // 
-            ptAnalisis.BackColor = Color.White;
-            ptAnalisis.Controls.Add(panel9);
-            ptAnalisis.Controls.Add(button4);
-            ptAnalisis.Location = new Point(5, 7);
-            ptAnalisis.Name = "ptAnalisis";
-            ptAnalisis.Size = new Size(1112, 624);
-            ptAnalisis.TabIndex = 14;
-            // 
-            // panel9
-            // 
-            panel9.BackColor = Color.DimGray;
-            panel9.BorderStyle = BorderStyle.FixedSingle;
-            panel9.Controls.Add(panelGrafico);
-            panel9.Location = new Point(36, 37);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(1039, 552);
-            panel9.TabIndex = 5;
-            // 
-            // panelGrafico
-            // 
-            panelGrafico.BackColor = Color.White;
-            panelGrafico.Location = new Point(559, 2);
-            panelGrafico.Name = "panelGrafico";
-            panelGrafico.Size = new Size(475, 545);
-            panelGrafico.TabIndex = 0;
-            // 
-            // button4
-            // 
-            button4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.Location = new Point(36, 459);
-            button4.Name = "button4";
-            button4.Size = new Size(102, 36);
-            button4.TabIndex = 4;
-            button4.Text = "Agregar";
-            button4.UseVisualStyleBackColor = true;
             // 
             // TbTodo
             // 
@@ -979,6 +1013,16 @@
             TbTodo.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TbTodo.Size = new Size(1450, 780);
             TbTodo.TabIndex = 2;
+            // 
+            // DGrafico
+            // 
+            DGrafico.BorderStyle = BorderStyle.FixedSingle;
+            DGrafico.Font = new Font("Lucida Sans", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            DGrafico.Location = new Point(36, 338);
+            DGrafico.Name = "DGrafico";
+            DGrafico.Size = new Size(537, 165);
+            DGrafico.TabIndex = 1;
+            DGrafico.Text = "Este texto es la descripcion de grafico";
             // 
             // Form1
             // 
@@ -1007,6 +1051,9 @@
             btnInicio.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ToDo.ResumeLayout(false);
+            ptAnalisis.ResumeLayout(false);
+            panel9.ResumeLayout(false);
+            panel5.ResumeLayout(false);
             ptInicio.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -1032,10 +1079,8 @@
             ptFacturacion.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
-            ptAnalisis.ResumeLayout(false);
-            panel9.ResumeLayout(false);
+            tt1.ResumeLayout(false);
+            tt1.PerformLayout();
             TbTodo.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -1115,12 +1160,16 @@
         private Label label10;
         private Label label2;
         private Label label1;
-        private Panel panel8;
+        private Panel tt1;
         private Label ttFacturacion;
         private TextBox textBox1;
         private TextBox textBox2;
-        private Button button1;
-        private Panel panel6;
+        private Button Buscador1;
+        private Panel tt2;
         private Button button2;
+        private Panel ptProductos;
+        private Panel panel2;
+        private Panel panel5;
+        private Label DGrafico;
     }
 }
