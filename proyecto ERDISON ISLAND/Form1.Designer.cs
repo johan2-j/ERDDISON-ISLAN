@@ -45,11 +45,6 @@
             label13 = new Label();
             ToDo = new Panel();
             ptAnalisis = new Panel();
-            panel9 = new Panel();
-            panel5 = new Panel();
-            panelGrafico = new Panel();
-            panel2 = new Panel();
-            button4 = new Button();
             ptInicio = new Panel();
             panel3 = new Panel();
             dataGridView2 = new DataGridView();
@@ -107,7 +102,10 @@
             tt2 = new Panel();
             button2 = new Button();
             TbTodo = new TableLayoutPanel();
+            panel5 = new Panel();
             DGrafico = new Label();
+            panelGrafico = new Panel();
+            panel2 = new Panel();
             Menu.SuspendLayout();
             tbAnalisis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
@@ -119,8 +117,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ToDo.SuspendLayout();
             ptAnalisis.SuspendLayout();
-            panel9.SuspendLayout();
-            panel5.SuspendLayout();
             ptInicio.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
@@ -139,6 +135,7 @@
             panel7.SuspendLayout();
             tt1.SuspendLayout();
             TbTodo.SuspendLayout();
+            panel5.SuspendLayout();
             SuspendLayout();
             // 
             // panel4
@@ -297,10 +294,10 @@
             // 
             // ToDo
             // 
-            ToDo.Controls.Add(ptAnalisis);
-            ToDo.Controls.Add(ptInicio);
             ToDo.Controls.Add(ptInventario);
             ToDo.Controls.Add(ptFacturacion);
+            ToDo.Controls.Add(ptAnalisis);
+            ToDo.Controls.Add(ptInicio);
             ToDo.Dock = DockStyle.Fill;
             ToDo.Location = new Point(187, 3);
             ToDo.Name = "ToDo";
@@ -309,60 +306,13 @@
             // 
             // ptAnalisis
             // 
-            ptAnalisis.BackColor = Color.White;
-            ptAnalisis.Controls.Add(panel9);
-            ptAnalisis.Controls.Add(button4);
+            ptAnalisis.BackColor = Color.Gainsboro;
+            ptAnalisis.Controls.Add(panel5);
+            ptAnalisis.Controls.Add(panel2);
             ptAnalisis.Location = new Point(5, 7);
             ptAnalisis.Name = "ptAnalisis";
-            ptAnalisis.Size = new Size(1112, 624);
+            ptAnalisis.Size = new Size(1252, 767);
             ptAnalisis.TabIndex = 14;
-            // 
-            // panel9
-            // 
-            panel9.BackColor = Color.DimGray;
-            panel9.BorderStyle = BorderStyle.FixedSingle;
-            panel9.Controls.Add(panel5);
-            panel9.Controls.Add(panel2);
-            panel9.Location = new Point(5, 84);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(1103, 534);
-            panel9.TabIndex = 5;
-            // 
-            // panel5
-            // 
-            panel5.Controls.Add(DGrafico);
-            panel5.Controls.Add(panelGrafico);
-            panel5.Location = new Point(361, 15);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(701, 514);
-            panel5.TabIndex = 2;
-            // 
-            // panelGrafico
-            // 
-            panelGrafico.BackColor = Color.White;
-            panelGrafico.Location = new Point(32, 3);
-            panelGrafico.Name = "panelGrafico";
-            panelGrafico.Size = new Size(550, 317);
-            panelGrafico.TabIndex = 0;
-            panelGrafico.Paint += panelGrafico_Paint;
-            // 
-            // panel2
-            // 
-            panel2.BackColor = Color.Black;
-            panel2.Location = new Point(11, 15);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(213, 503);
-            panel2.TabIndex = 1;
-            // 
-            // button4
-            // 
-            button4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.Location = new Point(36, 459);
-            button4.Name = "button4";
-            button4.Size = new Size(102, 36);
-            button4.TabIndex = 4;
-            button4.Text = "Agregar";
-            button4.UseVisualStyleBackColor = true;
             // 
             // ptInicio
             // 
@@ -378,7 +328,7 @@
             ptInicio.Controls.Add(panelint1);
             ptInicio.Location = new Point(5, 4);
             ptInicio.Name = "ptInicio";
-            ptInicio.Size = new Size(1182, 627);
+            ptInicio.Size = new Size(1252, 767);
             ptInicio.TabIndex = 14;
             ptInicio.Tag = "";
             // 
@@ -472,6 +422,7 @@
             panelint5.Size = new Size(665, 206);
             panelint5.TabIndex = 1;
             panelint5.Tag = "radio";
+            panelint5.Paint += panelint5_Paint;
             // 
             // label24
             // 
@@ -644,9 +595,9 @@
             ptInventario.Controls.Add(panel14);
             ptInventario.Controls.Add(pnlinv);
             ptInventario.Controls.Add(button6);
-            ptInventario.Location = new Point(4, 2);
+            ptInventario.Location = new Point(4, 4);
             ptInventario.Name = "ptInventario";
-            ptInventario.Size = new Size(1182, 624);
+            ptInventario.Size = new Size(1252, 767);
             ptInventario.TabIndex = 13;
             // 
             // panel13
@@ -788,7 +739,7 @@
             ptFacturacion.Controls.Add(button2);
             ptFacturacion.Location = new Point(5, 4);
             ptFacturacion.Name = "ptFacturacion";
-            ptFacturacion.Size = new Size(1182, 624);
+            ptFacturacion.Size = new Size(1252, 767);
             ptFacturacion.TabIndex = 3;
             ptFacturacion.Paint += ptFacturacion_Paint;
             // 
@@ -1014,22 +965,47 @@
             TbTodo.Size = new Size(1450, 780);
             TbTodo.TabIndex = 2;
             // 
+            // panel5
+            // 
+            panel5.Controls.Add(DGrafico);
+            panel5.Controls.Add(panelGrafico);
+            panel5.Location = new Point(364, 72);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(849, 514);
+            panel5.TabIndex = 6;
+            // 
             // DGrafico
             // 
             DGrafico.BorderStyle = BorderStyle.FixedSingle;
             DGrafico.Font = new Font("Lucida Sans", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            DGrafico.Location = new Point(36, 338);
+            DGrafico.Location = new Point(32, 338);
             DGrafico.Name = "DGrafico";
-            DGrafico.Size = new Size(537, 165);
+            DGrafico.Size = new Size(786, 121);
             DGrafico.TabIndex = 1;
             DGrafico.Text = "Este texto es la descripcion de grafico";
+            // 
+            // panelGrafico
+            // 
+            panelGrafico.BackColor = Color.White;
+            panelGrafico.Location = new Point(32, 3);
+            panelGrafico.Name = "panelGrafico";
+            panelGrafico.Size = new Size(786, 317);
+            panelGrafico.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.Black;
+            panel2.Location = new Point(14, 72);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(213, 658);
+            panel2.TabIndex = 5;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 255, 192);
-            ClientSize = new Size(1370, 749);
+            ClientSize = new Size(1444, 881);
             Controls.Add(panel4);
             Controls.Add(TbTodo);
             Margin = new Padding(2, 1, 2, 1);
@@ -1052,8 +1028,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ToDo.ResumeLayout(false);
             ptAnalisis.ResumeLayout(false);
-            panel9.ResumeLayout(false);
-            panel5.ResumeLayout(false);
             ptInicio.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
@@ -1082,6 +1056,7 @@
             tt1.ResumeLayout(false);
             tt1.PerformLayout();
             TbTodo.ResumeLayout(false);
+            panel5.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1120,9 +1095,6 @@
         private Button button6;
         private Panel ptInicio;
         private Panel ptAnalisis;
-        private Panel panel9;
-        private Panel panelGrafico;
-        private Button button4;
         private TableLayoutPanel TbTodo;
         private Panel PnlInventario;
         private Panel panelint4;
@@ -1168,8 +1140,9 @@
         private Panel tt2;
         private Button button2;
         private Panel ptProductos;
-        private Panel panel2;
         private Panel panel5;
         private Label DGrafico;
+        private Panel panelGrafico;
+        private Panel panel2;
     }
 }

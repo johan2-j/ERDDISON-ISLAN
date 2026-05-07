@@ -59,6 +59,8 @@ namespace proyecto_ERDISON_ISLAND
         {
             InitializeComponent();
 
+            this.AutoScaleMode = AutoScaleMode.Dpi;
+
 
 
             try
@@ -324,6 +326,11 @@ namespace proyecto_ERDISON_ISLAND
         }
 
         private void panelGrafico_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelint5_Paint(object sender, PaintEventArgs e)
         {
 
         }
