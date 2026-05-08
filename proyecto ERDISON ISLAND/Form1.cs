@@ -13,6 +13,7 @@ namespace proyecto_ERDISON_ISLAND
     {
         SqlConnection conexion;
         int hh;
+        bool accion;
 
         public void CargarDatos()
         {
@@ -58,6 +59,7 @@ namespace proyecto_ERDISON_ISLAND
         public Form1()
         {
             InitializeComponent();
+            accion = false;
 
             this.AutoScaleMode = AutoScaleMode.Dpi;
 
@@ -156,26 +158,33 @@ namespace proyecto_ERDISON_ISLAND
         private void CambiarPestaña_click(object sender, EventArgs e)
         {
             Control c = (Control)sender;
-
-            switch (c.Tag)
+            if (accion == false)
             {
-                case "facturacion":
-                    ptFacturacion.BringToFront();
-                    break;
+                switch (c.Tag)
+                {
+                    case "facturacion":
+                        ptFacturacion.BringToFront();
+                        break;
 
-                case "inventario":
-                    ptInventario.BringToFront();
-                    break;
+                    case "inventario":
+                        ptInventario.BringToFront();
+                        break;
 
-                case "inicio":
-                    ptInicio.BringToFront();
-                    break;
+                    case "inicio":
+                        ptInicio.BringToFront();
+                        break;
 
-                case "analisis":
-                    ptAnalisis.BringToFront();
-                    break;
+                    case "analisis":
+                        ptAnalisis.BringToFront();
+                        break;
 
+                }
             }
+            else
+            {
+                MessageBox.Show("se esta ejecutando una accion");
+            }
+
         }
 
 
@@ -239,7 +248,7 @@ namespace proyecto_ERDISON_ISLAND
                 DataSource = dt
             };
 
-            dgv.CellClick += SDatos;
+            dgv.CellClick += CSubirProducto;
             return dgv;
 
         }
@@ -271,6 +280,8 @@ namespace proyecto_ERDISON_ISLAND
         {
             if (hh == 1)
             {
+                textBox1.Visible = true;
+                textBox1.Focus();
                 tt1.Width = tt1.Width / 2;
                 tt2.Width = tt2.Width / 2;
                 hh = 2;
@@ -278,12 +289,14 @@ namespace proyecto_ERDISON_ISLAND
                 ttFacturacion.Location = new Point(20, 20);
                 ptProductos.Location = new Point(tt1.Left + tt1.Width + 20, 37);
                 ptProductos.Width = 600;
+                tablaF.Width = 590;
 
-                ptProductos.Controls.Add(CTabla("productos", textBox1.Text, "nombre, precio"));
-
+                tablaF.Controls.Add(CTabla("productos", textBox1.Text, "nombre, precio"));
+                accion = true;
             }
             else
             {
+                textBox1.Visible = false;
                 tt1.Width = tt1.Width * 2;
                 tt2.Width = tt2.Width * 2;
                 hh = 1;
@@ -291,30 +304,19 @@ namespace proyecto_ERDISON_ISLAND
                 ttFacturacion.Location = new Point(300, 20);
                 ptProductos.Location = new Point(1100, 37);
                 ptProductos.Width = 48;
+                tablaF.Width = 40;
 
-                ptProductos.Controls.Clear();
+                tablaF.Controls.Clear();
+                accion = false;
             }
 
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (hh == 1)
-            {
-                tt1.Width = tt1.Width / 2;
-                tt2.Width = tt2.Width / 2;
-                hh = 2;
-                RedondearControl(tt1, 20);
-                ttFacturacion.Location = new Point(20, 20);
-                ptProductos.Location = new Point(tt1.Left + tt1.Width + 20, 37);
-                ptProductos.Width = 500;
-                ptProductos.Controls.Add(CTabla("productos", textBox1.Text, "nombre, precio"));
-            }
-            else
-            {
-                ptProductos.Controls.Clear();
-                ptProductos.Controls.Add(CTabla("productos", textBox1.Text, "nombre, precio"));
-            }
+            tablaF.Controls.Clear();
+            tablaF.Controls.Add(CTabla("productos", textBox1.Text, "nombre, precio"));
+
         }
 
         private void SDatos(object sender, DataGridViewCellEventArgs e)
@@ -322,6 +324,7 @@ namespace proyecto_ERDISON_ISLAND
             if (e.RowIndex >= 0)
             {
                 MessageBox.Show($"Fila clickeada: {e.RowIndex}");
+
             }
         }
 
@@ -334,6 +337,102 @@ namespace proyecto_ERDISON_ISLAND
         {
 
         }
+        private void CSubirProducto(object sender, DataGridViewCellEventArgs e)
+        {
+
+            string t = ((DataGridView)sender).Rows[e.RowIndex].Cells["nombre"].Value.ToString();
+            string j = ((DataGridView)sender).Rows[e.RowIndex].Cells[1].Value.ToString();
+
+            Panel pnl = new Panel()
+            {
+                Size = new Size(300, 150),
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+            };
+
+            pnl.Location = new Point(
+            (this.ClientSize.Width - pnl.Width) / 2,
+            (this.ClientSize.Height - pnl.Height) / 2);
+            
+            TextBox txt = new TextBox()
+            {
+                Size = new Size(135, 23),
+                TextAlign = HorizontalAlignment.Center,
+                Location = new Point(115, 70)
+            };
+
+            Label lbl1 = new Label()
+            {
+                AutoSize = false,
+                Text = $"Se a seleccionado {t} para subir a la factura actual",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(200, 35),
+                Location = new Point(50, 25)
+            };
+
+            Label lbl2 = new Label()
+            {
+                AutoSize = false,
+                Text = "Cantidad",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(60, 23),
+                Location = new Point(50, 70)
+            };
+
+            Button btn = new Button()
+            {
+                Text = "Confirmar",
+                Size = new Size(200, 29),
+                Location = new Point(50, 100)
+            };
+
+            Button btns = new Button()
+            {
+                Text = "Confirmar",
+                Size = new Size(20, 20),
+                Location = new Point(280, 0)
+            };
+
+            btn.Click += (s, e) =>
+            {
+                string texto;
+                string cantidad = txt.Text;
+                string tt = t + " |" + cantidad;
+                //MessageBox.Show("Escribiste: " + texto);
+
+                texto = " " + tt.PadRight(30 - j.Length, '-')
+                + j;
+
+                lblViewFactura.Text += texto;
+
+                ptFacturacion.Controls.Remove(pnl);
+
+                pnl.Dispose();
+
+
+            };
+
+            btns.Click += (s, e) =>
+            {
+                ptFacturacion.Controls.Remove(pnl);
+                pnl.Dispose();
+            };
+
+            pnl.Controls.Add(txt);
+            pnl.Controls.Add(btn);
+            pnl.Controls.Add(lbl1);
+            pnl.Controls.Add(lbl2);
+            pnl.Controls.Add(btns);
+
+            ptFacturacion.Controls.Add(pnl);
+
+            pnl.BringToFront();
+
+            txt.Focus();
+
+        }
+
+        
     }
 }
 
