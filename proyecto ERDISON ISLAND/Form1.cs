@@ -400,8 +400,8 @@ namespace proyecto_ERDISON_ISLAND
                 string tt = t + " |" + cantidad;
                 //MessageBox.Show("Escribiste: " + texto);
 
-                texto = " " + tt.PadRight(30 - j.Length, '-')
-                + j;
+                texto = tt.PadRight(30 - j.Length, '-')
+                + j + "\n \n";
 
                 lblViewFactura.Text += texto;
 
