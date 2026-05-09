@@ -15,6 +15,16 @@ namespace proyecto_ERDISON_ISLAND
         int hh;
         bool accion;
 
+
+        //contenedores de factura
+        decimal total;
+        int nn;
+        bool enFac = false;
+        bool enFac2 = false;  //ahora es personal
+
+        DataTable dtD = new DataTable();
+
+
         public void CargarDatos()
         {
             string query = "SELECT Id, Cliente, Total FROM inicio";
@@ -273,13 +283,18 @@ namespace proyecto_ERDISON_ISLAND
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            crearFactura(3);
         }
 
         private void Buscador1_Click(object sender, EventArgs e)
         {
+            
+
             if (hh == 1)
             {
+                crearFactura(1);
+                Buscador1.Text = "Cancelar";
+                Buscador1.BackColor = Color.Black;
                 textBox1.Visible = true;
                 textBox1.Focus();
                 tt1.Width = tt1.Width / 2;
@@ -296,6 +311,8 @@ namespace proyecto_ERDISON_ISLAND
             }
             else
             {
+                Buscador1.Text = "";
+                Buscador1.BackColor = Color.White;
                 textBox1.Visible = false;
                 tt1.Width = tt1.Width * 2;
                 tt2.Width = tt2.Width * 2;
@@ -308,6 +325,7 @@ namespace proyecto_ERDISON_ISLAND
 
                 tablaF.Controls.Clear();
                 accion = false;
+                crearFactura(4);
             }
 
         }
@@ -348,6 +366,7 @@ namespace proyecto_ERDISON_ISLAND
                 Size = new Size(300, 150),
                 BackColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
+                Tag = "pnlC"
             };
 
             pnl.Location = new Point(
@@ -409,6 +428,8 @@ namespace proyecto_ERDISON_ISLAND
 
                 pnl.Dispose();
 
+                crearFactura(2, t, decimal.Parse(j), int.Parse(cantidad));
+
 
             };
 
@@ -430,6 +451,118 @@ namespace proyecto_ERDISON_ISLAND
 
             txt.Focus();
 
+        }
+        private void crearFactura(int ecena, string nF = null, decimal? pF = null, int? cF = null)
+        {
+            //-----crear Factura----------------------------------------
+            if (ecena == 1)
+            {
+                enFac = true;
+
+                SqlCommand cmd = new SqlCommand(
+                    "select top 1  idFacturas from facturas order by idFacturas desc;",
+                    conexion
+                );
+
+                nn = Convert.ToInt32(cmd.ExecuteScalar()) + 1;
+
+                
+
+                dtD.Columns.Add("IdFactura");
+                dtD.Columns.Add("nombre");
+                dtD.Columns.Add("precio");
+                dtD.Columns.Add("cantidad");
+
+                total = 0;
+            }
+            
+            //-----editar Factura---------------------------------------
+            if (ecena == 2 & enFac == true)
+            {
+                dtD.Rows.Add(nn, nF, pF, cF);                               
+                decimal i = (pF ?? 0) * (cF ?? 0);
+
+                total += i;
+                enFac2 = true;
+            }
+
+            //-----confirmar Factura------------------------------------
+            if (ecena == 3 & enFac == true & enFac2 == true)
+            {
+                foreach (DataRow fila in dtD.Rows)
+                {
+                    SqlCommand cmdD = new SqlCommand(
+                        "insert into DetallesF(IdDetallesF, IdFactura, Nombre, Precio, Cantidad) values(next value for seq_idDetalleF, @i, @nombre, @precio, @cantidad)",
+                        conexion
+                    );
+
+                    cmdD.Parameters.AddWithValue("@i", fila["IdFactura"]);
+                    cmdD.Parameters.AddWithValue("@nombre", fila["nombre"]);
+                    cmdD.Parameters.AddWithValue("@precio", fila["precio"]);
+                    cmdD.Parameters.AddWithValue("@cantidad", fila["cantidad"]);
+
+                    cmdD.ExecuteNonQuery();
+                }
+
+                SqlCommand cmdF = new SqlCommand(
+                        "insert into Facturas(idFacturas, Total, Fecha) values(NEXT VALUE FOR seq_idFactura, @Total, GETDATE());",
+                        conexion
+                );
+
+                cmdF.Parameters.AddWithValue("@Total", total);
+
+                cmdF.ExecuteNonQuery();
+
+                total = 0;
+                nn = 0;
+                dtD?.Reset();
+                enFac = false;
+                enFac2 = false;
+                lblViewFactura.Text = "------------Factura-----------                               ";
+                crearFactura(1);
+
+                foreach (Control p in ptFacturacion.Controls)
+                {
+                    if (p != null && p.Tag?.ToString() == "pnlC")
+                    {
+                        ptFacturacion.Controls.Remove(p);
+                        p.Dispose();
+                        break;
+                    }
+                }
+            }
+
+            if(ecena == 4)
+            {
+                total = 0;
+                nn = 0;
+                dtD?.Reset();
+                enFac = false;
+                enFac2 = false;
+                lblViewFactura.Text = "------------Factura-----------                               ";
+
+                foreach (Control p in ptFacturacion.Controls)
+                {
+                    if (p.Tag?.ToString() == "pnlC")
+                    {
+                        ptFacturacion.Controls.Remove(p);
+                        p.Dispose();
+                        break;
+                    }
+                }
+            }          
+
+
+
+
+
+            // se crea una nueva factura
+            //nn = 1;
+            //nombreF = new string[] { "juan", "pedro" };
+            //nombreF[nn] = "";
+
+
+            
         }
 
         

@@ -500,6 +500,8 @@
             Buscador1.BackgroundImageLayout = ImageLayout.Stretch;
             Buscador1.FlatAppearance.BorderSize = 0;
             Buscador1.FlatStyle = FlatStyle.Flat;
+            Buscador1.Font = new Font("Niagara Solid", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Buscador1.ForeColor = Color.White;
             Buscador1.Image = Properties.Resources.Bucar2;
             Buscador1.Location = new Point(39, 113);
             Buscador1.Name = "Buscador1";
@@ -512,6 +514,7 @@
             // 
             tt2.BorderStyle = BorderStyle.FixedSingle;
             tt2.Controls.Add(lblViewFactura);
+            tt2.Font = new Font("Niagara Solid", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tt2.Location = new Point(3, 200);
             tt2.Name = "tt2";
             tt2.Size = new Size(1072, 267);
