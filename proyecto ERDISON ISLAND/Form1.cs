@@ -2,13 +2,14 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
 using System.Data.SqlTypes;
+using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Net.Mime.MediaTypeNames;
-using System.Drawing;
 using static System.Windows.Forms.Design.AxImporter;
 namespace proyecto_ERDISON_ISLAND
 {
@@ -16,6 +17,7 @@ namespace proyecto_ERDISON_ISLAND
     {
         SqlConnection conexion;
         int hh;
+        int rr;
         bool accion;
 
 
@@ -25,7 +27,14 @@ namespace proyecto_ERDISON_ISLAND
         bool enFac = false;
         bool enFac2 = false;  //ahora es personal
 
+        //contenedores de factura
+        decimal totalR;
+        int nnR;
+        bool enFacR = false;
+        bool enFac2R = false;  //ahora es personal
+
         DataTable dtD = new DataTable();
+        DataTable dtDR = new DataTable();
 
 
         public void CargarDatos()
@@ -54,20 +63,32 @@ namespace proyecto_ERDISON_ISLAND
 
         }
 
-        public void CargarStock()
+        private void CargarStock()
         {
-            string query = "SELECT nombre, stock FROM productos";
+            //using (SqlConnection conexion = new SqlConnection("Server=(localdb)\\MSSQLLocalDB;Database=BDDProyecto;Trusted_Connection=True;"))
 
-            SqlDataAdapter da = new SqlDataAdapter(query, conexion);
+            string consulta = "SELECT nombre, stock FROM productos WHERE Stock <= 5";
+
+            SqlDataAdapter da = new SqlDataAdapter(consulta, conexion);
             DataTable dt = new DataTable();
             da.Fill(dt);
 
             dataGridView2.DataSource = dt;
 
-            // Cambiar nombres visibles
-            dataGridView2.Columns["nombre"].HeaderText = "Nombre";
-            dataGridView2.Columns["stock"].HeaderText = "Stock";
         }
+
+        private void ActualizarAlertas()
+        {
+            string consulta = "SELECT COUNT(*) FROM productos WHERE Stock <= 5";
+
+            SqlCommand cmd = new SqlCommand(consulta, conexion);
+
+            int cantidadAlertas = (int)cmd.ExecuteScalar();
+
+            label23.Text = cantidadAlertas.ToString();
+
+        }
+
 
         public Form1()
         {
@@ -122,15 +143,17 @@ namespace proyecto_ERDISON_ISLAND
 
         {
             hh = 1;
+            rr = 1;
             asignarEnlaces();
             CargarDatos();
             CargarStock();
             //RedondearPaneles
 
+            ActualizarAlertas();
             RecorrerControles(this);
 
 
-        
+
 
         }
 
@@ -237,7 +260,7 @@ namespace proyecto_ERDISON_ISLAND
                 query = $"SELECT {t1} FROM {nombre_tabla} WHERE nombre LIKE @t";
             }
 
-            
+
 
             SqlDataAdapter da = new SqlDataAdapter(query, conexion);
             da.SelectCommand.Parameters.AddWithValue("@t", "%" + (filtro ?? "") + "%");
@@ -273,7 +296,7 @@ namespace proyecto_ERDISON_ISLAND
             {
                 dgv.CellClick += evento;
             }
-            
+
             return dgv;
 
         }
@@ -283,7 +306,7 @@ namespace proyecto_ERDISON_ISLAND
             lblProductos.Text = txtBuscador.Text;
             PnlInventario.Controls.Clear();
 
-            PnlInventario.Controls.Add(CTabla("productos", txtBuscador.Text, "*"));
+            PnlInventario.Controls.Add(CTabla("productos", txtBuscador.Text, "*", CSubirReporte));
 
             if (txtBuscador.Text == "")
             {
@@ -296,10 +319,6 @@ namespace proyecto_ERDISON_ISLAND
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            crearFactura(3);
-        }
 
         private void Buscador1_Click(object sender, EventArgs e)
         {
@@ -505,6 +524,9 @@ namespace proyecto_ERDISON_ISLAND
             //-----confirmar Factura------------------------------------
             if (ecena == 3 & enFac == true & enFac2 == true)
             {
+
+
+
                 foreach (DataRow fila in dtD.Rows)
                 {
                     SqlCommand cmdD = new SqlCommand(
@@ -518,6 +540,19 @@ namespace proyecto_ERDISON_ISLAND
                     cmdD.Parameters.AddWithValue("@cantidad", fila["cantidad"]);
 
                     cmdD.ExecuteNonQuery();
+
+                    //---------------------------------------------------------------------------
+
+
+                    SqlCommand cmdP = new SqlCommand(
+                        "UPDATE productos SET stock = stock - @cantidad WHERE nombre = @nombre",
+                        conexion
+                    );
+
+                    cmdP.Parameters.AddWithValue("@nombre", fila["nombre"]);
+                    cmdP.Parameters.AddWithValue("@cantidad", fila["cantidad"]);
+
+                    cmdP.ExecuteNonQuery();
                 }
 
                 SqlCommand cmdF = new SqlCommand(
@@ -580,9 +615,10 @@ namespace proyecto_ERDISON_ISLAND
         private void btnFacturas_Click(object sender, EventArgs e)
         {
             panelGrafico.Controls.Clear();
-            
 
-            panelGrafico.Controls.Add(CTabla("facturas",null,"*", verFactura));
+
+            panelGrafico.Controls.Add(CTabla("facturas", null, "*", verFactura));
+            
         }
 
 
@@ -608,8 +644,8 @@ namespace proyecto_ERDISON_ISLAND
             string Tt = ((DataGridView)sender).Rows[e.RowIndex].Cells[1].Value.ToString();
             int t = Convert.ToInt32(((DataGridView)sender).Rows[e.RowIndex].Cells[0].Value);
 
-                        
-            Panel pnF= new Panel()
+
+            Panel pnF = new Panel()
             {
                 Size = new Size(300, 500),
                 BackColor = Color.White,
@@ -624,7 +660,7 @@ namespace proyecto_ERDISON_ISLAND
                 BorderStyle = BorderStyle.FixedSingle,
                 Location = new Point(5, 5),
                 Font = new System.Drawing.Font("Consolas", 12),
-                Text = "------------Factura----------- \n \n Id |00" + t + "\n fecha |" + f  + "\n\n------------Productos---------\n\n"
+                Text = "------------Factura----------- \n \n Id |00" + t + "\n fecha |" + f + "\n\n------------Productos---------\n\n"
             };
             SqlCommand cmd = new SqlCommand(
                 $"select nombre, precio, cantidad from DetallesF where idfactura = @id",
@@ -644,13 +680,13 @@ namespace proyecto_ERDISON_ISLAND
 
 
 
-               
+
                 string tt = nombre + " |" + cantidad;
 
                 texto += tt.PadRight(30 - precio.Length, '-') + precio + "\n \n";
 
 
-                
+
             }
             texto += "------------Detalle----------- \n \n total |" + Tt;
             lbF.Text += texto;
@@ -682,8 +718,286 @@ namespace proyecto_ERDISON_ISLAND
 
         private void destruir(object sender, EventArgs e)
         {
-            
+
         }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label25_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SubirFactura_Click_1(object sender, EventArgs e)
+        {
+            crearFactura(3);
+        }
+
+        private void btnReporte_Click(object sender, EventArgs e)
+        {
+            if (rr == 1)
+            {
+                crearReporte(1);
+                btnReporte.Text = "Cancelar";
+                btnReporte.BackColor = Color.Black;
+                txtBuscador.Focus();
+                pnlinv.Width = pnlinv.Width / 2;
+                PnlInventario.Width = PnlInventario.Width / 2;
+                rr = 2;
+                RedondearControl(pnlinv, 20);
+                pnlR.Location = new Point(pnlinv.Left + pnlinv.Width + 20, 204);
+                pnlR.Width = 600;
+
+                //pnlR.Controls.Add(CTabla("productos", txtBuscador.Text, "nombre, precio"));
+                accion = true;
+            }
+            else
+            {
+                btnReporte.Text = "Nuevo Reporte";
+                btnReporte.BackColor = Color.White;
+                pnlinv.Width = pnlinv.Width * 2;
+                PnlInventario.Width = PnlInventario.Width * 2;
+                rr = 1;
+                RedondearControl(pnlinv, 20);
+                pnlR.Location = new Point(1140, 204);
+                pnlR.Width = 48;
+
+                pnlR.Controls.Clear();
+                accion = false;
+                crearReporte(4);
+            }
+        }
+
+        private void crearReporte(int ecena, string nF = null, decimal? pF = null, int? cF = null)
+        {
+            //-----crear Factura----------------------------------------
+            if (ecena == 1)
+            {
+                enFacR = true;
+
+                SqlCommand cmd = new SqlCommand(
+                    "select top 1  idReporte from Reportes order by idReporte desc;",
+                    conexion
+                );
+
+                nnR = Convert.ToInt32(cmd.ExecuteScalar()) + 1;
+
+
+
+                dtDR.Columns.Add("IdReporte");
+                dtDR.Columns.Add("nombre");
+                dtDR.Columns.Add("precio");
+                dtDR.Columns.Add("cantidad");
+
+                totalR = 0;
+            }
+
+            //-----editar Factura---------------------------------------
+            if (ecena == 2 & enFacR == true)
+            {
+                dtDR.Rows.Add(nnR, nF, pF, cF);
+                decimal i = (pF ?? 0) * (cF ?? 0);
+
+                totalR += i;
+                enFac2R = true;
+            }
+
+            //-----confirmar Factura------------------------------------
+            if (ecena == 3)
+            {
+                // & enFacR == true & enFac2R == true
+
+
+                foreach (DataRow fila in dtDR.Rows)
+                {
+                    SqlCommand cmdD = new SqlCommand(
+                        "insert into DetallesR(IdDetallesR, IdReporte, Nombre, Precio, Cantidad) values(next value for seq_idDetalleR, @i, @nombre, @precio, @cantidad)",
+                        conexion
+                    );
+
+                    cmdD.Parameters.AddWithValue("@i", fila["IdReporte"]);
+                    cmdD.Parameters.AddWithValue("@nombre", fila["nombre"]);
+                    cmdD.Parameters.AddWithValue("@precio", fila["precio"]);
+                    cmdD.Parameters.AddWithValue("@cantidad", fila["cantidad"]);
+
+                    cmdD.ExecuteNonQuery();
+
+                    //---------------------------------------------------------------------------
+
+
+                    SqlCommand cmdP = new SqlCommand(
+                        "UPDATE productos SET stock = stock + @cantidad WHERE nombre = @nombre",
+                        conexion
+                    );
+
+                    cmdP.Parameters.AddWithValue("@nombre", fila["nombre"]);
+                    cmdP.Parameters.AddWithValue("@cantidad", fila["cantidad"]);
+
+                    cmdP.ExecuteNonQuery();
+                }
+
+                SqlCommand cmdF = new SqlCommand(
+                        "insert into Reportes(idReporte, Total, Fecha) values(NEXT VALUE FOR seq_idReporte, @Total, GETDATE());",
+                        conexion
+                );
+
+                cmdF.Parameters.AddWithValue("@Total", totalR);
+
+                cmdF.ExecuteNonQuery();
+
+                totalR = 0;
+                nnR = 0;
+                dtDR?.Reset();
+                enFacR = false;
+                enFac2R = false;
+                verReporte.Text = "------------Factura-----------                               ";
+                crearReporte(1);
+
+                foreach (Control p in ptInventario.Controls)
+                {
+                    if (p != null && p.Tag?.ToString() == "pnlC")
+                    {
+                        ptInventario.Controls.Remove(p);
+                        p.Dispose();
+                        break;
+                    }
+                }
+            }
+
+            if (ecena == 4)
+            {
+                totalR = 0;
+                nnR = 0;
+                dtDR?.Reset();
+                enFacR = false;
+                enFac2R = false;
+                verReporte.Text = "------------Factura-----------                               ";
+
+                foreach (Control p in ptInventario.Controls)
+                {
+                    if (p.Tag?.ToString() == "pnlC")
+                    {
+                        ptInventario.Controls.Remove(p);
+                        p.Dispose();
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            crearReporte(3);
+        }
+
+        private void CSubirReporte(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            string t = ((DataGridView)sender).Rows[e.RowIndex].Cells["nombre"].Value.ToString();
+            string j = ((DataGridView)sender).Rows[e.RowIndex].Cells[2].Value.ToString();
+
+            Panel pnl = new Panel()
+            {
+                Size = new Size(300, 150),
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+                Tag = "pnlC"
+            };
+
+            pnl.Location = new Point(
+            (this.ClientSize.Width - pnl.Width) / 2,
+            (this.ClientSize.Height - pnl.Height) / 2);
+
+            TextBox txt = new TextBox()
+            {
+                Size = new Size(135, 23),
+                TextAlign = HorizontalAlignment.Center,
+                Location = new Point(115, 70)
+            };
+
+            Label lbl1 = new Label()
+            {
+                AutoSize = false,
+                Text = $"Se a seleccionado {t} para subir a la factura actual",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(200, 35),
+                Location = new Point(50, 25)
+            };
+
+            Label lbl2 = new Label()
+            {
+                AutoSize = false,
+                Text = "Cantidad",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(60, 23),
+                Location = new Point(50, 70)
+            };
+
+            Button btn = new Button()
+            {
+                Text = "Confirmar",
+                Size = new Size(200, 29),
+                Location = new Point(50, 100)
+            };
+
+            Button btns = new Button()
+            {
+                Text = "Confirmar",
+                Size = new Size(20, 20),
+                Location = new Point(280, 0)
+            };
+
+            btn.Click += (s, e) =>
+            {
+                string texto;
+                string cantidad = txt.Text;
+                string tt = t + " |" + cantidad;
+
+                texto = tt.PadRight(30 - j.Length, '-')
+                + j + "\n \n";
+
+                verReporte.Text += texto;
+
+                ptInventario.Controls.Remove(pnl);
+
+                pnl.Dispose();
+
+                crearFactura(2, t, decimal.Parse(j), int.Parse(cantidad));
+
+
+            };
+
+            btns.Click += (s, e) =>
+            {
+                ptInventario.Controls.Remove(pnl);
+                pnl.Dispose();
+            };
+
+            pnl.Controls.Add(txt);
+            pnl.Controls.Add(btn);
+            pnl.Controls.Add(lbl1);
+            pnl.Controls.Add(lbl2);
+            pnl.Controls.Add(btns);
+
+            ptInventario.Controls.Add(pnl);
+
+            pnl.BringToFront();
+
+            txt.Focus();
+
+        }
+
 
     }
 }
