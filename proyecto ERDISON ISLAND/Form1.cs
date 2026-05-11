@@ -283,7 +283,7 @@ namespace proyecto_ERDISON_ISLAND
             lblProductos.Text = txtBuscador.Text;
             PnlInventario.Controls.Clear();
 
-            PnlInventario.Controls.Add(CTabla("productos", txtBuscador.Text, "*", CSubirProducto));
+            PnlInventario.Controls.Add(CTabla("productos", txtBuscador.Text, "*"));
 
             if (txtBuscador.Text == "")
             {
