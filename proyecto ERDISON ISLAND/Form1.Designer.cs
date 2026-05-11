@@ -44,32 +44,13 @@
             pictureBox1 = new PictureBox();
             label13 = new Label();
             ToDo = new Panel();
-            ptFacturacion = new Panel();
-            ptProductos = new Panel();
-            tablaF = new Panel();
-            textBox1 = new TextBox();
-            panel7 = new Panel();
-            label6 = new Label();
-            label8 = new Label();
-            label3 = new Label();
-            label5 = new Label();
-            label7 = new Label();
-            label9 = new Label();
-            label4 = new Label();
-            label10 = new Label();
-            label2 = new Label();
-            label1 = new Label();
-            tt1 = new Panel();
-            ttFacturacion = new Label();
-            Buscador1 = new Button();
-            tt2 = new Panel();
-            lblViewFactura = new Label();
-            button2 = new Button();
             ptAnalisis = new Panel();
+            panel2 = new Panel();
+            btnFacturas = new Button();
+            btnGrafico = new Button();
             panel5 = new Panel();
             DGrafico = new Label();
             panelGrafico = new Panel();
-            panel2 = new Panel();
             ptInicio = new Panel();
             panel3 = new Panel();
             dataGridView2 = new DataGridView();
@@ -106,6 +87,27 @@
             lblProductos = new Label();
             PnlInventario = new Panel();
             button6 = new Button();
+            ptFacturacion = new Panel();
+            ptProductos = new Panel();
+            tablaF = new Panel();
+            textBox1 = new TextBox();
+            panel7 = new Panel();
+            label6 = new Label();
+            label8 = new Label();
+            label3 = new Label();
+            label5 = new Label();
+            label7 = new Label();
+            label9 = new Label();
+            label4 = new Label();
+            label10 = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            tt1 = new Panel();
+            ttFacturacion = new Label();
+            Buscador1 = new Button();
+            button2 = new Button();
+            tt2 = new Panel();
+            lblViewFactura = new Label();
             TbTodo = new TableLayoutPanel();
             Menu.SuspendLayout();
             tbAnalisis.SuspendLayout();
@@ -117,12 +119,8 @@
             btnInicio.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ToDo.SuspendLayout();
-            ptFacturacion.SuspendLayout();
-            ptProductos.SuspendLayout();
-            panel7.SuspendLayout();
-            tt1.SuspendLayout();
-            tt2.SuspendLayout();
             ptAnalisis.SuspendLayout();
+            panel2.SuspendLayout();
             panel5.SuspendLayout();
             ptInicio.SuspendLayout();
             panel3.SuspendLayout();
@@ -138,6 +136,11 @@
             panel13.SuspendLayout();
             panel14.SuspendLayout();
             pnlinv.SuspendLayout();
+            ptFacturacion.SuspendLayout();
+            ptProductos.SuspendLayout();
+            panel7.SuspendLayout();
+            tt1.SuspendLayout();
+            tt2.SuspendLayout();
             TbTodo.SuspendLayout();
             SuspendLayout();
             // 
@@ -297,294 +300,83 @@
             // 
             // ToDo
             // 
-            ToDo.Controls.Add(ptFacturacion);
             ToDo.Controls.Add(ptAnalisis);
             ToDo.Controls.Add(ptInicio);
             ToDo.Controls.Add(ptInventario);
+            ToDo.Controls.Add(ptFacturacion);
             ToDo.Dock = DockStyle.Fill;
             ToDo.Location = new Point(187, 3);
             ToDo.Name = "ToDo";
             ToDo.Size = new Size(1260, 774);
             ToDo.TabIndex = 1;
             // 
-            // ptFacturacion
-            // 
-            ptFacturacion.BackColor = Color.White;
-            ptFacturacion.Controls.Add(ptProductos);
-            ptFacturacion.Controls.Add(panel7);
-            ptFacturacion.Controls.Add(tt1);
-            ptFacturacion.Controls.Add(tt2);
-            ptFacturacion.Controls.Add(button2);
-            ptFacturacion.Location = new Point(5, 4);
-            ptFacturacion.Name = "ptFacturacion";
-            ptFacturacion.Size = new Size(1252, 767);
-            ptFacturacion.TabIndex = 3;
-            ptFacturacion.Paint += ptFacturacion_Paint;
-            // 
-            // ptProductos
-            // 
-            ptProductos.Controls.Add(tablaF);
-            ptProductos.Controls.Add(textBox1);
-            ptProductos.Location = new Point(1100, 37);
-            ptProductos.Name = "ptProductos";
-            ptProductos.Size = new Size(48, 430);
-            ptProductos.TabIndex = 10;
-            // 
-            // tablaF
-            // 
-            tablaF.Location = new Point(5, 45);
-            tablaF.Name = "tablaF";
-            tablaF.Size = new Size(40, 382);
-            tablaF.TabIndex = 2;
-            // 
-            // textBox1
-            // 
-            textBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(5, 5);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(590, 33);
-            textBox1.TabIndex = 1;
-            textBox1.TextAlign = HorizontalAlignment.Center;
-            textBox1.Visible = false;
-            textBox1.TextChanged += textBox1_TextChanged;
-            // 
-            // panel7
-            // 
-            panel7.Controls.Add(label6);
-            panel7.Controls.Add(label8);
-            panel7.Controls.Add(label3);
-            panel7.Controls.Add(label5);
-            panel7.Controls.Add(label7);
-            panel7.Controls.Add(label9);
-            panel7.Controls.Add(label4);
-            panel7.Controls.Add(label10);
-            panel7.Controls.Add(label2);
-            panel7.Controls.Add(label1);
-            panel7.Location = new Point(161, 473);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(835, 41);
-            panel7.TabIndex = 9;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(3, 13);
-            label6.Name = "label6";
-            label6.Size = new Size(66, 17);
-            label6.TabIndex = 6;
-            label6.Text = "EDDISON";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.BorderStyle = BorderStyle.FixedSingle;
-            label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(75, 13);
-            label8.Name = "label8";
-            label8.Size = new Size(68, 19);
-            label8.TabIndex = 6;
-            label8.Text = "EDDISON";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BorderStyle = BorderStyle.FixedSingle;
-            label3.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(752, 11);
-            label3.Name = "label3";
-            label3.Size = new Size(68, 19);
-            label3.TabIndex = 6;
-            label3.Text = "EDDISON";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(680, 11);
-            label5.Name = "label5";
-            label5.Size = new Size(66, 17);
-            label5.TabIndex = 6;
-            label5.Text = "EDDISON";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.BorderStyle = BorderStyle.FixedSingle;
-            label7.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(238, 11);
-            label7.Name = "label7";
-            label7.Size = new Size(68, 19);
-            label7.TabIndex = 6;
-            label7.Text = "EDDISON";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.BorderStyle = BorderStyle.FixedSingle;
-            label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(580, 11);
-            label9.Name = "label9";
-            label9.Size = new Size(68, 19);
-            label9.TabIndex = 6;
-            label9.Text = "EDDISON";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(508, 11);
-            label4.Name = "label4";
-            label4.Size = new Size(66, 17);
-            label4.TabIndex = 6;
-            label4.Text = "EDDISON";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.BorderStyle = BorderStyle.FixedSingle;
-            label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.Location = new Point(409, 11);
-            label10.Name = "label10";
-            label10.Size = new Size(68, 19);
-            label10.TabIndex = 6;
-            label10.Text = "EDDISON";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(166, 13);
-            label2.Name = "label2";
-            label2.Size = new Size(66, 17);
-            label2.TabIndex = 6;
-            label2.Text = "EDDISON";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(337, 13);
-            label1.Name = "label1";
-            label1.Size = new Size(66, 17);
-            label1.TabIndex = 6;
-            label1.Text = "EDDISON";
-            // 
-            // tt1
-            // 
-            tt1.BackColor = Color.FromArgb(0, 0, 64);
-            tt1.Controls.Add(ttFacturacion);
-            tt1.Controls.Add(Buscador1);
-            tt1.Location = new Point(3, 37);
-            tt1.Name = "tt1";
-            tt1.Size = new Size(1072, 157);
-            tt1.TabIndex = 8;
-            tt1.Tag = "radio";
-            // 
-            // ttFacturacion
-            // 
-            ttFacturacion.AutoSize = true;
-            ttFacturacion.BackColor = Color.FromArgb(0, 0, 64);
-            ttFacturacion.Font = new Font("OCR A Extended", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ttFacturacion.ForeColor = Color.White;
-            ttFacturacion.Location = new Point(300, 20);
-            ttFacturacion.Name = "ttFacturacion";
-            ttFacturacion.RightToLeft = RightToLeft.No;
-            ttFacturacion.Size = new Size(468, 66);
-            ttFacturacion.TabIndex = 7;
-            ttFacturacion.Text = "Facturacion";
-            // 
-            // Buscador1
-            // 
-            Buscador1.BackColor = Color.White;
-            Buscador1.BackgroundImageLayout = ImageLayout.Stretch;
-            Buscador1.FlatAppearance.BorderSize = 0;
-            Buscador1.FlatStyle = FlatStyle.Flat;
-            Buscador1.Font = new Font("Niagara Solid", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Buscador1.ForeColor = Color.White;
-            Buscador1.Image = Properties.Resources.Bucar2;
-            Buscador1.Location = new Point(39, 113);
-            Buscador1.Name = "Buscador1";
-            Buscador1.Size = new Size(237, 34);
-            Buscador1.TabIndex = 2;
-            Buscador1.UseVisualStyleBackColor = false;
-            Buscador1.Click += Buscador1_Click;
-            // 
-            // tt2
-            // 
-            tt2.BorderStyle = BorderStyle.FixedSingle;
-            tt2.Controls.Add(lblViewFactura);
-            tt2.Font = new Font("Niagara Solid", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tt2.Location = new Point(3, 200);
-            tt2.Name = "tt2";
-            tt2.Size = new Size(1072, 267);
-            tt2.TabIndex = 5;
-            // 
-            // lblViewFactura
-            // 
-            lblViewFactura.BorderStyle = BorderStyle.FixedSingle;
-            lblViewFactura.Font = new Font("Consolas", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblViewFactura.Location = new Point(10, 12);
-            lblViewFactura.Name = "lblViewFactura";
-            lblViewFactura.Size = new Size(290, 243);
-            lblViewFactura.TabIndex = 0;
-            lblViewFactura.Text = "------------Factura-----------                               ";
-            // 
-            // button2
-            // 
-            button2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(42, 476);
-            button2.Name = "button2";
-            button2.Size = new Size(102, 36);
-            button2.TabIndex = 4;
-            button2.Text = "Subir ";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
             // ptAnalisis
             // 
             ptAnalisis.BackColor = Color.Gainsboro;
-            ptAnalisis.Controls.Add(panel5);
             ptAnalisis.Controls.Add(panel2);
+            ptAnalisis.Controls.Add(panel5);
             ptAnalisis.Location = new Point(5, 7);
             ptAnalisis.Name = "ptAnalisis";
             ptAnalisis.Size = new Size(1252, 767);
             ptAnalisis.TabIndex = 14;
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.Black;
+            panel2.Controls.Add(btnFacturas);
+            panel2.Controls.Add(btnGrafico);
+            panel2.Location = new Point(14, 72);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(213, 658);
+            panel2.TabIndex = 5;
+            // 
+            // btnFacturas
+            // 
+            btnFacturas.Location = new Point(15, 58);
+            btnFacturas.Name = "btnFacturas";
+            btnFacturas.Size = new Size(98, 27);
+            btnFacturas.TabIndex = 1;
+            btnFacturas.Text = "VerFacturas";
+            btnFacturas.UseVisualStyleBackColor = true;
+            btnFacturas.Click += btnFacturas_Click;
+            // 
+            // btnGrafico
+            // 
+            btnGrafico.Location = new Point(15, 15);
+            btnGrafico.Name = "btnGrafico";
+            btnGrafico.Size = new Size(98, 24);
+            btnGrafico.TabIndex = 0;
+            btnGrafico.Text = "Ver Grafico1";
+            btnGrafico.UseVisualStyleBackColor = true;
+            btnGrafico.Click += btnGrafico_Click;
+            // 
             // panel5
             // 
+            panel5.BackColor = Color.LightGray;
             panel5.Controls.Add(DGrafico);
             panel5.Controls.Add(panelGrafico);
             panel5.Location = new Point(364, 72);
             panel5.Name = "panel5";
-            panel5.Size = new Size(849, 514);
+            panel5.Size = new Size(817, 560);
             panel5.TabIndex = 6;
             // 
             // DGrafico
             // 
             DGrafico.BorderStyle = BorderStyle.FixedSingle;
             DGrafico.Font = new Font("Lucida Sans", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            DGrafico.Location = new Point(32, 338);
+            DGrafico.Location = new Point(35, 368);
             DGrafico.Name = "DGrafico";
-            DGrafico.Size = new Size(786, 121);
+            DGrafico.Size = new Size(746, 121);
             DGrafico.TabIndex = 1;
             DGrafico.Text = "Este texto es la descripcion de grafico";
             // 
             // panelGrafico
             // 
             panelGrafico.BackColor = Color.White;
-            panelGrafico.Location = new Point(32, 3);
+            panelGrafico.Location = new Point(35, 33);
             panelGrafico.Name = "panelGrafico";
-            panelGrafico.Size = new Size(786, 317);
+            panelGrafico.Size = new Size(746, 317);
             panelGrafico.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            panel2.BackColor = Color.Black;
-            panel2.Location = new Point(14, 72);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(213, 658);
-            panel2.TabIndex = 5;
             // 
             // ptInicio
             // 
@@ -1001,6 +793,240 @@
             button6.Text = "Agregar";
             button6.UseVisualStyleBackColor = true;
             // 
+            // ptFacturacion
+            // 
+            ptFacturacion.BackColor = Color.White;
+            ptFacturacion.Controls.Add(ptProductos);
+            ptFacturacion.Controls.Add(panel7);
+            ptFacturacion.Controls.Add(tt1);
+            ptFacturacion.Controls.Add(button2);
+            ptFacturacion.Controls.Add(tt2);
+            ptFacturacion.Location = new Point(5, 4);
+            ptFacturacion.Name = "ptFacturacion";
+            ptFacturacion.Size = new Size(1252, 767);
+            ptFacturacion.TabIndex = 3;
+            ptFacturacion.Paint += ptFacturacion_Paint;
+            // 
+            // ptProductos
+            // 
+            ptProductos.Controls.Add(tablaF);
+            ptProductos.Controls.Add(textBox1);
+            ptProductos.Location = new Point(1100, 37);
+            ptProductos.Name = "ptProductos";
+            ptProductos.Size = new Size(48, 430);
+            ptProductos.TabIndex = 10;
+            // 
+            // tablaF
+            // 
+            tablaF.Location = new Point(5, 45);
+            tablaF.Name = "tablaF";
+            tablaF.Size = new Size(40, 382);
+            tablaF.TabIndex = 2;
+            // 
+            // textBox1
+            // 
+            textBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox1.Location = new Point(5, 5);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(590, 33);
+            textBox1.TabIndex = 1;
+            textBox1.TextAlign = HorizontalAlignment.Center;
+            textBox1.Visible = false;
+            textBox1.TextChanged += textBox1_TextChanged;
+            // 
+            // panel7
+            // 
+            panel7.Controls.Add(label6);
+            panel7.Controls.Add(label8);
+            panel7.Controls.Add(label3);
+            panel7.Controls.Add(label5);
+            panel7.Controls.Add(label7);
+            panel7.Controls.Add(label9);
+            panel7.Controls.Add(label4);
+            panel7.Controls.Add(label10);
+            panel7.Controls.Add(label2);
+            panel7.Controls.Add(label1);
+            panel7.Location = new Point(161, 473);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(835, 41);
+            panel7.TabIndex = 9;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(3, 13);
+            label6.Name = "label6";
+            label6.Size = new Size(66, 17);
+            label6.TabIndex = 6;
+            label6.Text = "EDDISON";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.BorderStyle = BorderStyle.FixedSingle;
+            label8.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Location = new Point(75, 13);
+            label8.Name = "label8";
+            label8.Size = new Size(68, 19);
+            label8.TabIndex = 6;
+            label8.Text = "EDDISON";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BorderStyle = BorderStyle.FixedSingle;
+            label3.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(752, 11);
+            label3.Name = "label3";
+            label3.Size = new Size(68, 19);
+            label3.TabIndex = 6;
+            label3.Text = "EDDISON";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(680, 11);
+            label5.Name = "label5";
+            label5.Size = new Size(66, 17);
+            label5.TabIndex = 6;
+            label5.Text = "EDDISON";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BorderStyle = BorderStyle.FixedSingle;
+            label7.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.Location = new Point(238, 11);
+            label7.Name = "label7";
+            label7.Size = new Size(68, 19);
+            label7.TabIndex = 6;
+            label7.Text = "EDDISON";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.BorderStyle = BorderStyle.FixedSingle;
+            label9.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.Location = new Point(580, 11);
+            label9.Name = "label9";
+            label9.Size = new Size(68, 19);
+            label9.TabIndex = 6;
+            label9.Text = "EDDISON";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(508, 11);
+            label4.Name = "label4";
+            label4.Size = new Size(66, 17);
+            label4.TabIndex = 6;
+            label4.Text = "EDDISON";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.BorderStyle = BorderStyle.FixedSingle;
+            label10.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.Location = new Point(409, 11);
+            label10.Name = "label10";
+            label10.Size = new Size(68, 19);
+            label10.TabIndex = 6;
+            label10.Text = "EDDISON";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(166, 13);
+            label2.Name = "label2";
+            label2.Size = new Size(66, 17);
+            label2.TabIndex = 6;
+            label2.Text = "EDDISON";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(337, 13);
+            label1.Name = "label1";
+            label1.Size = new Size(66, 17);
+            label1.TabIndex = 6;
+            label1.Text = "EDDISON";
+            // 
+            // tt1
+            // 
+            tt1.BackColor = Color.FromArgb(0, 0, 64);
+            tt1.Controls.Add(ttFacturacion);
+            tt1.Controls.Add(Buscador1);
+            tt1.Location = new Point(3, 37);
+            tt1.Name = "tt1";
+            tt1.Size = new Size(1072, 157);
+            tt1.TabIndex = 8;
+            tt1.Tag = "radio";
+            // 
+            // ttFacturacion
+            // 
+            ttFacturacion.AutoSize = true;
+            ttFacturacion.BackColor = Color.FromArgb(0, 0, 64);
+            ttFacturacion.Font = new Font("OCR A Extended", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ttFacturacion.ForeColor = Color.White;
+            ttFacturacion.Location = new Point(300, 20);
+            ttFacturacion.Name = "ttFacturacion";
+            ttFacturacion.RightToLeft = RightToLeft.No;
+            ttFacturacion.Size = new Size(468, 66);
+            ttFacturacion.TabIndex = 7;
+            ttFacturacion.Text = "Facturacion";
+            // 
+            // Buscador1
+            // 
+            Buscador1.BackColor = Color.White;
+            Buscador1.BackgroundImageLayout = ImageLayout.Stretch;
+            Buscador1.FlatAppearance.BorderSize = 0;
+            Buscador1.FlatStyle = FlatStyle.Flat;
+            Buscador1.Font = new Font("Niagara Solid", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Buscador1.ForeColor = Color.White;
+            Buscador1.Image = Properties.Resources.Bucar2;
+            Buscador1.Location = new Point(39, 113);
+            Buscador1.Name = "Buscador1";
+            Buscador1.Size = new Size(237, 34);
+            Buscador1.TabIndex = 2;
+            Buscador1.UseVisualStyleBackColor = false;
+            Buscador1.Click += Buscador1_Click;
+            // 
+            // button2
+            // 
+            button2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.Location = new Point(42, 476);
+            button2.Name = "button2";
+            button2.Size = new Size(102, 36);
+            button2.TabIndex = 4;
+            button2.Text = "Subir ";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // tt2
+            // 
+            tt2.BorderStyle = BorderStyle.FixedSingle;
+            tt2.Controls.Add(lblViewFactura);
+            tt2.Font = new Font("Niagara Solid", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tt2.Location = new Point(3, 200);
+            tt2.Name = "tt2";
+            tt2.Size = new Size(1072, 267);
+            tt2.TabIndex = 5;
+            // 
+            // lblViewFactura
+            // 
+            lblViewFactura.BorderStyle = BorderStyle.FixedSingle;
+            lblViewFactura.Font = new Font("Consolas", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblViewFactura.Location = new Point(10, 12);
+            lblViewFactura.Name = "lblViewFactura";
+            lblViewFactura.Size = new Size(290, 244);
+            lblViewFactura.TabIndex = 0;
+            lblViewFactura.Text = "------------Factura-----------                               ";
+            // 
             // TbTodo
             // 
             TbTodo.BackColor = Color.FromArgb(0, 0, 64);
@@ -1045,15 +1071,8 @@
             btnInicio.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ToDo.ResumeLayout(false);
-            ptFacturacion.ResumeLayout(false);
-            ptProductos.ResumeLayout(false);
-            ptProductos.PerformLayout();
-            panel7.ResumeLayout(false);
-            panel7.PerformLayout();
-            tt1.ResumeLayout(false);
-            tt1.PerformLayout();
-            tt2.ResumeLayout(false);
             ptAnalisis.ResumeLayout(false);
+            panel2.ResumeLayout(false);
             panel5.ResumeLayout(false);
             ptInicio.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -1077,6 +1096,14 @@
             panel14.ResumeLayout(false);
             panel14.PerformLayout();
             pnlinv.ResumeLayout(false);
+            ptFacturacion.ResumeLayout(false);
+            ptProductos.ResumeLayout(false);
+            ptProductos.PerformLayout();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
+            tt1.ResumeLayout(false);
+            tt1.PerformLayout();
+            tt2.ResumeLayout(false);
             TbTodo.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -1166,5 +1193,7 @@
         private Panel panel2;
         private Panel tablaF;
         private Label lblViewFactura;
+        private Button btnFacturas;
+        private Button btnGrafico;
     }
 }

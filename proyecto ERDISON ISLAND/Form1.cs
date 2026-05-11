@@ -1,4 +1,5 @@
 using Microsoft.Data.SqlClient;
+using System;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Drawing.Drawing2D;
@@ -6,6 +7,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
 using static System.Windows.Forms.Design.AxImporter;
 namespace proyecto_ERDISON_ISLAND
 {
@@ -119,7 +122,6 @@ namespace proyecto_ERDISON_ISLAND
 
         {
             hh = 1;
-            CrearGrafico("johan", 10, "jose", 20, "eddison", 50);
             asignarEnlaces();
             CargarDatos();
             CargarStock();
@@ -128,7 +130,7 @@ namespace proyecto_ERDISON_ISLAND
             RecorrerControles(this);
 
 
-
+        
 
         }
 
@@ -199,7 +201,7 @@ namespace proyecto_ERDISON_ISLAND
 
 
 
-        private void CrearGrafico(string n1, int i1, string n2, int i2, string n3, int i3)
+        private Chart CrearGrafico(string n1, int i1, string n2, int i2, string n3, int i3)
         {
             Chart chart = new Chart();
             chart.Dock = DockStyle.Fill;
@@ -216,17 +218,26 @@ namespace proyecto_ERDISON_ISLAND
 
             chart.Series.Add(serie);
 
-            panelGrafico.Controls.Add(chart);
+            return chart;
+
         }
 
 
 
-        private DataGridView CTabla(string nombre_tabla, string filtro = null, string t1 = null)
+        private DataGridView CTabla(string nombre_tabla, string filtro = null, string t1 = null, DataGridViewCellEventHandler evento = null)
         {
             //-----------------------------------------//
+            string query;
+            if (filtro == null)
+            {
+                query = $"SELECT {t1} FROM {nombre_tabla}";
+            }
+            else
+            {
+                query = $"SELECT {t1} FROM {nombre_tabla} WHERE nombre LIKE @t";
+            }
 
-
-            string query = $"SELECT {t1} FROM {nombre_tabla} WHERE nombre LIKE @t";
+            
 
             SqlDataAdapter da = new SqlDataAdapter(query, conexion);
             da.SelectCommand.Parameters.AddWithValue("@t", "%" + (filtro ?? "") + "%");
@@ -242,23 +253,27 @@ namespace proyecto_ERDISON_ISLAND
                 MultiSelect = false, //solo deja seleccionar una fila
                 RowHeadersVisible = false, //elimina la primera columna de la izquierda
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill, //auto relleno
-                Font = new Font("Arial", 14),
+                Font = new System.Drawing.Font("Arial", 14),
                 BackgroundColor = Color.White,
                 ColumnHeadersHeight = 40,
+                AllowUserToAddRows = false,
                 ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
                 AllowUserToResizeColumns = false,
                 AllowUserToResizeRows = false,
                 ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle()
                 {
-                    Font = new Font("Arial", 18, FontStyle.Bold)
+                    Font = new System.Drawing.Font("Arial", 18, FontStyle.Bold),
                 },
                 //dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 16, FontStyle.Bold);
                 Location = new Point(0, 0),
                 Dock = DockStyle.Fill,
                 DataSource = dt
             };
-
-            dgv.CellClick += CSubirProducto;
+            if (evento != null)
+            {
+                dgv.CellClick += evento;
+            }
+            
             return dgv;
 
         }
@@ -268,7 +283,7 @@ namespace proyecto_ERDISON_ISLAND
             lblProductos.Text = txtBuscador.Text;
             PnlInventario.Controls.Clear();
 
-            PnlInventario.Controls.Add(CTabla("productos", txtBuscador.Text, "*"));
+            PnlInventario.Controls.Add(CTabla("productos", txtBuscador.Text, "*", CSubirProducto));
 
             if (txtBuscador.Text == "")
             {
@@ -288,7 +303,7 @@ namespace proyecto_ERDISON_ISLAND
 
         private void Buscador1_Click(object sender, EventArgs e)
         {
-            
+
 
             if (hh == 1)
             {
@@ -306,7 +321,7 @@ namespace proyecto_ERDISON_ISLAND
                 ptProductos.Width = 600;
                 tablaF.Width = 590;
 
-                tablaF.Controls.Add(CTabla("productos", textBox1.Text, "nombre, precio"));
+                tablaF.Controls.Add(CTabla("productos", textBox1.Text, "nombre, precio", CSubirProducto));
                 accion = true;
             }
             else
@@ -357,6 +372,8 @@ namespace proyecto_ERDISON_ISLAND
         }
         private void CSubirProducto(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
 
             string t = ((DataGridView)sender).Rows[e.RowIndex].Cells["nombre"].Value.ToString();
             string j = ((DataGridView)sender).Rows[e.RowIndex].Cells[1].Value.ToString();
@@ -372,7 +389,7 @@ namespace proyecto_ERDISON_ISLAND
             pnl.Location = new Point(
             (this.ClientSize.Width - pnl.Width) / 2,
             (this.ClientSize.Height - pnl.Height) / 2);
-            
+
             TextBox txt = new TextBox()
             {
                 Size = new Size(135, 23),
@@ -417,7 +434,6 @@ namespace proyecto_ERDISON_ISLAND
                 string texto;
                 string cantidad = txt.Text;
                 string tt = t + " |" + cantidad;
-                //MessageBox.Show("Escribiste: " + texto);
 
                 texto = tt.PadRight(30 - j.Length, '-')
                 + j + "\n \n";
@@ -466,7 +482,7 @@ namespace proyecto_ERDISON_ISLAND
 
                 nn = Convert.ToInt32(cmd.ExecuteScalar()) + 1;
 
-                
+
 
                 dtD.Columns.Add("IdFactura");
                 dtD.Columns.Add("nombre");
@@ -475,11 +491,11 @@ namespace proyecto_ERDISON_ISLAND
 
                 total = 0;
             }
-            
+
             //-----editar Factura---------------------------------------
             if (ecena == 2 & enFac == true)
             {
-                dtD.Rows.Add(nn, nF, pF, cF);                               
+                dtD.Rows.Add(nn, nF, pF, cF);
                 decimal i = (pF ?? 0) * (cF ?? 0);
 
                 total += i;
@@ -532,7 +548,7 @@ namespace proyecto_ERDISON_ISLAND
                 }
             }
 
-            if(ecena == 4)
+            if (ecena == 4)
             {
                 total = 0;
                 nn = 0;
@@ -550,22 +566,125 @@ namespace proyecto_ERDISON_ISLAND
                         break;
                     }
                 }
-            }          
+            }
+
+        }
+
+        private void btnGrafico_Click(object sender, EventArgs e)
+        {
+            panelGrafico.Controls.Clear();
+
+            panelGrafico.Controls.Add(CrearGrafico("johan", 10, "jose", 20, "eddison", 50));
+        }
+
+        private void btnFacturas_Click(object sender, EventArgs e)
+        {
+            panelGrafico.Controls.Clear();
+            
+
+            panelGrafico.Controls.Add(CTabla("facturas",null,"*", verFactura));
+        }
+
+
+
+
+        private void verFactura(object sender, DataGridViewCellEventArgs e)
+        {
+            vewFactura(sender, e);
+        }
 
 
 
 
 
-            // se crea una nueva factura
-            //nn = 1;
-            //nombreF = new string[] { "juan", "pedro" };
-            //nombreF[nn] = "";
 
 
+        private void vewFactura(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+            accion = true;
+            string f = ((DataGridView)sender).Rows[e.RowIndex].Cells[2].Value.ToString();
+            string Tt = ((DataGridView)sender).Rows[e.RowIndex].Cells[1].Value.ToString();
+            int t = Convert.ToInt32(((DataGridView)sender).Rows[e.RowIndex].Cells[0].Value);
+
+                        
+            Panel pnF= new Panel()
+            {
+                Size = new Size(300, 500),
+                BackColor = Color.White,
+                Location = new Point(this.Width / 2, 50)
+            };
+
+
+            Label lbF = new Label()
+            {
+                AutoSize = false,
+                Size = new Size(290, 490),
+                BorderStyle = BorderStyle.FixedSingle,
+                Location = new Point(5, 5),
+                Font = new System.Drawing.Font("Consolas", 12),
+                Text = "------------Factura----------- \n \n Id |00" + t + "\n fecha |" + f  + "\n\n------------Productos---------\n\n"
+            };
+            SqlCommand cmd = new SqlCommand(
+                $"select nombre, precio, cantidad from DetallesF where idfactura = @id",
+                conexion);
+
+            cmd.Parameters.AddWithValue("@id", t);
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            string texto = "\n";
+
+            while (dr.Read())
+            {
+                string nombre = dr["Nombre"].ToString();
+                string precio = dr["Precio"].ToString();
+                string cantidad = dr["Cantidad"].ToString();
+
+
+
+               
+                string tt = nombre + " |" + cantidad;
+
+                texto += tt.PadRight(30 - precio.Length, '-') + precio + "\n \n";
+
+
+                
+            }
+            texto += "------------Detalle----------- \n \n total |" + Tt;
+            lbF.Text += texto;
+            dr.Close();
+
+            //-----------------------------------
+
+            pnF.Controls.Add(lbF);
+            this.Controls.Add(pnF);
+
+            pnF.BringToFront();
+
+            pnF.Click += (s, e) =>
+            {
+                ptFacturacion.Controls.Remove(pnF);
+                pnF.Dispose();
+                accion = false;
+            };
+
+            lbF.Click += (s, e) =>
+            {
+                ptFacturacion.Controls.Remove(pnF);
+                pnF.Dispose();
+                accion = false;
+            };
+
+            //MessageBox.Show("ver factura");
+        }
+
+        private void destruir(object sender, EventArgs e)
+        {
             
         }
 
-        
     }
 }
 
