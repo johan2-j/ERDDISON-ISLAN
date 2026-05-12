@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
@@ -823,6 +824,16 @@ namespace proyecto_ERDISON_ISLAND
 
             btn.Click += (s, e) =>
             {
+                if (!int.TryParse(txt.Text, out int numero) || txt.Text == "0")
+                {
+                    MessageBox.Show("Valor no permitido");
+                    txt.Text = "";
+                    txt.Focus();
+                    return;
+                }
+
+
+
                 string texto;
                 string cantidad = txt.Text;
                 string tt = t + " |" + cantidad;
@@ -1061,7 +1072,7 @@ namespace proyecto_ERDISON_ISLAND
 
             Panel pnF = new Panel()
             {
-                Size = new Size(300, 500),
+                Size = new Size(400, 500),
                 BackColor = Color.White,
                 Location = new Point(this.Width / 2, 50)
             };
@@ -1070,11 +1081,11 @@ namespace proyecto_ERDISON_ISLAND
             Label lbF = new Label()
             {
                 AutoSize = false,
-                Size = new Size(290, 490),
+                Size = new Size(380, 490),
                 BorderStyle = BorderStyle.FixedSingle,
                 Location = new Point(5, 5),
                 Font = new System.Drawing.Font("Consolas", 12),
-                Text = "------------Factura----------- \n \n Id |00" + t + "\n fecha |" + f + "\n\n------------Productos---------\n\n"
+                Text = "-----------------Factura---------------- \n \n Id |00" + t + "\n fecha |" + f + "\n\n-----------------Productos--------------\n\n"
             };
             SqlCommand cmd = new SqlCommand(
                 $"select nombre, precio, cantidad from DetallesF where idfactura = @id",
@@ -1097,12 +1108,12 @@ namespace proyecto_ERDISON_ISLAND
 
                 string tt = nombre + " |" + cantidad;
 
-                texto += tt.PadRight(30 - precio.Length, '-') + precio + "\n \n";
+                texto += tt.PadRight(40 - precio.Length, '-') + precio + "\n \n";
 
 
 
             }
-            texto += "------------Detalle----------- \n \n total |" + Tt;
+            texto += "-----------------Detalle---------------- \n \n total |" + Tt;
             lbF.Text += texto;
             dr.Close();
 
@@ -1146,7 +1157,7 @@ namespace proyecto_ERDISON_ISLAND
 
             Panel pnF = new Panel()
             {
-                Size = new Size(300, 500),
+                Size = new Size(400, 500),
                 BackColor = Color.White,
                 Location = new Point(this.Width / 2, 50)
             };
@@ -1155,11 +1166,11 @@ namespace proyecto_ERDISON_ISLAND
             Label lbF = new Label()
             {
                 AutoSize = false,
-                Size = new Size(290, 490),
+                Size = new Size(380, 490),
                 BorderStyle = BorderStyle.FixedSingle,
                 Location = new Point(5, 5),
                 Font = new System.Drawing.Font("Consolas", 12),
-                Text = "------------Reporte----------- \n \n Id |00" + t + "\n fecha |" + f + "\n\n------------Productos---------\n\n"
+                Text = "-----------------Reporte---------------- \n \n Id |00" + t + "\n fecha |" + f + "\n\n-----------------Productos--------------\n\n"
             };
             SqlCommand cmd = new SqlCommand(
                 $"select nombre, cantidad from DetallesR where idReporte = @id",
@@ -1181,12 +1192,12 @@ namespace proyecto_ERDISON_ISLAND
 
                 string tt = nombre + " |";
 
-                texto += tt.PadRight(30 - 2 - cantidad.Length, '-') + "| " + cantidad + "\n \n";
+                texto += tt.PadRight(40 - 2 - cantidad.Length, '-') + "| " + cantidad + "\n \n";
 
 
 
             }
-            texto += "------------Detalle----------- \n \n ...";
+            texto += "-----------------Detalle---------------- \n \n ...";
             lbF.Text += texto;
             dr.Close();
 
@@ -1249,6 +1260,7 @@ namespace proyecto_ERDISON_ISLAND
         {
             accion = true;
             ptControlP.BringToFront();
+            ptControlP.Location = new Point(100, 20);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -1259,6 +1271,71 @@ namespace proyecto_ERDISON_ISLAND
         private void button2_Click(object sender, EventArgs e)
         {
             ptAgregarP.BringToFront();
+        }
+
+
+        //------------------------------------------------------------------------------------//------------------------------------------------------------------------------------
+        //------------------------agregar Productos-------------------------------------------//------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------//------------------------------------------------------------------------------------
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+            string nombre = txt3.Text;
+            string precio = txt2.Text;
+            string cantidad = txt1.Text;
+
+            if (!decimal.TryParse(precio, out decimal dec) || precio == "0" || precio == "" || !Regex.IsMatch(precio, @"^[0-9.]+$"))
+            {
+                MessageBox.Show("Valor no valido en Precio");
+                txt2.Focus();
+                return;
+            }
+
+            if (!int.TryParse(cantidad, out int cn) || cantidad == "0" || cantidad == "" || !Regex.IsMatch(cantidad, @"^[0-9]+$"))
+            {
+                MessageBox.Show("Valor no valido en Cantidad");
+                txt1.Focus();
+                return;
+            }
+
+            if (nombre == "" || !Regex.IsMatch(nombre, @"^[a-zA-Z0-9·ÈÌÛ˙¡…Õ”⁄Ò—_ )(]+$"))
+            {
+                MessageBox.Show("Valor no valido en Nombre");
+                txt3.Focus();
+                return;
+            }
+
+
+            SqlCommand cmd = new SqlCommand(
+                "INSERT INTO productos (id, nombre, precio, stock) VALUES (next value for seq_idProductos, @nombre, @precio, @stock)",
+                conexion
+            );
+
+            cmd.Parameters.AddWithValue("@nombre", nombre);
+            cmd.Parameters.AddWithValue("@precio", precio);
+            cmd.Parameters.AddWithValue("@stock", cantidad);
+
+            cmd.ExecuteNonQuery();
+
+            MessageBox.Show($"Has ingresado una nueva tabla:\nNombre: {nombre}\nPrecio: {precio}\nCantidade: {cantidad}");
+
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            txt3.Text = "";
+            txt2.Text = "";
+            txt1.Text = "";
+        }
+
+        private void cerrarCP_Click(object sender, EventArgs e)
+        {
+            accion = false;
+            txt3.Text = "";
+            txt2.Text = "";
+            txt1.Text = "";
+            ptInventario.BringToFront();
         }
     }
 }
