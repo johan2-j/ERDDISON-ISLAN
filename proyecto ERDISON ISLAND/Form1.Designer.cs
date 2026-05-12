@@ -44,6 +44,29 @@
             pictureBox1 = new PictureBox();
             label13 = new Label();
             ToDo = new Panel();
+            ptInicio = new Panel();
+            panel3 = new Panel();
+            dataGridView2 = new DataGridView();
+            label26 = new Label();
+            buttonint3 = new Button();
+            buttonint2 = new Button();
+            buttonint1 = new Button();
+            panelint5 = new Panel();
+            label24 = new Label();
+            panel1 = new Panel();
+            dataGridView1 = new DataGridView();
+            panelint4 = new Panel();
+            label23 = new Label();
+            label22 = new Label();
+            panelint3 = new Panel();
+            label21 = new Label();
+            label20 = new Label();
+            panelint2 = new Panel();
+            label19 = new Label();
+            label16 = new Label();
+            panelint1 = new Panel();
+            label15 = new Label();
+            label14 = new Label();
             ptControlP = new Panel();
             button4 = new Button();
             button2 = new Button();
@@ -119,29 +142,6 @@
             panel5 = new Panel();
             DGrafico = new Label();
             panelGrafico = new Panel();
-            ptInicio = new Panel();
-            panel3 = new Panel();
-            dataGridView2 = new DataGridView();
-            label26 = new Label();
-            buttonint3 = new Button();
-            buttonint2 = new Button();
-            buttonint1 = new Button();
-            panelint5 = new Panel();
-            label24 = new Label();
-            panel1 = new Panel();
-            dataGridView1 = new DataGridView();
-            panelint4 = new Panel();
-            label23 = new Label();
-            label22 = new Label();
-            panelint3 = new Panel();
-            label21 = new Label();
-            label20 = new Label();
-            panelint2 = new Panel();
-            label19 = new Label();
-            label16 = new Label();
-            panelint1 = new Panel();
-            label15 = new Label();
-            label14 = new Label();
             TbTodo = new TableLayoutPanel();
             Menu.SuspendLayout();
             tbAnalisis.SuspendLayout();
@@ -153,6 +153,16 @@
             btnInicio.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ToDo.SuspendLayout();
+            ptInicio.SuspendLayout();
+            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            panelint5.SuspendLayout();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panelint4.SuspendLayout();
+            panelint3.SuspendLayout();
+            panelint2.SuspendLayout();
+            panelint1.SuspendLayout();
             ptControlP.SuspendLayout();
             panel11.SuspendLayout();
             ptAgregarP.SuspendLayout();
@@ -170,16 +180,6 @@
             ptAnalisis.SuspendLayout();
             panel2.SuspendLayout();
             panel5.SuspendLayout();
-            ptInicio.SuspendLayout();
-            panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
-            panelint5.SuspendLayout();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            panelint4.SuspendLayout();
-            panelint3.SuspendLayout();
-            panelint2.SuspendLayout();
-            panelint1.SuspendLayout();
             TbTodo.SuspendLayout();
             SuspendLayout();
             // 
@@ -339,16 +339,293 @@
             // 
             // ToDo
             // 
-            ToDo.Controls.Add(ptInicio);
             ToDo.Controls.Add(ptControlP);
             ToDo.Controls.Add(ptInventario);
             ToDo.Controls.Add(ptFacturacion);
             ToDo.Controls.Add(ptAnalisis);
+            ToDo.Controls.Add(ptInicio);
             ToDo.Dock = DockStyle.Fill;
             ToDo.Location = new Point(187, 3);
             ToDo.Name = "ToDo";
             ToDo.Size = new Size(1260, 774);
             ToDo.TabIndex = 1;
+            // 
+            // ptInicio
+            // 
+            ptInicio.AutoScroll = true;
+            ptInicio.BackColor = Color.FromArgb(224, 224, 224);
+            ptInicio.Controls.Add(panel3);
+            ptInicio.Controls.Add(buttonint3);
+            ptInicio.Controls.Add(buttonint2);
+            ptInicio.Controls.Add(buttonint1);
+            ptInicio.Controls.Add(panelint5);
+            ptInicio.Controls.Add(panelint4);
+            ptInicio.Controls.Add(panelint3);
+            ptInicio.Controls.Add(panelint2);
+            ptInicio.Controls.Add(panelint1);
+            ptInicio.Location = new Point(5, 4);
+            ptInicio.Name = "ptInicio";
+            ptInicio.Size = new Size(1252, 767);
+            ptInicio.TabIndex = 14;
+            ptInicio.Tag = "";
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.White;
+            panel3.Controls.Add(dataGridView2);
+            panel3.Controls.Add(label26);
+            panel3.Location = new Point(21, 370);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1050, 205);
+            panel3.TabIndex = 4;
+            panel3.Tag = "radio";
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.AllowUserToAddRows = false;
+            dataGridView2.AllowUserToDeleteRows = false;
+            dataGridView2.AllowUserToResizeColumns = false;
+            dataGridView2.AllowUserToResizeRows = false;
+            dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.BackgroundColor = Color.White;
+            dataGridView2.ColumnHeadersHeight = 46;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridView2.ColumnHeadersVisible = false;
+            dataGridView2.Location = new Point(9, 53);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.ReadOnly = true;
+            dataGridView2.RowHeadersVisible = false;
+            dataGridView2.RowHeadersWidth = 82;
+            dataGridView2.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridView2.Size = new Size(1015, 144);
+            dataGridView2.TabIndex = 1;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
+            label26.Location = new Point(6, 12);
+            label26.Name = "label26";
+            label26.Size = new Size(262, 30);
+            label26.TabIndex = 0;
+            label26.Text = "Productos con bajo stock";
+            // 
+            // buttonint3
+            // 
+            buttonint3.BackColor = Color.FromArgb(128, 128, 255);
+            buttonint3.Cursor = Cursors.Hand;
+            buttonint3.FlatStyle = FlatStyle.Flat;
+            buttonint3.Location = new Point(703, 244);
+            buttonint3.Name = "buttonint3";
+            buttonint3.Size = new Size(370, 38);
+            buttonint3.TabIndex = 3;
+            buttonint3.Tag = "radio";
+            buttonint3.Text = "button8";
+            buttonint3.UseVisualStyleBackColor = false;
+            // 
+            // buttonint2
+            // 
+            buttonint2.BackColor = Color.FromArgb(128, 128, 255);
+            buttonint2.Cursor = Cursors.Hand;
+            buttonint2.FlatStyle = FlatStyle.Flat;
+            buttonint2.Location = new Point(703, 191);
+            buttonint2.Name = "buttonint2";
+            buttonint2.Size = new Size(370, 38);
+            buttonint2.TabIndex = 3;
+            buttonint2.Tag = "radio";
+            buttonint2.Text = "button8";
+            buttonint2.UseVisualStyleBackColor = false;
+            // 
+            // buttonint1
+            // 
+            buttonint1.BackColor = Color.FromArgb(128, 128, 255);
+            buttonint1.Cursor = Cursors.Hand;
+            buttonint1.FlatStyle = FlatStyle.Flat;
+            buttonint1.Location = new Point(703, 138);
+            buttonint1.Name = "buttonint1";
+            buttonint1.Size = new Size(370, 38);
+            buttonint1.TabIndex = 2;
+            buttonint1.Tag = "radio";
+            buttonint1.Text = "button7";
+            buttonint1.UseVisualStyleBackColor = false;
+            // 
+            // panelint5
+            // 
+            panelint5.BackColor = Color.White;
+            panelint5.Controls.Add(label24);
+            panelint5.Controls.Add(panel1);
+            panelint5.Location = new Point(21, 127);
+            panelint5.Name = "panelint5";
+            panelint5.Padding = new Padding(10);
+            panelint5.Size = new Size(665, 206);
+            panelint5.TabIndex = 1;
+            panelint5.Tag = "radio";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label24.Location = new Point(29, 22);
+            label24.Name = "label24";
+            label24.Size = new Size(173, 30);
+            label24.TabIndex = 0;
+            label24.Text = "Ultimas Facturas";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.Controls.Add(dataGridView1);
+            panel1.Location = new Point(10, 55);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(645, 141);
+            panel1.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.White;
+            dataGridView1.ColumnHeadersHeight = 46;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.RowHeadersWidth = 82;
+            dataGridView1.Size = new Size(645, 141);
+            dataGridView1.TabIndex = 1;
+            // 
+            // panelint4
+            // 
+            panelint4.BackColor = Color.White;
+            panelint4.Controls.Add(label23);
+            panelint4.Controls.Add(label22);
+            panelint4.Location = new Point(767, 14);
+            panelint4.Name = "panelint4";
+            panelint4.Size = new Size(240, 80);
+            panelint4.TabIndex = 0;
+            panelint4.Tag = "radio";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label23.Location = new Point(25, 40);
+            label23.Name = "label23";
+            label23.Size = new Size(0, 30);
+            label23.TabIndex = 1;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label22.ForeColor = Color.Silver;
+            label22.Location = new Point(15, 11);
+            label22.Name = "label22";
+            label22.Size = new Size(61, 21);
+            label22.TabIndex = 0;
+            label22.Text = "Alertas";
+            // 
+            // panelint3
+            // 
+            panelint3.BackColor = Color.White;
+            panelint3.Controls.Add(label21);
+            panelint3.Controls.Add(label20);
+            panelint3.Location = new Point(517, 14);
+            panelint3.Name = "panelint3";
+            panelint3.Size = new Size(240, 80);
+            panelint3.TabIndex = 0;
+            panelint3.Tag = "radio";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label21.Location = new Point(23, 40);
+            label21.Name = "label21";
+            label21.Size = new Size(37, 30);
+            label21.TabIndex = 1;
+            label21.Text = "30";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label20.ForeColor = Color.Silver;
+            label20.Location = new Point(13, 11);
+            label20.Name = "label20";
+            label20.Size = new Size(156, 21);
+            label20.TabIndex = 0;
+            label20.Text = "Productos vendidos";
+            // 
+            // panelint2
+            // 
+            panelint2.BackColor = Color.White;
+            panelint2.Controls.Add(label19);
+            panelint2.Controls.Add(label16);
+            panelint2.Location = new Point(267, 14);
+            panelint2.Name = "panelint2";
+            panelint2.Size = new Size(240, 80);
+            panelint2.TabIndex = 0;
+            panelint2.Tag = "radio";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.Location = new Point(21, 40);
+            label19.Name = "label19";
+            label19.Size = new Size(37, 30);
+            label19.TabIndex = 1;
+            label19.Text = "30";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label16.ForeColor = Color.Silver;
+            label16.Location = new Point(11, 11);
+            label16.Name = "label16";
+            label16.Size = new Size(69, 21);
+            label16.TabIndex = 0;
+            label16.Text = "Facturas";
+            // 
+            // panelint1
+            // 
+            panelint1.BackColor = Color.White;
+            panelint1.Controls.Add(label15);
+            panelint1.Controls.Add(label14);
+            panelint1.Location = new Point(17, 14);
+            panelint1.Name = "panelint1";
+            panelint1.Size = new Size(240, 80);
+            panelint1.TabIndex = 0;
+            panelint1.Tag = "radio";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label15.Location = new Point(19, 40);
+            label15.Name = "label15";
+            label15.Size = new Size(37, 30);
+            label15.TabIndex = 1;
+            label15.Text = "30";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = Color.Silver;
+            label14.Location = new Point(9, 11);
+            label14.Name = "label14";
+            label14.Size = new Size(112, 21);
+            label14.TabIndex = 0;
+            label14.Text = "Ventas de hoy";
             // 
             // ptControlP
             // 
@@ -411,6 +688,8 @@
             // cerrarCP
             // 
             cerrarCP.BackColor = Color.Firebrick;
+            cerrarCP.FlatStyle = FlatStyle.Flat;
+            cerrarCP.Image = (Image)resources.GetObject("cerrarCP.Image");
             cerrarCP.Location = new Point(784, 3);
             cerrarCP.Name = "cerrarCP";
             cerrarCP.Size = new Size(40, 34);
@@ -1169,283 +1448,6 @@
             panelGrafico.Size = new Size(746, 317);
             panelGrafico.TabIndex = 0;
             // 
-            // ptInicio
-            // 
-            ptInicio.AutoScroll = true;
-            ptInicio.BackColor = Color.FromArgb(224, 224, 224);
-            ptInicio.Controls.Add(panel3);
-            ptInicio.Controls.Add(buttonint3);
-            ptInicio.Controls.Add(buttonint2);
-            ptInicio.Controls.Add(buttonint1);
-            ptInicio.Controls.Add(panelint5);
-            ptInicio.Controls.Add(panelint4);
-            ptInicio.Controls.Add(panelint3);
-            ptInicio.Controls.Add(panelint2);
-            ptInicio.Controls.Add(panelint1);
-            ptInicio.Location = new Point(5, 4);
-            ptInicio.Name = "ptInicio";
-            ptInicio.Size = new Size(1252, 767);
-            ptInicio.TabIndex = 14;
-            ptInicio.Tag = "";
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.White;
-            panel3.Controls.Add(dataGridView2);
-            panel3.Controls.Add(label26);
-            panel3.Location = new Point(21, 370);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(1050, 205);
-            panel3.TabIndex = 4;
-            panel3.Tag = "radio";
-            // 
-            // dataGridView2
-            // 
-            dataGridView2.AllowUserToAddRows = false;
-            dataGridView2.AllowUserToDeleteRows = false;
-            dataGridView2.AllowUserToResizeColumns = false;
-            dataGridView2.AllowUserToResizeRows = false;
-            dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView2.BackgroundColor = Color.White;
-            dataGridView2.ColumnHeadersHeight = 46;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridView2.ColumnHeadersVisible = false;
-            dataGridView2.Location = new Point(9, 53);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.ReadOnly = true;
-            dataGridView2.RowHeadersVisible = false;
-            dataGridView2.RowHeadersWidth = 82;
-            dataGridView2.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridView2.Size = new Size(1015, 144);
-            dataGridView2.TabIndex = 1;
-            // 
-            // label26
-            // 
-            label26.AutoSize = true;
-            label26.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold);
-            label26.Location = new Point(6, 12);
-            label26.Name = "label26";
-            label26.Size = new Size(262, 30);
-            label26.TabIndex = 0;
-            label26.Text = "Productos con bajo stock";
-            // 
-            // buttonint3
-            // 
-            buttonint3.BackColor = Color.FromArgb(128, 128, 255);
-            buttonint3.Cursor = Cursors.Hand;
-            buttonint3.FlatStyle = FlatStyle.Flat;
-            buttonint3.Location = new Point(703, 244);
-            buttonint3.Name = "buttonint3";
-            buttonint3.Size = new Size(370, 38);
-            buttonint3.TabIndex = 3;
-            buttonint3.Tag = "radio";
-            buttonint3.Text = "button8";
-            buttonint3.UseVisualStyleBackColor = false;
-            // 
-            // buttonint2
-            // 
-            buttonint2.BackColor = Color.FromArgb(128, 128, 255);
-            buttonint2.Cursor = Cursors.Hand;
-            buttonint2.FlatStyle = FlatStyle.Flat;
-            buttonint2.Location = new Point(703, 191);
-            buttonint2.Name = "buttonint2";
-            buttonint2.Size = new Size(370, 38);
-            buttonint2.TabIndex = 3;
-            buttonint2.Tag = "radio";
-            buttonint2.Text = "button8";
-            buttonint2.UseVisualStyleBackColor = false;
-            // 
-            // buttonint1
-            // 
-            buttonint1.BackColor = Color.FromArgb(128, 128, 255);
-            buttonint1.Cursor = Cursors.Hand;
-            buttonint1.FlatStyle = FlatStyle.Flat;
-            buttonint1.Location = new Point(703, 138);
-            buttonint1.Name = "buttonint1";
-            buttonint1.Size = new Size(370, 38);
-            buttonint1.TabIndex = 2;
-            buttonint1.Tag = "radio";
-            buttonint1.Text = "button7";
-            buttonint1.UseVisualStyleBackColor = false;
-            // 
-            // panelint5
-            // 
-            panelint5.BackColor = Color.White;
-            panelint5.Controls.Add(label24);
-            panelint5.Controls.Add(panel1);
-            panelint5.Location = new Point(21, 127);
-            panelint5.Name = "panelint5";
-            panelint5.Padding = new Padding(10);
-            panelint5.Size = new Size(665, 206);
-            panelint5.TabIndex = 1;
-            panelint5.Tag = "radio";
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label24.Location = new Point(29, 22);
-            label24.Name = "label24";
-            label24.Size = new Size(173, 30);
-            label24.TabIndex = 0;
-            label24.Text = "Ultimas Facturas";
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.Transparent;
-            panel1.Controls.Add(dataGridView1);
-            panel1.Location = new Point(10, 55);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(645, 141);
-            panel1.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AllowUserToResizeColumns = false;
-            dataGridView1.AllowUserToResizeRows = false;
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.BackgroundColor = Color.White;
-            dataGridView1.ColumnHeadersHeight = 46;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowHeadersWidth = 82;
-            dataGridView1.Size = new Size(645, 141);
-            dataGridView1.TabIndex = 1;
-            // 
-            // panelint4
-            // 
-            panelint4.BackColor = Color.White;
-            panelint4.Controls.Add(label23);
-            panelint4.Controls.Add(label22);
-            panelint4.Location = new Point(767, 14);
-            panelint4.Name = "panelint4";
-            panelint4.Size = new Size(240, 80);
-            panelint4.TabIndex = 0;
-            panelint4.Tag = "radio";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label23.Location = new Point(25, 40);
-            label23.Name = "label23";
-            label23.Size = new Size(0, 30);
-            label23.TabIndex = 1;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label22.ForeColor = Color.Silver;
-            label22.Location = new Point(15, 11);
-            label22.Name = "label22";
-            label22.Size = new Size(61, 21);
-            label22.TabIndex = 0;
-            label22.Text = "Alertas";
-            // 
-            // panelint3
-            // 
-            panelint3.BackColor = Color.White;
-            panelint3.Controls.Add(label21);
-            panelint3.Controls.Add(label20);
-            panelint3.Location = new Point(517, 14);
-            panelint3.Name = "panelint3";
-            panelint3.Size = new Size(240, 80);
-            panelint3.TabIndex = 0;
-            panelint3.Tag = "radio";
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label21.Location = new Point(23, 40);
-            label21.Name = "label21";
-            label21.Size = new Size(37, 30);
-            label21.TabIndex = 1;
-            label21.Text = "30";
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label20.ForeColor = Color.Silver;
-            label20.Location = new Point(13, 11);
-            label20.Name = "label20";
-            label20.Size = new Size(156, 21);
-            label20.TabIndex = 0;
-            label20.Text = "Productos vendidos";
-            // 
-            // panelint2
-            // 
-            panelint2.BackColor = Color.White;
-            panelint2.Controls.Add(label19);
-            panelint2.Controls.Add(label16);
-            panelint2.Location = new Point(267, 14);
-            panelint2.Name = "panelint2";
-            panelint2.Size = new Size(240, 80);
-            panelint2.TabIndex = 0;
-            panelint2.Tag = "radio";
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label19.Location = new Point(21, 40);
-            label19.Name = "label19";
-            label19.Size = new Size(37, 30);
-            label19.TabIndex = 1;
-            label19.Text = "30";
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label16.ForeColor = Color.Silver;
-            label16.Location = new Point(11, 11);
-            label16.Name = "label16";
-            label16.Size = new Size(69, 21);
-            label16.TabIndex = 0;
-            label16.Text = "Facturas";
-            // 
-            // panelint1
-            // 
-            panelint1.BackColor = Color.White;
-            panelint1.Controls.Add(label15);
-            panelint1.Controls.Add(label14);
-            panelint1.Location = new Point(17, 14);
-            panelint1.Name = "panelint1";
-            panelint1.Size = new Size(240, 80);
-            panelint1.TabIndex = 0;
-            panelint1.Tag = "radio";
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label15.Location = new Point(19, 40);
-            label15.Name = "label15";
-            label15.Size = new Size(37, 30);
-            label15.TabIndex = 1;
-            label15.Text = "30";
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = Color.Silver;
-            label14.Location = new Point(9, 11);
-            label14.Name = "label14";
-            label14.Size = new Size(112, 21);
-            label14.TabIndex = 0;
-            label14.Text = "Ventas de hoy";
-            // 
             // TbTodo
             // 
             TbTodo.BackColor = Color.FromArgb(0, 0, 64);
@@ -1490,6 +1492,22 @@
             btnInicio.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ToDo.ResumeLayout(false);
+            ptInicio.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            panelint5.ResumeLayout(false);
+            panelint5.PerformLayout();
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panelint4.ResumeLayout(false);
+            panelint4.PerformLayout();
+            panelint3.ResumeLayout(false);
+            panelint3.PerformLayout();
+            panelint2.ResumeLayout(false);
+            panelint2.PerformLayout();
+            panelint1.ResumeLayout(false);
+            panelint1.PerformLayout();
             ptControlP.ResumeLayout(false);
             panel11.ResumeLayout(false);
             ptAgregarP.ResumeLayout(false);
@@ -1515,22 +1533,6 @@
             ptAnalisis.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel5.ResumeLayout(false);
-            ptInicio.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
-            panelint5.ResumeLayout(false);
-            panelint5.PerformLayout();
-            panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            panelint4.ResumeLayout(false);
-            panelint4.PerformLayout();
-            panelint3.ResumeLayout(false);
-            panelint3.PerformLayout();
-            panelint2.ResumeLayout(false);
-            panelint2.PerformLayout();
-            panelint1.ResumeLayout(false);
-            panelint1.PerformLayout();
             TbTodo.ResumeLayout(false);
             ResumeLayout(false);
         }
