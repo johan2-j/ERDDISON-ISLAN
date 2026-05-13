@@ -1,17 +1,9 @@
 using Microsoft.Data.SqlClient;
-using System;
 using System.Data;
-using System.Data.SqlTypes;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.Design.AxImporter;
 namespace proyecto_ERDISON_ISLAND
 {
     public partial class Form1 : Form
@@ -20,6 +12,7 @@ namespace proyecto_ERDISON_ISLAND
         int hh;
         int rr;
         bool accion;
+        bool accion2;
 
         decimal tp = 0;
         int cp = 0;
@@ -46,6 +39,7 @@ namespace proyecto_ERDISON_ISLAND
         {
             InitializeComponent();
             accion = false;
+            accion2 = false;
 
             this.AutoScaleMode = AutoScaleMode.Dpi;
 
@@ -83,11 +77,31 @@ namespace proyecto_ERDISON_ISLAND
             rr = 1;
             asignarEnlaces();
             CargarDatos();
-            CargarStock();
+            dataGridView2.Controls.Add(CTabla("productos", null, "nombre, precio"));
             //RedondearPaneles
 
             ActualizarAlertas();
             RecorrerControles(this);
+
+            textBox5.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    MessageBox.Show("Enter");
+                    pnlBuscador.Visible = false;
+                    pnlBuscador.Controls.Clear();
+                }
+            };
+
+            textBox2.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    MessageBox.Show("Enter");
+                    panel6.Visible = false;
+                    panel6.Controls.Clear();
+                }
+            };
 
 
 
@@ -121,20 +135,6 @@ namespace proyecto_ERDISON_ISLAND
                 MessageBox.Show(ex.Message);
             }
 
-
-        }
-
-        private void CargarStock()
-        {
-            //using (SqlConnection conexion = new SqlConnection("Server=(localdb)\\MSSQLLocalDB;Database=BDDProyecto;Trusted_Connection=True;"))
-
-            string consulta = "SELECT nombre, stock FROM productos WHERE Stock <= 5";
-
-            SqlDataAdapter da = new SqlDataAdapter(consulta, conexion);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            dataGridView2.DataSource = dt;
 
         }
 
@@ -232,7 +232,7 @@ namespace proyecto_ERDISON_ISLAND
         private void CambiarPestaña_click(object sender, EventArgs e)
         {
             Control c = (Control)sender;
-            if (accion == false)
+            if (accion == false & accion2 == false)
             {
                 switch (c.Tag)
                 {
@@ -245,6 +245,8 @@ namespace proyecto_ERDISON_ISLAND
                         break;
 
                     case "inicio":
+                        dataGridView2.Controls.Clear();
+                        dataGridView2.Controls.Add(CTabla("productos", null, "nombre, precio"));
                         ptInicio.BringToFront();
                         break;
 
@@ -645,7 +647,7 @@ namespace proyecto_ERDISON_ISLAND
                 dtD?.Reset();
                 enFac = false;
                 enFac2 = false;
-                lblViewFactura.Text = "------------Factura-----------                               ";
+                lblViewFactura.Text = "----------------Factura------------------\n";
                 crearFactura(1);
 
                 foreach (Control p in ptFacturacion.Controls)
@@ -717,6 +719,12 @@ namespace proyecto_ERDISON_ISLAND
 
         private void btnReporte_Click(object sender, EventArgs e)
         {
+            if (accion2 == true)
+            {
+                MessageBox.Show("se esta ejecutando una accion");
+                return;
+            }
+
             if (rr == 1)
             {
                 PnlInventario.Controls.Clear();
@@ -1243,6 +1251,11 @@ namespace proyecto_ERDISON_ISLAND
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (accion2 == true)
+            {
+                MessageBox.Show("se esta ejecutando una accion");
+                return;
+            }
             crearReporte(3);
         }
 
@@ -1258,19 +1271,40 @@ namespace proyecto_ERDISON_ISLAND
 
         private void CProductos_Click(object sender, EventArgs e)
         {
-            accion = true;
+            if (accion2 == true)
+            {
+                MessageBox.Show("se esta ejecutando una accion");
+                return;
+            }
+
+            Limpiar(txt3, txt2, txt1);
+            accion2 = true;
             ptControlP.BringToFront();
             ptControlP.Location = new Point(100, 20);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            Limpiar(txt3, txt2, txt1);
+            Limpiar(textBox2);
+            Limpiar(textBox5, txtPrecioP, txtNombreP, txtStockP);
             ptEditarP.BringToFront();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Limpiar(txt3, txt2, txt1);
+            Limpiar(textBox2);
+            Limpiar(textBox5, txtPrecioP, txtNombreP, txtStockP);
             ptAgregarP.BringToFront();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Limpiar(txt3, txt2, txt1);
+            Limpiar(textBox2);
+            Limpiar(textBox5, txtPrecioP, txtNombreP, txtStockP);
+            ptAvansadoP.BringToFront();
         }
 
 
@@ -1279,7 +1313,6 @@ namespace proyecto_ERDISON_ISLAND
         //------------------------------------------------------------------------------------//------------------------------------------------------------------------------------
         private void button6_Click(object sender, EventArgs e)
         {
-
             string nombre = txt3.Text;
             string precio = txt2.Text;
             string cantidad = txt1.Text;
@@ -1307,7 +1340,7 @@ namespace proyecto_ERDISON_ISLAND
 
 
             SqlCommand cmd = new SqlCommand(
-                "INSERT INTO productos (id, nombre, precio, stock) VALUES (next value for seq_idProductos, @nombre, @precio, @stock)",
+                "INSERT INTO productos (id, nombre, precio, stock, ultimafecha) VALUES (next value for seq_idProductos, @nombre, @precio, @stock,GETDATE() )",
                 conexion
             );
 
@@ -1324,18 +1357,107 @@ namespace proyecto_ERDISON_ISLAND
 
         private void button3_Click(object sender, EventArgs e)
         {
-            txt3.Text = "";
-            txt2.Text = "";
-            txt1.Text = "";
+            Limpiar(txt3, txt2, txt1);
         }
 
         private void cerrarCP_Click(object sender, EventArgs e)
         {
-            accion = false;
-            txt3.Text = "";
-            txt2.Text = "";
-            txt1.Text = "";
+            Limpiar(txt3, txt2, txt1);
+            accion2 = false;
             ptInventario.BringToFront();
+        }
+
+        private void Limpiar(Control c1 = null, Control c2 = null, Control c3 = null, Control c4 = null, Control c5 = null)
+        {
+            if (c1 != null) c1.Text = "";
+            if (c2 != null) c2.Text = "";
+            if (c3 != null) c3.Text = "";
+            if (c4 != null) c4.Text = "";
+            if (c5 != null) c5.Text = "";
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            pnlBuscador.Location = new Point(203, 65);
+            pnlBuscador.Width = 391;
+            pnlBuscador.BorderStyle = BorderStyle.FixedSingle;
+            pnlBuscador.Visible = true;
+            pnlBuscador.Controls.Clear();
+            pnlBuscador.Controls.Add(CTabla("productos", textBox5.Text, "nombre,precio,stock", (s, e) => llenarTxt(s, e, textBox5, txtNombreP, txtPrecioP, txtStockP)
+));
+        }
+        private void llenarTxt(object sender, DataGridViewCellEventArgs e, Control txt1 = null, Control txt2 = null, Control txt3 = null, Control txt4 = null)
+        {
+            if (e.RowIndex <= 0) return;
+
+            if(txt1 != null) txt1.Text = ((DataGridView)sender).Rows[e.RowIndex].Cells["nombre"].Value.ToString();
+
+
+            if(txt2 != null) txt2.Text = ((DataGridView)sender).Rows[e.RowIndex].Cells["nombre"].Value.ToString();
+
+
+            if (txt3 != null) txt3.Text = ((DataGridView)sender).Rows[e.RowIndex].Cells["precio"].Value.ToString();
+
+
+            if (txt4 != null) txt4.Text = ((DataGridView)sender).Rows[e.RowIndex].Cells["stock"].Value.ToString();
+
+            txt1.Focus();
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            string nombre = newNombreP.Text;
+            string precio = newPrecioP.Text;
+            string Stock = newStockP.Text;
+
+            if (!decimal.TryParse(precio, out decimal dec) || precio == "0" || precio == "" || !Regex.IsMatch(precio, @"^[0-9.]+$"))
+            {
+                MessageBox.Show("Valor no valido en Precio");
+                newPrecioP.Focus();
+                return;
+            }
+
+            if (!int.TryParse(Stock, out int cn) || Stock == "0" || Stock == "" || !Regex.IsMatch(Stock, @"^[0-9]+$"))
+            {
+                MessageBox.Show("Valor no valido en Stock");
+                newStockP.Focus();
+                return;
+            }
+
+            if (nombre == "" || !Regex.IsMatch(nombre, @"^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_ )(]+$"))
+            {
+                MessageBox.Show("Valor no valido en Nombre");
+                newNombreP.Focus();
+                return;
+            }
+
+
+            SqlCommand cmd = new SqlCommand(
+                "UPDATE productos SET nombre = @nombre1, precio = @precio, stock = @stock WHERE nombre = @nombre2",
+                conexion
+            );
+
+            cmd.Parameters.AddWithValue("@nombre2", textBox5.Text);
+            cmd.Parameters.AddWithValue("@nombre1", nombre);
+            cmd.Parameters.AddWithValue("@precio", precio);
+            cmd.Parameters.AddWithValue("@stock", Stock);
+
+            cmd.ExecuteNonQuery();
+
+            MessageBox.Show($"Has actualizado |{textBox5.Text}| \n de - Nombre: {txtNombreP.Text} | Precio: {txtPrecioP.Text} | Stock: {txtStockP.Text} \n a  - Nombre: {nombre} | Precio: {precio} |Stock: {Stock}");
+            Limpiar(txtNombreP, txtPrecioP, txtStockP);
+            Limpiar(newNombreP, newPrecioP, newStockP);
+            Limpiar(textBox5);
+        }
+
+        private void buscar_TextChanged(object sender, EventArgs e)
+        {
+            panel6.Location = new Point(203, 65);
+            panel6.Width = 391;
+            panel6.BorderStyle = BorderStyle.FixedSingle;
+            panel6.Visible = true;
+            panel6.Controls.Clear();
+            panel6.Controls.Add(CTabla("productos", textBox5.Text, "nombre,precio,stock", (s, e) => llenarTxt(s, e, textBox2)));
         }
     }
 }
