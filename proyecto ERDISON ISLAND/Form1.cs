@@ -2,6 +2,7 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
+using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 namespace proyecto_ERDISON_ISLAND
@@ -102,6 +103,11 @@ namespace proyecto_ERDISON_ISLAND
                     panel6.Controls.Clear();
                 }
             };
+
+
+            string ruta = Path.Combine(Application.StartupPath, "klk.txt");
+
+            File.WriteAllText(ruta, "Repit after me, no podemos, no podemos, pt madre tu no podras yo soy fernan flo carajo");
 
 
 
@@ -1287,6 +1293,7 @@ namespace proyecto_ERDISON_ISLAND
         {
             Limpiar(txt3, txt2, txt1);
             Limpiar(textBox2);
+            Limpiar(textBox2, newNombreP, newPrecioP, newStockP);
             Limpiar(textBox5, txtPrecioP, txtNombreP, txtStockP);
             ptEditarP.BringToFront();
         }
@@ -1294,7 +1301,7 @@ namespace proyecto_ERDISON_ISLAND
         private void button2_Click(object sender, EventArgs e)
         {
             Limpiar(txt3, txt2, txt1);
-            Limpiar(textBox2);
+            Limpiar(textBox2, newNombreP, newPrecioP, newStockP);
             Limpiar(textBox5, txtPrecioP, txtNombreP, txtStockP);
             ptAgregarP.BringToFront();
         }
@@ -1303,6 +1310,7 @@ namespace proyecto_ERDISON_ISLAND
         {
             Limpiar(txt3, txt2, txt1);
             Limpiar(textBox2);
+            Limpiar(textBox2, newNombreP, newPrecioP, newStockP);
             Limpiar(textBox5, txtPrecioP, txtNombreP, txtStockP);
             ptAvansadoP.BringToFront();
         }
@@ -1363,6 +1371,7 @@ namespace proyecto_ERDISON_ISLAND
         private void cerrarCP_Click(object sender, EventArgs e)
         {
             Limpiar(txt3, txt2, txt1);
+            Limpiar(textBox2, newNombreP, newPrecioP, newStockP);
             accion2 = false;
             ptInventario.BringToFront();
         }
@@ -1390,10 +1399,10 @@ namespace proyecto_ERDISON_ISLAND
         {
             if (e.RowIndex <= 0) return;
 
-            if(txt1 != null) txt1.Text = ((DataGridView)sender).Rows[e.RowIndex].Cells["nombre"].Value.ToString();
+            if (txt1 != null) txt1.Text = ((DataGridView)sender).Rows[e.RowIndex].Cells["nombre"].Value.ToString();
 
 
-            if(txt2 != null) txt2.Text = ((DataGridView)sender).Rows[e.RowIndex].Cells["nombre"].Value.ToString();
+            if (txt2 != null) txt2.Text = ((DataGridView)sender).Rows[e.RowIndex].Cells["nombre"].Value.ToString();
 
 
             if (txt3 != null) txt3.Text = ((DataGridView)sender).Rows[e.RowIndex].Cells["precio"].Value.ToString();
@@ -1447,7 +1456,7 @@ namespace proyecto_ERDISON_ISLAND
             MessageBox.Show($"Has actualizado |{textBox5.Text}| \n de - Nombre: {txtNombreP.Text} | Precio: {txtPrecioP.Text} | Stock: {txtStockP.Text} \n a  - Nombre: {nombre} | Precio: {precio} |Stock: {Stock}");
             Limpiar(txtNombreP, txtPrecioP, txtStockP);
             Limpiar(newNombreP, newPrecioP, newStockP);
-            Limpiar(textBox5);
+            Limpiar(textBox5, textBox2);
         }
 
         private void buscar_TextChanged(object sender, EventArgs e)
@@ -1458,6 +1467,43 @@ namespace proyecto_ERDISON_ISLAND
             panel6.Visible = true;
             panel6.Controls.Clear();
             panel6.Controls.Add(CTabla("productos", textBox5.Text, "nombre,precio,stock", (s, e) => llenarTxt(s, e, textBox2)));
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            DialogResult resultado = MessageBox.Show(
+            "¿Deseas hacer BackUp?",
+            "Borrar todos los datos",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question
+            );
+
+            if (resultado == DialogResult.Yes)
+            {
+                MessageBox.Show("Guardando");
+                BorrarBDD();
+            }
+            else
+            {
+                MessageBox.Show("Datos borrados");
+                BorrarBDD();
+            }
+        }
+        private void BorrarBDD()
+        {
+            
+
+            SqlCommand cmd = new SqlCommand(
+                "delete DetallesR\r\nALTER SEQUENCE seq_idDetalleR\r\nRESTART WITH 1;\r\n\r\ndelete Reportes\r\nALTER SEQUENCE seq_idReporte\r\nRESTART WITH 1;\r\n\r\ndelete DetallesF\r\nALTER SEQUENCE seq_idDetalleF\r\nRESTART WITH 1;\r\n\r\ndelete Facturas\r\nALTER SEQUENCE seq_idFactura\r\nRESTART WITH 1;\r\n\r\ndelete productos\r\nALTER SEQUENCE seq_idProductos\r\nRESTART WITH 1;",
+                conexion
+            );
+
+            cmd.ExecuteNonQuery();
         }
     }
 }

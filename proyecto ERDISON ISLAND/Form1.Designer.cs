@@ -51,10 +51,6 @@
             panel11 = new Panel();
             cerrarCP = new Button();
             label29 = new Label();
-            ptAvansadoP = new Panel();
-            panel6 = new Panel();
-            btnBorrar = new Button();
-            textBox2 = new TextBox();
             ptEditarP = new Panel();
             pnlBuscador = new Panel();
             txtStockP = new Label();
@@ -82,6 +78,10 @@
             label4 = new Label();
             label5 = new Label();
             label7 = new Label();
+            ptAvansadoP = new Panel();
+            panel6 = new Panel();
+            btnBorrar = new Button();
+            textBox2 = new TextBox();
             ptInventario = new Panel();
             CProductos = new Button();
             button1 = new Button();
@@ -163,9 +163,9 @@
             ToDo.SuspendLayout();
             ptControlP.SuspendLayout();
             panel11.SuspendLayout();
-            ptAvansadoP.SuspendLayout();
             ptEditarP.SuspendLayout();
             ptAgregarP.SuspendLayout();
+            ptAvansadoP.SuspendLayout();
             ptInventario.SuspendLayout();
             pnlR.SuspendLayout();
             panel13.SuspendLayout();
@@ -369,9 +369,9 @@
             ptControlP.Controls.Add(button7);
             ptControlP.Controls.Add(button2);
             ptControlP.Controls.Add(panel11);
+            ptControlP.Controls.Add(ptAvansadoP);
             ptControlP.Controls.Add(ptEditarP);
             ptControlP.Controls.Add(ptAgregarP);
-            ptControlP.Controls.Add(ptAvansadoP);
             ptControlP.Location = new Point(4, 4);
             ptControlP.Name = "ptControlP";
             ptControlP.Size = new Size(831, 422);
@@ -461,45 +461,6 @@
             label29.Size = new Size(656, 56);
             label29.TabIndex = 7;
             label29.Text = "Control de Productos";
-            // 
-            // ptAvansadoP
-            // 
-            ptAvansadoP.BackColor = Color.Gray;
-            ptAvansadoP.BorderStyle = BorderStyle.FixedSingle;
-            ptAvansadoP.Controls.Add(panel6);
-            ptAvansadoP.Controls.Add(btnBorrar);
-            ptAvansadoP.Controls.Add(textBox2);
-            ptAvansadoP.Font = new Font("Niagara Solid", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ptAvansadoP.Location = new Point(3, 109);
-            ptAvansadoP.Name = "ptAvansadoP";
-            ptAvansadoP.Size = new Size(825, 293);
-            ptAvansadoP.TabIndex = 11;
-            // 
-            // panel6
-            // 
-            panel6.Location = new Point(31, 62);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(29, 204);
-            panel6.TabIndex = 18;
-            panel6.Visible = false;
-            // 
-            // btnBorrar
-            // 
-            btnBorrar.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBorrar.Location = new Point(361, 91);
-            btnBorrar.Name = "btnBorrar";
-            btnBorrar.Size = new Size(81, 32);
-            btnBorrar.TabIndex = 17;
-            btnBorrar.Text = "Borrar";
-            btnBorrar.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(208, 23);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(391, 33);
-            textBox2.TabIndex = 16;
-            textBox2.TextChanged += buscar_TextChanged;
             // 
             // ptEditarP
             // 
@@ -598,6 +559,7 @@
             btnCancelar.TabIndex = 8;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnGuardar
             // 
@@ -776,6 +738,46 @@
             label7.Size = new Size(70, 26);
             label7.TabIndex = 12;
             label7.Text = "Nombre";
+            // 
+            // ptAvansadoP
+            // 
+            ptAvansadoP.BackColor = Color.Gray;
+            ptAvansadoP.BorderStyle = BorderStyle.FixedSingle;
+            ptAvansadoP.Controls.Add(panel6);
+            ptAvansadoP.Controls.Add(btnBorrar);
+            ptAvansadoP.Controls.Add(textBox2);
+            ptAvansadoP.Font = new Font("Niagara Solid", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ptAvansadoP.Location = new Point(3, 109);
+            ptAvansadoP.Name = "ptAvansadoP";
+            ptAvansadoP.Size = new Size(825, 293);
+            ptAvansadoP.TabIndex = 11;
+            // 
+            // panel6
+            // 
+            panel6.Location = new Point(31, 62);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(29, 204);
+            panel6.TabIndex = 18;
+            panel6.Visible = false;
+            // 
+            // btnBorrar
+            // 
+            btnBorrar.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBorrar.Location = new Point(123, 62);
+            btnBorrar.Name = "btnBorrar";
+            btnBorrar.Size = new Size(81, 32);
+            btnBorrar.TabIndex = 17;
+            btnBorrar.Text = "Borrar";
+            btnBorrar.UseVisualStyleBackColor = true;
+            btnBorrar.Click += btnBorrar_Click;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(172, 13);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(522, 33);
+            textBox2.TabIndex = 16;
+            textBox2.TextChanged += buscar_TextChanged;
             // 
             // ptInventario
             // 
@@ -1172,7 +1174,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.Black;
+            panel2.BackColor = Color.FromArgb(50, 50, 50);
             panel2.Controls.Add(btnReportes);
             panel2.Controls.Add(btnFacturas);
             panel2.Controls.Add(btnGrafico);
@@ -1183,32 +1185,38 @@
             // 
             // btnReportes
             // 
+            btnReportes.BackColor = Color.Silver;
+            btnReportes.FlatStyle = FlatStyle.Flat;
             btnReportes.Location = new Point(15, 116);
             btnReportes.Name = "btnReportes";
-            btnReportes.Size = new Size(98, 27);
+            btnReportes.Size = new Size(178, 24);
             btnReportes.TabIndex = 2;
             btnReportes.Text = "VerReportes";
-            btnReportes.UseVisualStyleBackColor = true;
+            btnReportes.UseVisualStyleBackColor = false;
             btnReportes.Click += btnReportes_Click;
             // 
             // btnFacturas
             // 
-            btnFacturas.Location = new Point(15, 64);
+            btnFacturas.BackColor = Color.Silver;
+            btnFacturas.FlatStyle = FlatStyle.Flat;
+            btnFacturas.Location = new Point(15, 69);
             btnFacturas.Name = "btnFacturas";
-            btnFacturas.Size = new Size(98, 27);
+            btnFacturas.Size = new Size(178, 24);
             btnFacturas.TabIndex = 1;
             btnFacturas.Text = "VerFacturas";
-            btnFacturas.UseVisualStyleBackColor = true;
+            btnFacturas.UseVisualStyleBackColor = false;
             btnFacturas.Click += btnFacturas_Click;
             // 
             // btnGrafico
             // 
-            btnGrafico.Location = new Point(15, 17);
+            btnGrafico.BackColor = Color.Silver;
+            btnGrafico.FlatStyle = FlatStyle.Flat;
+            btnGrafico.Location = new Point(15, 26);
             btnGrafico.Name = "btnGrafico";
-            btnGrafico.Size = new Size(98, 24);
+            btnGrafico.Size = new Size(178, 24);
             btnGrafico.TabIndex = 0;
             btnGrafico.Text = "Ver Grafico1";
-            btnGrafico.UseVisualStyleBackColor = true;
+            btnGrafico.UseVisualStyleBackColor = false;
             btnGrafico.Click += btnGrafico_Click;
             // 
             // panel5
@@ -1593,12 +1601,12 @@
             ToDo.ResumeLayout(false);
             ptControlP.ResumeLayout(false);
             panel11.ResumeLayout(false);
-            ptAvansadoP.ResumeLayout(false);
-            ptAvansadoP.PerformLayout();
             ptEditarP.ResumeLayout(false);
             ptEditarP.PerformLayout();
             ptAgregarP.ResumeLayout(false);
             ptAgregarP.PerformLayout();
+            ptAvansadoP.ResumeLayout(false);
+            ptAvansadoP.PerformLayout();
             ptInventario.ResumeLayout(false);
             pnlR.ResumeLayout(false);
             panel13.ResumeLayout(false);
