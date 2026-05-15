@@ -1,8 +1,10 @@
 using Microsoft.Data.SqlClient;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing.Drawing2D;
-using System.Text.RegularExpressions;
 using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 namespace proyecto_ERDISON_ISLAND
@@ -33,13 +35,25 @@ namespace proyecto_ERDISON_ISLAND
         DataTable dtD = new DataTable();
         DataTable dtDR = new DataTable();
 
+        string ruta;
+
+        string rutaUsuario = Path.Combine(
+        Application.StartupPath,
+        "DIO",
+        "Usuario.txt"        
+        );
+
+        string usuario;
 
 
 
         public Form1()
         {
             InitializeComponent();
-            accion = false;
+
+            usuario = File.ReadAllText(rutaUsuario);
+
+            accion = false;            
             accion2 = false;
 
             this.AutoScaleMode = AutoScaleMode.Dpi;
@@ -66,6 +80,8 @@ namespace proyecto_ERDISON_ISLAND
 
                 conexion.Open();
             }
+
+
 
 
 
@@ -104,11 +120,29 @@ namespace proyecto_ERDISON_ISLAND
                 }
             };
 
+            if (usuario == "cajero")
+            {
+                ptInventario.Visible = false;
+                ptAnalisis.Visible = false;
+                ptControlP.Visible = false;
+                btInventario.Visible = false;
+                tbAnalisis.Visible = false;
+                MessageBox.Show("cajero a ingresado");
+            }
+            else if (usuario == "analista")
+            {
 
-            string ruta = Path.Combine(Application.StartupPath, "klk.txt");
+                tbAnalisis.Visible = false;
+            }
+            else if (usuario == "admin")
+            {
 
-            File.WriteAllText(ruta, "Repit after me, no podemos, no podemos, pt madre tu no podras yo soy fernan flo carajo");
-
+            }
+            else
+            {
+                MessageBox.Show("no conicide el usuario");
+            }
+            
 
 
 
@@ -202,6 +236,7 @@ namespace proyecto_ERDISON_ISLAND
                 }
             }
         }
+
         //------------------------------------------------------------------------------------//------------------------------------------------------------------------------------
         //-------------------------------------Redondear--------------------------------------//------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------//------------------------------------------------------------------------------------
@@ -249,7 +284,7 @@ namespace proyecto_ERDISON_ISLAND
                     case "inventario":
                         ptInventario.BringToFront();
                         break;
-
+                                                
                     case "inicio":
                         dataGridView2.Controls.Clear();
                         dataGridView2.Controls.Add(CTabla("productos", null, "nombre, precio"));
@@ -1485,8 +1520,9 @@ namespace proyecto_ERDISON_ISLAND
 
             if (resultado == DialogResult.Yes)
             {
-                MessageBox.Show("Guardando");
+                GDatos();
                 BorrarBDD();
+                MessageBox.Show("productos guardados");
             }
             else
             {
@@ -1496,7 +1532,7 @@ namespace proyecto_ERDISON_ISLAND
         }
         private void BorrarBDD()
         {
-            
+
 
             SqlCommand cmd = new SqlCommand(
                 "delete DetallesR\r\nALTER SEQUENCE seq_idDetalleR\r\nRESTART WITH 1;\r\n\r\ndelete Reportes\r\nALTER SEQUENCE seq_idReporte\r\nRESTART WITH 1;\r\n\r\ndelete DetallesF\r\nALTER SEQUENCE seq_idDetalleF\r\nRESTART WITH 1;\r\n\r\ndelete Facturas\r\nALTER SEQUENCE seq_idFactura\r\nRESTART WITH 1;\r\n\r\ndelete productos\r\nALTER SEQUENCE seq_idProductos\r\nRESTART WITH 1;",
@@ -1505,6 +1541,177 @@ namespace proyecto_ERDISON_ISLAND
 
             cmd.ExecuteNonQuery();
         }
+
+        private void GDatos()
+        {
+
+            StringBuilder sb = new StringBuilder();
+
+            SqlCommand cmdP = new SqlCommand(
+                "select * from productos",
+                conexion);
+
+            SqlDataReader readerP = cmdP.ExecuteReader();
+
+            sb.AppendLine("-- Productos\n\n");
+            while (readerP.Read())
+            {
+                string nombre = readerP.GetString(1);
+                decimal precio = readerP.GetDecimal(2);
+                int stock = readerP.GetInt32(3);
+
+                string fecha = readerP
+                .GetDateTime(4)
+                .ToString("yyyy-MM-dd HH:mm:ss");
+
+                string insert = $"insert into productos (id, nombre, precio, stock, ultimafecha) values (next value for seq_idProductos, '{nombre}', {precio}, {stock}, '{fecha}');";
+
+                sb.AppendLine(insert);
+
+            }
+            sb.AppendLine("\n\n\n\n\n");
+            readerP.Close();
+
+
+
+            //----------------------------------------------------------
+            SqlCommand cmdF = new SqlCommand(
+                "select * from facturas",
+                conexion);
+
+            SqlDataReader readerF = cmdF.ExecuteReader();
+
+            sb.AppendLine("-- Facturas\n\n");
+            while (readerF.Read())
+            {
+                decimal total = readerF.GetDecimal(1);
+
+                string fecha = readerF
+                .GetDateTime(2)
+                .ToString("yyyy-MM-dd HH:mm:ss");
+
+                string insert = $"insert into facturas (idFacturas, Total, Fecha) values(NEXT VALUE FOR seq_idFactura, {total}, '{fecha}');";
+
+                sb.AppendLine(insert);
+
+            }
+            readerF.Close();
+            sb.AppendLine("\n\n\n\n\n");
+
+
+            //----------------------------------------------------------
+            SqlCommand cmdR = new SqlCommand(
+                "select * from reportes",
+                conexion);
+
+            SqlDataReader readerR = cmdR.ExecuteReader();
+
+            sb.AppendLine("-- Reportes\n\n");
+            while (readerR.Read())
+            {
+                string fecha = readerR
+                .GetDateTime(1)
+                .ToString("yyyy-MM-dd HH:mm:ss");
+
+                string insert = $"insert into reportes (idReporte, Fecha) values(NEXT VALUE FOR seq_idReporte, '{fecha}');";
+
+                sb.AppendLine(insert);
+
+            }
+            readerR.Close();
+            sb.AppendLine("\n\n\n\n\n");
+
+
+            //----------------------------------------------------------
+            SqlCommand cmdDR = new SqlCommand(
+                "select * from DetallesR",
+                conexion);
+
+            SqlDataReader readerDR = cmdDR.ExecuteReader();
+
+            sb.AppendLine("-- DetallesR\n\n");
+            while (readerDR.Read())
+            {
+                int idReporte = readerDR.GetInt32(1);
+                string nombre = readerDR.GetString(2);
+                int cantidad = readerDR.GetInt32(3);
+
+                string insert = $"insert into detallesR (idDetallesr, idReporte, nombre, cantidad) values(NEXT VALUE FOR seq_idDetalleR, {idReporte}, '{nombre}', {cantidad});";
+
+                sb.AppendLine(insert);
+
+            }
+            readerDR.Close();
+            sb.AppendLine("\n\n\n\n\n");
+
+
+
+            //----------------------------------------------------------
+            SqlCommand cmdDF = new SqlCommand(
+                "select * from DetallesF",
+                conexion);
+
+            SqlDataReader readerDF = cmdDF.ExecuteReader();
+
+            sb.AppendLine("-- DetallesF\n\n");
+            while (readerDF.Read())
+            {
+                int idfactura = readerDF.GetInt32(1);
+                string nombre = readerDF.GetString(2);
+                decimal precio = readerDF.GetDecimal(3);
+                int cantidad = readerDF.GetInt32(4);
+
+                string insert = $"insert into detallesF (idDetallesf, idfactura, nombre, precio, cantidad) values(NEXT VALUE FOR seq_idDetalleF, {idfactura}, '{nombre}', {precio}, {cantidad});";
+
+                sb.AppendLine(insert);
+
+            }
+            readerDF.Close();
+            sb.AppendLine("\n\n\n\n\n");
+
+            string sql = File.ReadAllText(ruta);
+
+
+            File.WriteAllText(ruta, sb.ToString());
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            BorrarBDD();
+            SeleccionarBDD();
+            string BDD1 = File.ReadAllText(ruta);
+
+            SqlCommand cmd = new SqlCommand(BDD1, conexion);
+
+            cmd.ExecuteNonQuery();
+
+        }
+
+        private void SeleccionarBDD()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+
+            string carpetaBDDs = Path.Combine(
+                Application.StartupPath,
+                "BDDs"
+            );
+
+            Directory.CreateDirectory(carpetaBDDs);
+
+            ofd.InitialDirectory = carpetaBDDs;
+            ofd.Filter = "Archivos TXT (*.txt)|*.txt";
+            ofd.Title = "Selecciona una base de datos";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                ruta = ofd.FileName;
+
+                MessageBox.Show("Ruta seleccionada:\n" + ruta);
+            }
+        }
+
+
     }
 }
 

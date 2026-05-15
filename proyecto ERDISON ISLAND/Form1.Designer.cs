@@ -51,6 +51,11 @@
             panel11 = new Panel();
             cerrarCP = new Button();
             label29 = new Label();
+            ptAvansadoP = new Panel();
+            panel6 = new Panel();
+            button8 = new Button();
+            btnBorrar = new Button();
+            textBox2 = new TextBox();
             ptEditarP = new Panel();
             pnlBuscador = new Panel();
             txtStockP = new Label();
@@ -78,10 +83,6 @@
             label4 = new Label();
             label5 = new Label();
             label7 = new Label();
-            ptAvansadoP = new Panel();
-            panel6 = new Panel();
-            btnBorrar = new Button();
-            textBox2 = new TextBox();
             ptInventario = new Panel();
             CProductos = new Button();
             button1 = new Button();
@@ -163,9 +164,9 @@
             ToDo.SuspendLayout();
             ptControlP.SuspendLayout();
             panel11.SuspendLayout();
+            ptAvansadoP.SuspendLayout();
             ptEditarP.SuspendLayout();
             ptAgregarP.SuspendLayout();
-            ptAvansadoP.SuspendLayout();
             ptInventario.SuspendLayout();
             pnlR.SuspendLayout();
             panel13.SuspendLayout();
@@ -460,7 +461,59 @@
             label29.RightToLeft = RightToLeft.No;
             label29.Size = new Size(656, 56);
             label29.TabIndex = 7;
-            label29.Text = "Control de Productos";
+            label29.Text = "Control de Datos";
+            // 
+            // ptAvansadoP
+            // 
+            ptAvansadoP.BackColor = Color.Gray;
+            ptAvansadoP.BorderStyle = BorderStyle.FixedSingle;
+            ptAvansadoP.Controls.Add(panel6);
+            ptAvansadoP.Controls.Add(button8);
+            ptAvansadoP.Controls.Add(btnBorrar);
+            ptAvansadoP.Controls.Add(textBox2);
+            ptAvansadoP.Font = new Font("Niagara Solid", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ptAvansadoP.Location = new Point(3, 109);
+            ptAvansadoP.Name = "ptAvansadoP";
+            ptAvansadoP.Size = new Size(825, 293);
+            ptAvansadoP.TabIndex = 11;
+            // 
+            // panel6
+            // 
+            panel6.Location = new Point(31, 62);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(29, 204);
+            panel6.TabIndex = 18;
+            panel6.Visible = false;
+            // 
+            // button8
+            // 
+            button8.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button8.Location = new Point(264, 100);
+            button8.Name = "button8";
+            button8.Size = new Size(187, 32);
+            button8.TabIndex = 17;
+            button8.Text = "insertar datos";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
+            // 
+            // btnBorrar
+            // 
+            btnBorrar.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBorrar.Location = new Point(143, 100);
+            btnBorrar.Name = "btnBorrar";
+            btnBorrar.Size = new Size(81, 32);
+            btnBorrar.TabIndex = 17;
+            btnBorrar.Text = "Borrar";
+            btnBorrar.UseVisualStyleBackColor = true;
+            btnBorrar.Click += btnBorrar_Click;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(172, 13);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(522, 33);
+            textBox2.TabIndex = 16;
+            textBox2.TextChanged += buscar_TextChanged;
             // 
             // ptEditarP
             // 
@@ -738,46 +791,6 @@
             label7.Size = new Size(70, 26);
             label7.TabIndex = 12;
             label7.Text = "Nombre";
-            // 
-            // ptAvansadoP
-            // 
-            ptAvansadoP.BackColor = Color.Gray;
-            ptAvansadoP.BorderStyle = BorderStyle.FixedSingle;
-            ptAvansadoP.Controls.Add(panel6);
-            ptAvansadoP.Controls.Add(btnBorrar);
-            ptAvansadoP.Controls.Add(textBox2);
-            ptAvansadoP.Font = new Font("Niagara Solid", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ptAvansadoP.Location = new Point(3, 109);
-            ptAvansadoP.Name = "ptAvansadoP";
-            ptAvansadoP.Size = new Size(825, 293);
-            ptAvansadoP.TabIndex = 11;
-            // 
-            // panel6
-            // 
-            panel6.Location = new Point(31, 62);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(29, 204);
-            panel6.TabIndex = 18;
-            panel6.Visible = false;
-            // 
-            // btnBorrar
-            // 
-            btnBorrar.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBorrar.Location = new Point(123, 62);
-            btnBorrar.Name = "btnBorrar";
-            btnBorrar.Size = new Size(81, 32);
-            btnBorrar.TabIndex = 17;
-            btnBorrar.Text = "Borrar";
-            btnBorrar.UseVisualStyleBackColor = true;
-            btnBorrar.Click += btnBorrar_Click;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(172, 13);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(522, 33);
-            textBox2.TabIndex = 16;
-            textBox2.TextChanged += buscar_TextChanged;
             // 
             // ptInventario
             // 
@@ -1577,7 +1590,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 255, 192);
-            ClientSize = new Size(1444, 881);
+            ClientSize = new Size(1284, 749);
             Controls.Add(panel4);
             Controls.Add(TbTodo);
             Margin = new Padding(2, 1, 2, 1);
@@ -1601,12 +1614,12 @@
             ToDo.ResumeLayout(false);
             ptControlP.ResumeLayout(false);
             panel11.ResumeLayout(false);
+            ptAvansadoP.ResumeLayout(false);
+            ptAvansadoP.PerformLayout();
             ptEditarP.ResumeLayout(false);
             ptEditarP.PerformLayout();
             ptAgregarP.ResumeLayout(false);
             ptAgregarP.PerformLayout();
-            ptAvansadoP.ResumeLayout(false);
-            ptAvansadoP.PerformLayout();
             ptInventario.ResumeLayout(false);
             pnlR.ResumeLayout(false);
             panel13.ResumeLayout(false);
@@ -1779,5 +1792,6 @@
         private Button btnBorrar;
         private TextBox textBox2;
         private Panel panel6;
+        private Button button8;
     }
 }
