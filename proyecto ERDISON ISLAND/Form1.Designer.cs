@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel4 = new Panel();
             Menu = new Panel();
-            tbAnalisis = new Panel();
+            btAnalisis = new Panel();
             pictureBox4 = new PictureBox();
             esomismo = new Label();
             btInventario = new Panel();
@@ -53,9 +54,9 @@
             label29 = new Label();
             ptAvansadoP = new Panel();
             panel6 = new Panel();
+            button9 = new Button();
             button8 = new Button();
             btnBorrar = new Button();
-            textBox2 = new TextBox();
             ptEditarP = new Panel();
             pnlBuscador = new Panel();
             txtStockP = new Label();
@@ -97,6 +98,7 @@
             button5 = new Button();
             pnlinv = new Panel();
             PnlInventario = new Panel();
+            panel8 = new Panel();
             txtBuscador = new TextBox();
             btnReporte = new Button();
             ptFacturacion = new Panel();
@@ -152,8 +154,10 @@
             label15 = new Label();
             label14 = new Label();
             TbTodo = new TableLayoutPanel();
+            timer1 = new System.Windows.Forms.Timer(components);
+            textBox2 = new TextBox();
             Menu.SuspendLayout();
-            tbAnalisis.SuspendLayout();
+            btAnalisis.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             btInventario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -172,6 +176,7 @@
             panel13.SuspendLayout();
             panel14.SuspendLayout();
             pnlinv.SuspendLayout();
+            PnlInventario.SuspendLayout();
             ptFacturacion.SuspendLayout();
             ptProductos.SuspendLayout();
             panel7.SuspendLayout();
@@ -207,7 +212,7 @@
             // Menu
             // 
             Menu.BackColor = Color.FromArgb(30, 30, 30);
-            Menu.Controls.Add(tbAnalisis);
+            Menu.Controls.Add(btAnalisis);
             Menu.Controls.Add(btInventario);
             Menu.Controls.Add(btFacturacion);
             Menu.Controls.Add(btnInicio);
@@ -216,15 +221,15 @@
             Menu.Size = new Size(156, 540);
             Menu.TabIndex = 0;
             // 
-            // tbAnalisis
+            // btAnalisis
             // 
-            tbAnalisis.Controls.Add(pictureBox4);
-            tbAnalisis.Controls.Add(esomismo);
-            tbAnalisis.Location = new Point(6, 275);
-            tbAnalisis.Name = "tbAnalisis";
-            tbAnalisis.Size = new Size(147, 42);
-            tbAnalisis.TabIndex = 9;
-            tbAnalisis.Tag = "analisis";
+            btAnalisis.Controls.Add(pictureBox4);
+            btAnalisis.Controls.Add(esomismo);
+            btAnalisis.Location = new Point(6, 275);
+            btAnalisis.Name = "btAnalisis";
+            btAnalisis.Size = new Size(147, 42);
+            btAnalisis.TabIndex = 9;
+            btAnalisis.Tag = "analisis";
             // 
             // pictureBox4
             // 
@@ -468,6 +473,7 @@
             ptAvansadoP.BackColor = Color.Gray;
             ptAvansadoP.BorderStyle = BorderStyle.FixedSingle;
             ptAvansadoP.Controls.Add(panel6);
+            ptAvansadoP.Controls.Add(button9);
             ptAvansadoP.Controls.Add(button8);
             ptAvansadoP.Controls.Add(btnBorrar);
             ptAvansadoP.Controls.Add(textBox2);
@@ -485,12 +491,23 @@
             panel6.TabIndex = 18;
             panel6.Visible = false;
             // 
+            // button9
+            // 
+            button9.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button9.Location = new Point(290, 136);
+            button9.Name = "button9";
+            button9.Size = new Size(187, 88);
+            button9.TabIndex = 17;
+            button9.Text = "Guardar";
+            button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
+            // 
             // button8
             // 
             button8.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button8.Location = new Point(264, 100);
+            button8.Location = new Point(483, 136);
             button8.Name = "button8";
-            button8.Size = new Size(187, 32);
+            button8.Size = new Size(187, 88);
             button8.TabIndex = 17;
             button8.Text = "insertar datos";
             button8.UseVisualStyleBackColor = true;
@@ -499,21 +516,13 @@
             // btnBorrar
             // 
             btnBorrar.Font = new Font("Arial", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBorrar.Location = new Point(143, 100);
+            btnBorrar.Location = new Point(158, 136);
             btnBorrar.Name = "btnBorrar";
-            btnBorrar.Size = new Size(81, 32);
+            btnBorrar.Size = new Size(118, 88);
             btnBorrar.TabIndex = 17;
             btnBorrar.Text = "Borrar";
             btnBorrar.UseVisualStyleBackColor = true;
             btnBorrar.Click += btnBorrar_Click;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(172, 13);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(522, 33);
-            textBox2.TabIndex = 16;
-            textBox2.TextChanged += buscar_TextChanged;
             // 
             // ptEditarP
             // 
@@ -947,10 +956,18 @@
             // 
             // PnlInventario
             // 
+            PnlInventario.Controls.Add(panel8);
             PnlInventario.Location = new Point(10, 59);
             PnlInventario.Name = "PnlInventario";
             PnlInventario.Size = new Size(1181, 368);
             PnlInventario.TabIndex = 3;
+            // 
+            // panel8
+            // 
+            panel8.Location = new Point(769, 280);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(307, 80);
+            panel8.TabIndex = 0;
             // 
             // txtBuscador
             // 
@@ -1585,6 +1602,19 @@
             TbTodo.Size = new Size(1450, 780);
             TbTodo.TabIndex = 2;
             // 
+            // timer1
+            // 
+            timer1.Interval = 1000;
+            timer1.Tick += MiTimer;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(172, 13);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(522, 33);
+            textBox2.TabIndex = 16;
+            textBox2.TextChanged += buscar_TextChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1598,9 +1628,10 @@
             Text = "Form1";
             WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
+            KeyDown += Form1_KeyDown;
             Menu.ResumeLayout(false);
-            tbAnalisis.ResumeLayout(false);
-            tbAnalisis.PerformLayout();
+            btAnalisis.ResumeLayout(false);
+            btAnalisis.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             btInventario.ResumeLayout(false);
             btInventario.PerformLayout();
@@ -1628,6 +1659,7 @@
             panel14.PerformLayout();
             pnlinv.ResumeLayout(false);
             pnlinv.PerformLayout();
+            PnlInventario.ResumeLayout(false);
             ptFacturacion.ResumeLayout(false);
             ptProductos.ResumeLayout(false);
             ptProductos.PerformLayout();
@@ -1671,7 +1703,7 @@
         private Button mbFacturacion;
         private Button mbProductos;
         private Panel Menu;
-        private Panel tbAnalisis;
+        private Panel btAnalisis;
         private PictureBox pictureBox4;
         private Label esomismo;
         private Panel btInventario;
@@ -1790,8 +1822,11 @@
         private Button button7;
         private Panel ptAvansadoP;
         private Button btnBorrar;
-        private TextBox textBox2;
         private Panel panel6;
         private Button button8;
+        private Panel panel8;
+        private System.Windows.Forms.Timer timer1;
+        private Button button9;
+        private TextBox textBox2;
     }
 }

@@ -14,8 +14,12 @@ namespace proyecto_ERDISON_ISLAND
         SqlConnection conexion;
         int hh;
         int rr;
+        Panel terminal = new Panel();
+
         bool accion;
         bool accion2;
+
+        int iT;
 
         decimal tp = 0;
         int cp = 0;
@@ -35,25 +39,38 @@ namespace proyecto_ERDISON_ISLAND
         DataTable dtD = new DataTable();
         DataTable dtDR = new DataTable();
 
-        string ruta;
+        
+
+
 
         string rutaUsuario = Path.Combine(
         Application.StartupPath,
         "DIO",
-        "Usuario.txt"        
+        "Usuario.txt"
+        );
+
+        string rutaBase = Path.Combine(
+        Application.StartupPath,
+        "DIO",
+        "BDD.txt"
         );
 
         string usuario;
-
+        string BDD;
 
 
         public Form1()
         {
             InitializeComponent();
 
-            usuario = File.ReadAllText(rutaUsuario);
 
-            accion = false;            
+
+
+            KeyPreview = true;
+
+
+
+            accion = false;
             accion2 = false;
 
             this.AutoScaleMode = AutoScaleMode.Dpi;
@@ -88,7 +105,6 @@ namespace proyecto_ERDISON_ISLAND
         }
 
         private void Form1_Load(object sender, EventArgs e)
-
         {
             hh = 1;
             rr = 1;
@@ -120,32 +136,23 @@ namespace proyecto_ERDISON_ISLAND
                 }
             };
 
-            if (usuario == "cajero")
-            {
-                ptInventario.Visible = false;
-                ptAnalisis.Visible = false;
-                ptControlP.Visible = false;
-                btInventario.Visible = false;
-                tbAnalisis.Visible = false;
-                MessageBox.Show("cajero a ingresado");
-            }
-            else if (usuario == "analista")
-            {
+            usuario = File.ReadAllText(rutaUsuario);
+            BDD = File.ReadAllText(rutaBase);
+            CargarUsuario(usuario);
 
-                tbAnalisis.Visible = false;
-            }
-            else if (usuario == "admin")
-            {
-
-            }
-            else
-            {
-                MessageBox.Show("no conicide el usuario");
-            }
             
 
 
 
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Alt && e.KeyCode == Keys.J)
+            {
+                CTerminal();
+            }
         }
 
 
@@ -284,7 +291,7 @@ namespace proyecto_ERDISON_ISLAND
                     case "inventario":
                         ptInventario.BringToFront();
                         break;
-                                                
+
                     case "inicio":
                         dataGridView2.Controls.Clear();
                         dataGridView2.Controls.Add(CTabla("productos", null, "nombre, precio"));
@@ -342,7 +349,7 @@ namespace proyecto_ERDISON_ISLAND
         //--------------------------------Crear Tabla-----------------------------------------//------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------//------------------------------------------------------------------------------------
 
-        private DataGridView CTabla(string nombre_tabla, string filtro = null, string t1 = null, DataGridViewCellEventHandler evento = null)
+        private DataGridView CTabla(string nombre_tabla, string filtro = null, string t1 = null, DataGridViewCellEventHandler evento = null, int? font = null)
         {
             //-----------------------------------------//
             string query;
@@ -362,8 +369,16 @@ namespace proyecto_ERDISON_ISLAND
 
             DataTable dt = new DataTable();
             da.Fill(dt);
-
+            int f = 0;
             //-----------------------------------------//
+            if (font == null)
+            {
+                f = 14;
+            }
+            else
+            {
+                f = font ?? 0;
+            }
 
             DataGridView dgv = new DataGridView()
             {
@@ -371,7 +386,7 @@ namespace proyecto_ERDISON_ISLAND
                 MultiSelect = false, //solo deja seleccionar una fila
                 RowHeadersVisible = false, //elimina la primera columna de la izquierda
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill, //auto relleno
-                Font = new System.Drawing.Font("Arial", 14),
+                Font = new System.Drawing.Font("Arial", f),
                 BackgroundColor = Color.White,
                 ColumnHeadersHeight = 40,
                 AllowUserToAddRows = false,
@@ -1530,6 +1545,7 @@ namespace proyecto_ERDISON_ISLAND
                 BorrarBDD();
             }
         }
+
         private void BorrarBDD()
         {
 
@@ -1544,8 +1560,9 @@ namespace proyecto_ERDISON_ISLAND
 
         private void GDatos()
         {
+            string ruta = SeleccionarBDD();
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sbP = new StringBuilder();
 
             SqlCommand cmdP = new SqlCommand(
                 "select * from productos",
@@ -1553,7 +1570,7 @@ namespace proyecto_ERDISON_ISLAND
 
             SqlDataReader readerP = cmdP.ExecuteReader();
 
-            sb.AppendLine("-- Productos\n\n");
+            sbP.AppendLine("-- Productos\n\n");
             while (readerP.Read())
             {
                 string nombre = readerP.GetString(1);
@@ -1566,22 +1583,30 @@ namespace proyecto_ERDISON_ISLAND
 
                 string insert = $"insert into productos (id, nombre, precio, stock, ultimafecha) values (next value for seq_idProductos, '{nombre}', {precio}, {stock}, '{fecha}');";
 
-                sb.AppendLine(insert);
+                sbP.AppendLine(insert);
 
             }
-            sb.AppendLine("\n\n\n\n\n");
+            sbP.AppendLine("\n\n\n\n\n");
             readerP.Close();
 
+            string rutaProductos = Path.Combine(
+                ruta,
+                "Productos.txt"
+            );
+
+            File.WriteAllText(rutaProductos, sbP.ToString());
 
 
             //----------------------------------------------------------
+            StringBuilder sbF = new StringBuilder();
+
             SqlCommand cmdF = new SqlCommand(
                 "select * from facturas",
                 conexion);
 
             SqlDataReader readerF = cmdF.ExecuteReader();
 
-            sb.AppendLine("-- Facturas\n\n");
+            sbF.AppendLine("-- Facturas\n\n");
             while (readerF.Read())
             {
                 decimal total = readerF.GetDecimal(1);
@@ -1592,21 +1617,28 @@ namespace proyecto_ERDISON_ISLAND
 
                 string insert = $"insert into facturas (idFacturas, Total, Fecha) values(NEXT VALUE FOR seq_idFactura, {total}, '{fecha}');";
 
-                sb.AppendLine(insert);
+                sbF.AppendLine(insert);
 
             }
             readerF.Close();
-            sb.AppendLine("\n\n\n\n\n");
+            sbF.AppendLine("\n\n\n\n\n");
 
+            string rutaFacturas = Path.Combine(
+                ruta,
+                "Facturas.txt"
+            );
+
+            File.WriteAllText(rutaFacturas, sbF.ToString());
 
             //----------------------------------------------------------
+            StringBuilder sbR = new StringBuilder();
             SqlCommand cmdR = new SqlCommand(
                 "select * from reportes",
                 conexion);
 
             SqlDataReader readerR = cmdR.ExecuteReader();
 
-            sb.AppendLine("-- Reportes\n\n");
+            sbR.AppendLine("-- Reportes\n\n");
             while (readerR.Read())
             {
                 string fecha = readerR
@@ -1615,21 +1647,31 @@ namespace proyecto_ERDISON_ISLAND
 
                 string insert = $"insert into reportes (idReporte, Fecha) values(NEXT VALUE FOR seq_idReporte, '{fecha}');";
 
-                sb.AppendLine(insert);
+                sbR.AppendLine(insert);
 
             }
             readerR.Close();
-            sb.AppendLine("\n\n\n\n\n");
+            sbR.AppendLine("\n\n\n\n\n");
+
+            string rutaReportes = Path.Combine(
+                ruta,
+                "Reportes.txt"
+            );
+
+            File.WriteAllText(rutaReportes, sbR.ToString());
+
+
 
 
             //----------------------------------------------------------
+            StringBuilder sbDR = new StringBuilder();
             SqlCommand cmdDR = new SqlCommand(
                 "select * from DetallesR",
                 conexion);
 
             SqlDataReader readerDR = cmdDR.ExecuteReader();
 
-            sb.AppendLine("-- DetallesR\n\n");
+            sbDR.AppendLine("-- DetallesR\n\n");
             while (readerDR.Read())
             {
                 int idReporte = readerDR.GetInt32(1);
@@ -1638,22 +1680,29 @@ namespace proyecto_ERDISON_ISLAND
 
                 string insert = $"insert into detallesR (idDetallesr, idReporte, nombre, cantidad) values(NEXT VALUE FOR seq_idDetalleR, {idReporte}, '{nombre}', {cantidad});";
 
-                sb.AppendLine(insert);
+                sbDR.AppendLine(insert);
 
             }
             readerDR.Close();
-            sb.AppendLine("\n\n\n\n\n");
+            sbDR.AppendLine("\n\n\n\n\n");
 
+            string rutaDetallesR = Path.Combine(
+                ruta,
+                "detallesR.txt"
+            );
+
+            File.WriteAllText(rutaDetallesR, sbDR.ToString());
 
 
             //----------------------------------------------------------
+            StringBuilder sbDF = new StringBuilder();
             SqlCommand cmdDF = new SqlCommand(
                 "select * from DetallesF",
                 conexion);
 
             SqlDataReader readerDF = cmdDF.ExecuteReader();
 
-            sb.AppendLine("-- DetallesF\n\n");
+            sbDF.AppendLine("-- DetallesF\n\n");
             while (readerDF.Read())
             {
                 int idfactura = readerDF.GetInt32(1);
@@ -1663,34 +1712,90 @@ namespace proyecto_ERDISON_ISLAND
 
                 string insert = $"insert into detallesF (idDetallesf, idfactura, nombre, precio, cantidad) values(NEXT VALUE FOR seq_idDetalleF, {idfactura}, '{nombre}', {precio}, {cantidad});";
 
-                sb.AppendLine(insert);
+                sbDF.AppendLine(insert);
 
             }
             readerDF.Close();
-            sb.AppendLine("\n\n\n\n\n");
+            sbDF.AppendLine("\n\n\n\n\n");
 
-            string sql = File.ReadAllText(ruta);
+            //string sql = File.ReadAllText(ruta);
 
+            string rutaDetallesF = Path.Combine(
+                ruta,
+                "detallesF.txt"
+            );
 
-            File.WriteAllText(ruta, sb.ToString());
+            File.WriteAllText(rutaDetallesF, sbDF.ToString());
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
+
+            string ruta = SeleccionarBDD();
+
+            if (ruta == null)
+            {
+                return;
+            }
+
             BorrarBDD();
-            SeleccionarBDD();
-            string BDD1 = File.ReadAllText(ruta);
 
-            SqlCommand cmd = new SqlCommand(BDD1, conexion);
+            string productos = Path.Combine(
+                Application.StartupPath,
+                ruta,
+                "Productos.txt"
+            );
 
-            cmd.ExecuteNonQuery();
+            string facturas = Path.Combine(
+                Application.StartupPath,
+                ruta,
+                "Facturas.txt"
+            );
+
+            string reportes = Path.Combine(
+                Application.StartupPath,
+                ruta,
+                "Reportes.txt"
+            );
+
+            string detallesf = Path.Combine(
+                Application.StartupPath,
+                ruta,
+                "detallesF.txt"
+            );
+
+            string detallesr = Path.Combine(
+                Application.StartupPath,
+                ruta,
+                "detallesR.txt"
+            );
+            string[] tabla = { productos, facturas, reportes, detallesf, detallesr };
+
+            for (int i = 0; i < 5; i += 1)
+            {
+                string BDD1 = File.ReadAllText(tabla[i]);
+
+
+                SqlTransaction tr = conexion.BeginTransaction();
+
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(BDD1, conexion, tr);
+
+                    cmd.ExecuteNonQuery();
+                    tr.Commit();
+                }
+                catch
+                {
+                    tr.Rollback();
+                }
+            }
 
         }
 
-        private void SeleccionarBDD()
+        private string SeleccionarBDD()
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
 
             string carpetaBDDs = Path.Combine(
                 Application.StartupPath,
@@ -1699,19 +1804,337 @@ namespace proyecto_ERDISON_ISLAND
 
             Directory.CreateDirectory(carpetaBDDs);
 
-            ofd.InitialDirectory = carpetaBDDs;
-            ofd.Filter = "Archivos TXT (*.txt)|*.txt";
-            ofd.Title = "Selecciona una base de datos";
+            fbd.SelectedPath = carpetaBDDs;
+            fbd.Description = "Selecciona una base de datos";
 
-            if (ofd.ShowDialog() == DialogResult.OK)
+            if (fbd.ShowDialog() == DialogResult.OK)
             {
-                ruta = ofd.FileName;
+                MessageBox.Show(
+                    "Carpeta seleccionada:\n" +
+                    fbd.SelectedPath
+                );
 
-                MessageBox.Show("Ruta seleccionada:\n" + ruta);
+                return fbd.SelectedPath;
+            }
+
+            return null;
+        }
+
+        private void CTerminal()
+        {
+            TextBox txt = new TextBox()
+            {
+                Location = new Point(10, 40),
+                Text = "esta es la terminal",
+                Size = new Size(280, 40)
+            };
+
+            Label lbl = new Label()
+            {
+                Location = new Point(10, 10),
+                Text = "Terminal",
+                Size = new Size(280, 30)
+            };
+
+            terminal.Visible = true;
+            terminal.Location = new Point(769, 280);
+            terminal.Size = new Size(300, 80);
+            terminal.BackColor = Color.Cyan;
+
+            Controls.Add(terminal);
+
+            terminal.BringToFront();
+            timer1.Enabled = true;
+
+            terminal.Controls.Add(txt);
+            terminal.Controls.Add(lbl);
+            txt.Focus();
+
+            txt.TextChanged += (s, e) =>
+            {
+                iT = 0;
+            };
+
+            txt.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    Consulta(txt.Text);
+                    iT = 0;
+
+                    timer1.Enabled = false;
+                    terminal.Controls.Clear();
+
+                    Controls.Remove(terminal);
+                }
+            };
+        }
+
+        private void MiTimer(object sender, EventArgs e)
+        {
+            if (iT <= 10)
+            {
+                iT += 1;
+            }
+            else
+            {
+                iT = 0;
+                timer1.Enabled = false;
+                terminal.Controls.Clear();
+
+                Controls.Remove(terminal);
+
+            }
+
+        }
+
+        private void Consulta(string CC)
+        {
+            try
+            {
+                switch (CC.Substring(0, 4))
+                {
+                    case "vew/":
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+
+                        switch (CC.Substring(4, 4))
+                        {
+                            case "usr.":
+                                //------------------------------------------------//----------------------------------------
+                                //------------------------------------------------//----------------------------------------
+
+
+                                MessageBox.Show(File.ReadAllText(rutaUsuario));
+
+
+                                //------------------------------------------------//----------------------------------------
+                                //------------------------------------------------//----------------------------------------
+                                break;
+
+                            case "tbl/":
+                                //------------------------------------------------//----------------------------------------
+                                //------------------------------------------------//----------------------------------------
+                                if(CC.Substring(8) == "productos." || CC.Substring(8) == "facturas." || CC.Substring(8) == "reportes." || CC.Substring(8) == "detallesf." || CC.Substring(8) == "detallesr.")
+                                verTabla(CC.Substring(8, CC.Length - 9));
+                                
+
+                                //------------------------------------------------//----------------------------------------
+                                //------------------------------------------------//----------------------------------------
+                                break;
+
+                            default:
+                                MessageBox.Show("Comando no valido");
+                                break;
+
+                        }
+
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+                        break;
+
+                    case "cam/":
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+
+                        switch (CC.Substring(4, 4))
+                        {
+                            case "usr/":
+                                //------------------------------------------------//----------------------------------------
+                                //------------------------------------------------//----------------------------------------
+
+
+                                if (CC.Substring(8) == "cajero." || CC.Substring(8) == "analista." || CC.Substring(8) == "admin.")
+                                {
+                                    CargarUsuario(CC.Substring(8, CC.Length - 9));
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Comando no valido");
+                                }
+
+                                //------------------------------------------------//----------------------------------------
+                                //------------------------------------------------//----------------------------------------
+                                break;
+
+                            case "pst/":
+                                //------------------------------------------------//----------------------------------------
+                                //------------------------------------------------//----------------------------------------
+
+                                switch (CC.Substring(8))
+                                {
+                                    case "inicio.":
+                                    case "1.":
+                                        ptInicio.BringToFront();
+                                        break;
+
+                                    case "facturacion.":
+                                    case "2.":
+                                        ptFacturacion.BringToFront();
+                                        break;
+
+                                    case "inventario.":
+                                    case "3.":
+                                        if (usuario == "analista" || usuario == "admin")
+                                        {
+                                            ptInventario.BringToFront();
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("pestaña bloqueada para el usuario actual");
+                                        }
+
+                                        break;
+
+                                    case "analisis.":
+                                    case "4.":
+                                        if (usuario == "analista" || usuario == "admin")
+                                        {
+                                            ptAnalisis.BringToFront();
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("pestaña bloqueada para el usuario actual");
+                                        }
+
+                                        break;
+
+                                    case "CDD.":
+                                    case "5.":
+                                        if (usuario == "admin")
+                                        {
+                                            ptControlP.BringToFront();
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("pestaña bloqueada para el usuario actual");
+                                        }
+
+                                        break;
+
+                                    default:
+                                        MessageBox.Show("Comando no valido");
+                                        break;
+                                }
+
+                                //------------------------------------------------//----------------------------------------
+                                //------------------------------------------------//----------------------------------------
+                                break;
+
+                            default:
+                                MessageBox.Show("Comando no valido");
+                                break;
+
+                        }
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+                        //------------------------------------------------//------------------------------------------------
+                        break;
+
+                    default:
+                        MessageBox.Show("Comando no valido");
+                        break;
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Comando no valido");
+            }
+
+        }
+
+        private void CargarUsuario(string CC)
+        {
+            if (CC == "cajero")
+            {
+                usuario = CC;
+                ptInventario.Visible = false;
+                ptAnalisis.Visible = false;
+                ptControlP.Visible = false;
+                btInventario.Visible = false;
+                btAnalisis.Visible = false;
+                CProductos.Visible = false;
+                //------------------------------
+
+                MessageBox.Show("Cajero a ingresado");
+            }
+            else if (CC == "analista")
+            {
+                usuario = CC;
+                ptInventario.Visible = true;
+                ptAnalisis.Visible = true;
+                btAnalisis.Visible = true;
+                btInventario.Visible = true;
+                //------------------------------                
+                ptControlP.Visible = false;
+                CProductos.Visible = false;
+
+                MessageBox.Show("Analista a ingresado");
+            }
+            else if (CC == "admin")
+            {
+                //------------------------------
+                usuario = CC;
+                ptInventario.Visible = true;
+                ptAnalisis.Visible = true;
+                ptControlP.Visible = true;
+                btInventario.Visible = true;
+                btAnalisis.Visible = true;
+                CProductos.Visible = true;
+
+                MessageBox.Show("Admin");
+            }
+            else
+            {
+                MessageBox.Show("no conicide el usuario");
             }
         }
 
+        private void button9_Click(object sender, EventArgs e)
+        {
+            GDatos();
+        }
+        
+        private void verTabla(string tb)
+        {
+            Panel pnl = new Panel()
+            {
+                Location = new Point(400, 50),
+                Visible = true,
+                Size = new Size(450, 600),
+                BackColor = Color.Cyan
+            };
+            Button bt = new Button()
+            {
+                Location = new Point(850, 50),
+                Visible = true,
+                Size = new Size(30, 30),
+                BackColor = Color.Red
+            };
 
+            bt.Click += (s, e) =>
+            {
+                Controls.Remove(bt);
+                bt.Dispose();
+                Controls.Remove(pnl);
+                pnl.Dispose();
+            };
+
+            
+            pnl.Controls.Add(CTabla(tb, "", "*", null, 8));
+            Controls.Add(pnl);
+            Controls.Add(bt);
+            pnl.BringToFront();
+            bt.BringToFront();
+        }
     }
 }
 
